@@ -345,7 +345,7 @@ export default function Hero() {
               <div className="h-[460px] overflow-y-auto custom-scrollbar p-3.5 pb-6 bg-[#F9FBFA] text-slate-800 text-xs">
                 
                 {phoneView === 'booking' ? (
-                  <form onSubmit={handleBookingSubmit} className="space-y-3.5 pb-2">
+                  <form suppressHydrationWarning onSubmit={handleBookingSubmit} className="space-y-3.5 pb-2">
                     
                     {/* Brand Banner Inside App */}
                     <div className="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-2xs flex items-center gap-2">
@@ -463,8 +463,7 @@ export default function Hero() {
                       <label htmlFor="client-mobile-name" className="text-[11px] font-bold text-[#05221C] block mb-1">
                         بيانات العميل والمركبة:
                       </label>
-                      <input
-                        id="client-mobile-name"
+                      <input suppressHydrationWarning id="client-mobile-name"
                         type="text"
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
