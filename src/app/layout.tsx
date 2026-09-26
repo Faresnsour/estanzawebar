@@ -12,7 +12,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://estanza.net';
+
+const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://estanza.dev";
+const siteUrl = rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`;
+const SITE_URL = siteUrl;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
