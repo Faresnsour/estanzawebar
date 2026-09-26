@@ -159,7 +159,7 @@ import { useEffect, useRef, useState } from 'react';
         if (!isDispatchReady) return;
 
         const message = [
-        'طلب معاينة وحجز — استوديو كينيسيس',
+        'طلب معاينة وحجز — مركز السريع',
         '—',
         `الخدمة: ${activeService.nameAr} (${activeService.nameEn})`,
         `القيمة التقديرية: ${activeService.price.toLocaleString('en-US')} د.أ`,
@@ -198,7 +198,7 @@ import { useEffect, useRef, useState } from 'react';
                 K
                 </div>
                 <div className="leading-tight">
-                <p className="text-[13.5px] font-medium tracking-tight">استوديو كينيسيس</p>
+                <p className="text-[13.5px] font-medium tracking-tight">مركز السريع</p>
                 <p className="text-[11px] text-[#6B7280]">حماية وتلميع مركبات النخبة — عمّان</p>
                 </div>
             </div>
@@ -219,13 +219,17 @@ import { useEffect, useRef, useState } from 'react';
             </div>
             </div>
         </header>
+<div className="w-full bg-[#008774]/15 border-b border-[#008774]/30 py-2 px-4 text-center text-xs text-[#00a890] font-medium">
+        <span>⚡ هذه محاكاة تفاعلية حية — جرب الحجز لترى كيف تصلك البيانات فوراً</span>
+      </div>
+
 
         {/* ---------------------------------------------------------- */}
         {/* Hero                                                        */}
         {/* ---------------------------------------------------------- */}
         <section ref={heroRef} className="mx-auto max-w-5xl px-5 pt-14 pb-10">
             <p data-reveal className="mb-3 text-[12px] text-[#6B7280]">
-            كينيسيس — قسم الحماية المتقدمة
+            السريع — قسم الحماية المتقدمة
             </p>
             <h1
             data-reveal
@@ -424,7 +428,7 @@ import { useEffect, useRef, useState } from 'react';
 
         <footer className="border-t border-[#23272E] px-5 py-6">
             <div className="mx-auto flex max-w-5xl items-center justify-between text-[11px] text-[#4B525D]">
-            <span>© كينيسيس — استوديو حماية المركبات الفارهة</span>
+            <span>© السريع — مركز حماية المركبات الفارهة</span>
             <span>عمّان، الأردن</span>
             </div>
         </footer>
