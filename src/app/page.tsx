@@ -14,7 +14,7 @@ export default function Home() {
       <ProblemSection />
       <HowItWorks />
       <PricingSection />
-            <FinalCTA />
+      <FinalCTA />
       <Footer />
     </main>
   );

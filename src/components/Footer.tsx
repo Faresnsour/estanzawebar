@@ -75,6 +75,11 @@ export default function Footer() {
           <div className="flex items-center gap-2 text-slate-400">
             <span className="w-2 h-2 rounded-full bg-[#008774] animate-pulse"></span>
             <span>هندسة رقمية محلية — عمّان، الأردن</span>
+                    <div className="flex items-center gap-6">
+              <Link href="/privacy" className="hover:text-zinc-300 transition-colors">سياسة الخصوصية</Link>
+              <Link href="/terms" className="hover:text-zinc-300 transition-colors">شروط الخدمة</Link>
+              <Link href="/demo" className="text-emerald-400 hover:underline">تجربة المحاكاة</Link>
+            </div>
           </div>
         </div>
 
