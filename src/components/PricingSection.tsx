@@ -117,7 +117,7 @@ export default function PricingSection() {
             {/* Secondary outline CTA button */}
             <div className="mt-8 pt-4">
               <a
-                href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B7%D9%84%D8%A7%D9%82%20%D8%A7%D9%84%D8%B3%D8%B1%D9%8A%D8%B9%20(210%20%D8%AF%D9%8A%D9%86%D8%A7%D8%B1)"
+                href="https://wa.me/962790000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B7%D9%84%D8%A7%D9%82%20%D8%A7%D9%84%D8%B3%D8%B1%D9%8A%D8%B9%20(210%20%D8%AF%D9%8A%D9%86%D8%A7%D8%B1)"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]"
@@ -129,7 +129,7 @@ export default function PricingSection() {
           </div>
 
           {/* Pro Card (350 JOD - Visual Hero) */}
-          <div className="bg-[#05221C] text-white rounded-3xl p-8 relative flex flex-col justify-between shadow-2xl border-2 border-[#008774]/40 text-right">
+          <div className="bg-[#05221C] text-white rounded-3xl p-8 pt-10 relative flex flex-col justify-between shadow-2xl border-2 border-[#008774]/40 text-right">
             
             {/* Absolute positioned badge */}
             <div className="absolute -top-3.5 right-8 bg-[#008774] text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase shadow-md flex items-center gap-1.5">
@@ -198,7 +198,7 @@ export default function PricingSection() {
             {/* Solid button */}
             <div className="mt-8 pt-4">
               <a
-                href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%D8%A9%20(350%20%D8%AF%D9%8A%D9%86%D8%A7%D8%B1)"
+                href="https://wa.me/962790000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%88%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%D8%A9%20(350%20%D8%AF%D9%8A%D9%86%D8%A7%D8%B1)"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#008774] hover:bg-[#00a890] text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-emerald-950/40"
