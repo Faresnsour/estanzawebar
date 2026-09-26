@@ -20,7 +20,7 @@ const SITE_URL = siteUrl;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "إستانزا | Estanza — أنظمة حجز وأتمتة استوديوهات العناية بالمركبات",
+    default: "إستانزا | محرك حجز وأتمتة استوديوهات العناية بالمركبات",
     template: "%s | Estanza",
   },
   description: "منظومة حجز رقمية متقدمة لمراكز وتجهيز المركبات في عمّان (PPF، نانو سيراميك، عازل حراري). أتمتة فورية للمواعيد وتأكيد تلقائي عبر واتساب بدون اشتراكات شهرية.",
@@ -45,13 +45,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ar_JO",
     url: siteUrl,
-    title: "إستانزا | Estanza — أنظمة حجز وأتمتة استوديوهات النخبة للسيارات",
+    title: "إستانزا | محرك حجز استوديوهات السيارات",
     description: "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.. تأكيد فوري ومباشر على واتساب.",
     siteName: "Estanza",
   },
   twitter: {
     card: "summary_large_image",
-    title: "إستانزا | Estanza — أنظمة حجز استوديوهات السيارات",
+    title: "إستانزا | محرك حجز استوديوهات السيارات",
     description: "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.",
   },
   icons: {
