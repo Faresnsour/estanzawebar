@@ -1,6 +1,5 @@
 'use client';
 
-import EstanzaLogo from '@/components/EstanzaLogo';
 
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
@@ -8,10 +7,7 @@ import {
   Calendar,
   Check,
   CheckCheck,
-  MapPin,
-  CalendarPlus,
   ArrowLeft,
-  Clock,
   MessageCircle,
   Smartphone,
   ShieldCheck,

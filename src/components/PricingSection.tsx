@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Check, MessageCircle, Star, Sparkles, ChevronDown } from 'lucide-react';
+import { Check, MessageCircle, Star, Sparkles } from 'lucide-react';
 
 interface FaqItem {
   question: string;
