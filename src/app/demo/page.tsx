@@ -86,7 +86,7 @@ import { useEffect, useRef, useState } from 'react';
     { id: 't3', label: '٠٥:٠٠ م' },
     ];
 
-    const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '9627XXXXXXXX';
+    const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '962790899175';
 
     /* ------------------------------------------------------------------ */
     /* Component                                                           */

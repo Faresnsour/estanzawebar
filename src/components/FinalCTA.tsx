@@ -30,7 +30,7 @@ export default function FinalCTA() {
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/962790000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%AC%D9%88%D8%B2%D8%A7%D8%AA%20%D9%84%D9%85%D8%B1%D9%83%D8%B2%D9%86%D8%A7"
+                href="https://wa.me/962790899175"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#008774] hover:bg-[#00a890] active:scale-[0.98] text-white font-bold text-base px-8 py-4 rounded-xl shadow-lg shadow-emerald-950/40 hover:shadow-xl transition-all"
