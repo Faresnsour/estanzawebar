@@ -14,7 +14,7 @@ export default function FinalCTA() {
           <div className="absolute top-0 right-1/4 w-72 h-72 bg-[#008774]/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-[#008774]/10 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 max-w-2xl mx-auto">
+          <div className="relative z-10 w-full max-w-2xl mx-auto px-4">
             
             <div className="flex justify-center mb-5">
               <EstanzaLogo className="w-12 h-12 shadow-lg" showBadge={true} />

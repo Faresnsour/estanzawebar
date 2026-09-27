@@ -31,7 +31,7 @@ export default function HowItWorks() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-right max-w-2xl mb-14">
+        <div className="w-full max-w-2xl mx-auto px-4 mb-14 text-right">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#008774]" />
             <span>تجربة سلسة في 3 خطوات</span>

@@ -1,29 +1,25 @@
 'use client';
+
 import React, { useState } from 'react';
-import { Check, MessageCircle, Star, Sparkles } from 'lucide-react';
+import { Check, MessageCircle, Star, ChevronDown } from 'lucide-react';
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
-
-const FAQ_LIST: FaqItem[] = [
+const faqs = [
   {
-    question: 'كيف يتم تسليم النظام والبدء في استخدامه لمشغلنا؟',
-    answer: 'بعد استلام شعارك، قائمة خدماتك (PPF، نانو، تظليل)، وأسعارك المعتمدة، نبرمج الصفحة ونربطها برقم واتساب مشغلك ونختبر إرسال الحجوزات الحية خلال 72 ساعة.',
+    question: "كيف يتم تسليم النظام والبدء في استخدامه لمشغلنا؟",
+    answer: "بناخذ منك الشعار، قائمة الخدمات وأسعارها، وأوقات الدوام. خلال 72 ساعة بكون الرابط شغال بهويتكم وجاهز ينحط ببايو إنستغرام وعلى واتساب، وبنجربه معكم خطوة بخطوة."
   },
   {
-    question: 'هل يحتاج زبائن المركز لتحميل أي تطبيق لإتمام الحجز؟',
-    answer: 'نهائياً؛ يفتح العميل رابط مركزك مباشرة من إنستغرام أو المتصفح، ويتم تأكيد موعد فحص السيارة في أقل من 30 ثانية دون أي تعقيد أو تسجيل حساب.',
+    question: "هل يحتاج زبائن المركز لتحميل أي تطبيق لإتمام الحجز؟",
+    answer: "ولا أي تطبيق. الرابط بفتح بمتصفح التلفون بثانية واحدة؛ الزبون بختار سيارته والوقت وبكبس تأكيد، بدون تسجيل دخول أو غلبة تخليه يبطل يحجز."
   },
   {
-    question: 'هل يمكننا تعديل الخدمات، الأسعار، وأوقات العمل لاحقاً؟',
-    answer: 'نعم بالتأكيد؛ نوفر لك آلية سريعة وسلسة لتعديل الأسعار والمواعيد المتاحة على الروافع متى ما شئت، مع مرافقة الدعم الفني لأي تحديث.',
+    question: "هل بنقدر نعدل الخدمات، الأسعار، وأوقات العمل لاحقاً؟",
+    answer: "أكيد. بنعطيك طريقة سهلة وسريعة تعدل فيها الأسعار، توقف أوقات معينة، أو تحط عطل وأعياد بدون ما تحتاج ترجع لمبرمج كل ما بدك تغير تفصيلة."
   },
   {
-    question: 'ما هي آلية سداد التكلفة المتبعة؟',
-    answer: 'نبدأ العمل بدفعة أولى 50% كعربون جدية، والـ 50% المتبقية لا يتم سدادها إلا بعد رفع النظام وتشغيله بالكامل وتجربة إرسال رسائل الحجز إلى هاتفك بنجاح.',
-  },
+    question: "ما هي آلية سداد التكلفة المتبعة؟",
+    answer: "الدفع عن طريق CliQ أو كاش؛ 50% دفعة أولى للبدء بالتجهيز، والـ 50% الباقية بعد ما نسلمك النظام بمشغلك وتجربه وتتأكد إنه شغال تمام زي ما بدك."
+  }
 ];
 
 export default function PricingSection() {
@@ -33,213 +29,200 @@ export default function PricingSection() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const msgLaunch = encodeURIComponent("يعطيك العافية، بدي اركب نظام حجز المواعيد ومنع تعارض الروافع لمشغلنا بعرض (130 دينار + 10 شهرياً).");
+  const msgPro = encodeURIComponent("مرحبا معلم، مهتم بالمنظومة الشاملة المخصصة مع ربط التقويم وسابقة الأعمال، احكيلي التفاصيل لو سمحت.");
+
   return (
-    <section id="pricing" className="w-full py-16 lg:py-24 border-t border-emerald-950/5">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="py-20 bg-[#F8FAF9] text-slate-800 overflow-x-hidden w-full border-t border-slate-200/60">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#008774]" />
-            <span>باقات تدشين شفافة ومباشرة</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#05221C] tracking-tight leading-tight">
-            استثمار لمرة واحدة · بدون عمولات أو اشتراكات
+        {/* Header */}
+        <div className="text-center w-full max-w-2xl mx-auto mb-16">
+          <span className="inline-block text-xs sm:text-sm font-bold tracking-wider text-[#008774] bg-[#008774]/10 border border-[#008774]/20 px-4 py-1.5 rounded-full mb-4">
+            باقات تدشين شفافة ومباشرة
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#05221C] tracking-tight leading-tight">
+            استثمار لمرة واحدة · بدون عمولات أو اشتراكات مخفية
           </h2>
-          <p className="mt-3 text-slate-600 text-base leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
             تكلفة النظام بالكامل تُسترد من قيمة أول سيارة نانو سيراميك تنقذ موعدها من الذهاب للمنافس ليلاً.
           </p>
         </div>
 
-        {/* Tiered Bento Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch mb-20">
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto mb-24">
           
-          {/* Starter Card (210 JOD): Light Surface */}
-          <div className="bg-white border border-slate-200/90 rounded-3xl p-8 relative flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300 text-right">
+          {/* Card 1: Launch Plan */}
+          <div className="bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-xl shadow-slate-200/50 text-right relative">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <div>
-                  <h3 className="text-2xl font-bold text-[#05221C] tracking-tight">
-                    باقة الانطلاق المباشر
-                  </h3>
-                  <p className="text-sm font-semibold text-[#008774] mt-0.5">
-                    نظام الحجز السريع
-                  </p>
+                  <h3 className="text-2xl font-bold text-[#05221C]">باقة الانطلاق المباشر</h3>
+                  <p className="text-xs sm:text-sm font-semibold text-[#008774] mt-1">نظام الحجز وتثبيت المواعيد</p>
                 </div>
-                <span className="text-xs font-semibold bg-slate-100 text-slate-700 px-3 py-1 rounded-full">
-                  تدشين شامل
+                <span className="text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1 rounded-full">
+                  تدشين سريع
                 </span>
               </div>
 
-              <p className="text-xs text-slate-500 mt-3 leading-relaxed">
-                حل فوري لتثبيت المواعيد ومنع تداخل الحجوزات على الروافع.
+              <p className="text-xs sm:text-sm text-slate-500 mt-3 leading-relaxed">
+                حل فوري لتثبيت المواعيد ومنع تداخل الحجوزات نهائياً على الروافع.
               </p>
 
               {/* Price */}
               <div className="my-6">
-                <span className="inline-block text-xl font-bold text-[#008774] bg-emerald-50 border border-emerald-200/80 px-4 py-1.5 rounded-xl">
-                  عرض سعر مخصص حسب احتياج مشغلك
-                </span>
-                <p className="text-xs text-slate-500 font-medium mt-2">
-                  استثمار تدشين لمرة واحدة · بدون أي اشتراكات أو عمولات
+                <div className="flex items-baseline gap-2">
+                  <span className="text-4xl sm:text-5xl font-extrabold text-[#05221C] font-mono tracking-tight">١٣٠</span>
+                  <span className="text-sm text-slate-500 font-medium">دينار أردني تركيب لمرة واحدة</span>
+                </div>
+                <p className="text-xs font-semibold text-[#008774] mt-1">
+                  + ١٠ دنانير شهرياً (استضافة، صيانة ودعم مستمر عبر CliQ)
                 </p>
               </div>
 
               {/* Features List */}
-              <ul className="space-y-3.5 text-sm text-slate-700 pt-2 border-t border-slate-100">
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-700 pt-4 border-t border-slate-100">
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200/60">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
                     <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
-                  <span>صفحة هبوط سريعة ومخصصة للهواتف بهوية وشعار وألوان مركزك.</span>
+                  <span>صفحة هبوط سريعة وخفيفة جداً عالتلفون بهوية وشعار وألوان مركزك.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200/60">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
                     <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
-                  <span>محرك حجز تفاعلي لاختيار نوع الخدمة، يوم المعاينة، والساعة المتاحة.</span>
+                  <span className="font-semibold text-[#05221C]">منع تعارض المواعيد تلقائياً (النظام يرفض أي حجز متزامن على نفس الرافعة).</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200/60">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
                     <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
-                  <span>إشعار واتساب فوري لك وللعميل عند كل حجز جديد بتفاصيل المركبة.</span>
+                  <span>إشعار واتساب فوري لك وللعميل عند كل حجز جديد بتفاصيل المركبة ورقم الهاتف.</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200/60">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
                     <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
-                  <span className="font-semibold text-[#05221C]">جاهز للعمل في مشغلك خلال 72 ساعة.</span>
+                  <span>جاهز للعمل في مشغلك خلال 72 ساعة وتسليم مفتاح.</span>
                 </li>
               </ul>
             </div>
 
-            {/* Secondary outline CTA button */}
             <div className="mt-8 pt-4">
               <a
-                href="https://wa.me/962790899175?text=%D9%8A%D8%B9%D8%B7%D9%8A%D9%83%20%D8%A7%D9%84%D8%B9%D8%A7%D9%81%D9%8A%D8%A9%D8%8C%20%D8%B4%D9%81%D8%AA%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B7%D9%84%D8%A7%D9%82%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B2%20%D9%88%D8%AD%D8%A7%D8%A8%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%AA%D9%83%D9%84%D9%81%D8%AA%D9%87%D8%A7%20%D9%88%D9%83%D9%8A%D9%81%20%D8%A8%D9%86%D8%B1%D9%83%D8%A8%D9%87%D8%A7%20%D9%84%D9%85%D8%AD%D9%84%D9%86%D8%A7." target="_blank" rel="noreferrer" className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]">
+                href={`https://wa.me/962790899175?text=${msgLaunch}`}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]"
+              >
                 <MessageCircle className="w-4 h-4 text-[#008774]" />
-                <span>استفسر عن باقة الانطلاق عواتساب</span>
+                <span>طلب تركيب النظام لمشغلك (١٣٠ د.أ)</span>
               </a>
             </div>
           </div>
 
-          {/* Pro Card (350 JOD - Visual Hero) */}
-          <div className="bg-[#05221C] text-white rounded-3xl p-8 pt-10 relative flex flex-col justify-between shadow-2xl border-2 border-[#008774]/40 text-right">
-            
-            {/* Absolute positioned badge */}
-            <div className="absolute -top-3.5 right-8 bg-[#008774] text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase shadow-md flex items-center gap-1.5">
+          {/* Card 2: Pro Suite (Hero Dark) */}
+          <div className="bg-[#05221C] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl border-2 border-[#008774]/50 text-right relative mt-6 lg:mt-0">
+            <div className="absolute -top-3.5 right-6 sm:right-8 bg-[#008774] text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase shadow-md flex items-center gap-1.5">
               <Star className="w-3.5 h-3.5 fill-current" />
-              <span>الأكثر طلباً وتوفيراً للمشاغل</span>
+              <span>الخيار المتكامل للمشاغل الكبرى</span>
             </div>
 
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <div>
-                  <h3 className="text-2xl font-bold text-white tracking-tight">
-                    منظومة الاستوديو الشاملة
-                  </h3>
-                  <p className="text-sm font-semibold text-emerald-300 mt-0.5">
-                    النظام المتكامل
-                  </p>
+                  <h3 className="text-2xl font-bold text-white">منظومة الاستوديو الشاملة</h3>
+                  <p className="text-xs sm:text-sm font-semibold text-emerald-300 mt-1">أتمتة وإدارة كاملة</p>
                 </div>
                 <span className="text-xs font-bold bg-[#008774]/30 text-emerald-200 border border-[#008774]/50 px-3 py-1 rounded-full">
-                  الحل المتكامل
+                  شامل المفتاح
                 </span>
               </div>
 
-              <p className="text-xs text-slate-300 mt-3 leading-relaxed">
-                أتمتة شاملة للمشغل مع مزامنة التقويم ومعرض صور مدمج.
+              <p className="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+                نظام متكامل يربط تقويم المشغل تلقائياً مع معرض صور وفيديوهات سابقة الأعمال.
               </p>
 
               {/* Price */}
               <div className="my-6">
-                <span className="inline-block text-xl font-bold text-emerald-300 bg-white/10 border border-emerald-400/30 px-4 py-1.5 rounded-xl">
-                  عرض سعر مخصص لاستوديو متكامل
-                </span>
-                <p className="text-xs text-slate-300 font-medium mt-2">
-                  منظومة كاملة مع ربط التقويم وسابقة الأعمال
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">استثمار مخصص</span>
+                </div>
+                <p className="text-xs font-semibold text-emerald-300 mt-1">
+                  حسب عدد الروافع والخدمات وسعة المشغل
                 </p>
               </div>
 
               {/* Features List */}
-              <ul className="space-y-3.5 text-sm text-slate-200 pt-2 border-t border-white/10">
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-200 pt-4 border-t border-white/10">
                 <li className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
                   </div>
-                  <span className="font-semibold text-white">معرض سابقة أعمال مدمج لعرض نتائج النانو والـ PPF قبل وبعد.</span>
+                  <span className="font-semibold text-white">ربط ومزامنة تلقائية ومباشرة مع Google Calendar لمنع أي تداخل.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
                   </div>
-                  <span>ربط ومزامنة تلقائية مع تقويم المشغل (Google Calendar) لمنع أي تداخل بين الحجوزات.</span>
+                  <span>معرض سابقة أعمال مدمج لعرض نتائج النانو والـ PPF قبل وبعد لإقناع الزبون.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
                   </div>
-                  <span>تصدير وحفظ تلقائي لبيانات وأرقام العملاء لاستخدامها في عروض المواسم.</span>
+                  <span>تصدير وحفظ تلقائي لبيانات الزبائن وأرقامهم للرجوع لهم بعروض المواسم.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
                   </div>
-                  <span className="font-semibold text-white">دعم فني وتعديلات تشغيلية مرافقة لمدة شهر كامل بعد التسليم.</span>
+                  <span>متابعة شخصية ودعم فني مخصص وتعديلات مستمرة لضمان أعلى أداء.</span>
                 </li>
               </ul>
             </div>
 
-            {/* Solid button */}
             <div className="mt-8 pt-4">
               <a
-                href="https://wa.me/962790899175?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%85%D8%B9%D9%84%D9%85%D8%8C%20%D9%85%D9%87%D8%AA%D9%85%20%D8%A8%D8%A7%D9%84%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%D8%A9%20%D9%85%D8%B9%20%D8%B1%D8%A8%D8%B7%20%D8%A7%D9%84%D8%AA%D9%82%D9%88%D9%8A%D9%85%20%D9%88%D8%B3%D8%A7%D8%A8%D9%82%D8%A9%20%D8%A7%D9%84%D8%A3%D8%B9%D9%85%D8%A7%D9%84%D8%8C%20%D8%A7%D8%AD%D9%83%D9%8A%D9%84%D9%8A%20%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D9%88%D8%A7%D9%84%D8%AA%D8%B1%D8%AA%D9%8A%D8%A8%20%D9%84%D9%88%20%D8%B3%D9%85%D8%AD%D8%AA."
+                href={`https://wa.me/962790899175?text=${msgPro}`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#008774] hover:bg-[#00a890] text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-emerald-950/40"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#008774] hover:bg-[#008774]/90 text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-[#008774]/20"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-200" />
+                <MessageCircle className="w-4 h-4 text-white" />
                 <span>اطلب تفاصيل المنظومة الشاملة عواتساب</span>
               </a>
             </div>
-
           </div>
 
         </div>
 
-        {/* FAQ Accordion */}
-        <div className="max-w-3xl mx-auto text-right">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#05221C] tracking-tight">
-              الأسئلة الشائعة
-            </h3>
-            <p className="text-sm text-slate-600 mt-2">
-              إليك إجابات وافية عن أهم الاستفسارات قبل بدء التنفيذ:
-            </p>
+        {/* FAQs Section */}
+        <div className="max-w-3xl mx-auto pt-10 border-t border-slate-200/80">
+          <div className="text-center mb-10">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#05221C]">الأسئلة الشائعة</h3>
+            <p className="text-xs sm:text-sm text-slate-500 mt-2">إليك إجابات وافية عن أهم استفسارات أصحاب المشاغل</p>
           </div>
 
-          <div className="space-y-3">
-            {FAQ_LIST.map((item, index) => {
-              const isOpen = openFaq === index;
+          <div className="space-y-3.5">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
               return (
                 <div
-                  key={index}
-                  className="border border-slate-200/90 rounded-2xl overflow-hidden bg-white shadow-2xs transition-colors"
+                  key={idx}
+                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-200 shadow-sm"
                 >
                   <button
-                    type="button"
-                    onClick={() => toggleFaq(index)}
-                    className="w-full py-4 px-6 text-right flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-[#05221C] hover:bg-slate-50 transition-colors"
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full p-4 sm:p-5 text-right flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:bg-slate-50 transition-colors"
                   >
-                    <span>{item.question}</span>
-                    <span className={`w-7 h-7 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center font-bold text-lg transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-45 bg-[#008774] text-white' : ''}`}>
-                      +
-                    </span>
+                    <span>{faq.question}</span>
+                    <ChevronDown className={`w-4 h-4 text-[#008774] shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-5 pt-2 text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-[#F9FBFA]">
-                      <p>{item.answer}</p>
+                    <div className="px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                      {faq.answer}
                     </div>
                   )}
                 </div>

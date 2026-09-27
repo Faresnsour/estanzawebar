@@ -31,7 +31,7 @@ export default function ProblemSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-2xl mb-12 text-right">
+        <div className="w-full max-w-2xl mx-auto px-4 mb-12 text-right">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-3">
             <AlertCircle className="w-3.5 h-3.5 text-[#008774]" />
             <span>تشخيص كفاءة التشغيل الميداني</span>
