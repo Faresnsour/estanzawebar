@@ -1,6 +1,6 @@
 'use client';
 
-
+import { MOCK_STUDIO_SERVICES } from "@/data/mockStudio";
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import {

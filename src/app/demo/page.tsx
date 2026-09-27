@@ -1,5 +1,6 @@
 'use client';
 
+import { MOCK_STUDIO_SERVICES, MOCK_STUDIO_DAYS, MOCK_STUDIO_SLOTS } from "@/data/mockStudio";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
     import gsap from 'gsap';
@@ -74,17 +75,9 @@ import { useEffect, useRef, useState } from 'react';
     },
     ];
 
-    const DAYS: DayOption[] = [
-    { id: 'today', label: 'اليوم', dateLabel: '٢٦ سبتمبر', slotsLeft: 2 },
-    { id: 'tomorrow', label: 'غداً', dateLabel: '٢٧ سبتمبر', slotsLeft: 4 },
-    { id: 'after', label: 'بعد غد', dateLabel: '٢٨ سبتمبر', slotsLeft: 1 },
-    ];
+    const DAYS = MOCK_STUDIO_DAYS;
 
-    const SLOTS: TimeSlot[] = [
-    { id: 't1', label: '١٠:٠٠ ص' },
-    { id: 't2', label: '٠١:٣٠ م' },
-    { id: 't3', label: '٠٥:٠٠ م' },
-    ];
+    const SLOTS = MOCK_STUDIO_SLOTS;
 
     const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '962790899175';
 
