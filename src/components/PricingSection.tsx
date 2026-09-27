@@ -76,13 +76,13 @@ export default function PricingSection() {
               </p>
 
               {/* Price */}
-              <div className="my-6 flex items-baseline gap-2">
-                <span className="text-5xl font-extrabold text-[#05221C] font-mono tracking-tight">
-                  ٢١٠
+              <div className="my-6">
+                <span className="inline-block text-xl font-bold text-[#008774] bg-emerald-50 border border-emerald-200/80 px-4 py-1.5 rounded-xl">
+                  عرض سعر مخصص حسب احتياج مشغلك
                 </span>
-                <span className="text-sm text-slate-500 font-medium">
-                  دينار أردني / تدشين شامل
-                </span>
+                <p className="text-xs text-slate-500 font-medium mt-2">
+                  استثمار تدشين لمرة واحدة · بدون أي اشتراكات أو عمولات
+                </p>
               </div>
 
               {/* Features List */}
@@ -117,13 +117,9 @@ export default function PricingSection() {
             {/* Secondary outline CTA button */}
             <div className="mt-8 pt-4">
               <a
-                href="https://wa.me/962790899175"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]"
-              >
+                href="https://wa.me/962790899175?text=%D9%8A%D8%B9%D8%B7%D9%8A%D9%83%20%D8%A7%D9%84%D8%B9%D8%A7%D9%81%D9%8A%D8%A9%D8%8C%20%D8%B4%D9%81%D8%AA%20%D8%A8%D8%A7%D9%82%D8%A9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B7%D9%84%D8%A7%D9%82%20%D9%84%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%AC%D8%B2%20%D9%88%D8%AD%D8%A7%D8%A8%20%D8%A3%D8%B9%D8%B1%D9%81%20%D8%AA%D9%83%D9%84%D9%81%D8%AA%D9%87%D8%A7%20%D9%88%D9%83%D9%8A%D9%81%20%D8%A8%D9%86%D8%B1%D9%83%D8%A8%D9%87%D8%A7%20%D9%84%D9%85%D8%AD%D9%84%D9%86%D8%A7." target="_blank" rel="noreferrer" className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]">
                 <MessageCircle className="w-4 h-4 text-[#008774]" />
-                <span>طلب باقة الانطلاق عبر واتساب</span>
+                <span>استفسر عن باقة الانطلاق عواتساب</span>
               </a>
             </div>
           </div>
@@ -157,13 +153,13 @@ export default function PricingSection() {
               </p>
 
               {/* Price */}
-              <div className="my-6 flex items-baseline gap-2">
-                <span className="text-5xl font-extrabold text-white font-mono tracking-tight">
-                  ٣٥٠
+              <div className="my-6">
+                <span className="inline-block text-xl font-bold text-emerald-300 bg-white/10 border border-emerald-400/30 px-4 py-1.5 rounded-xl">
+                  عرض سعر مخصص لاستوديو متكامل
                 </span>
-                <span className="text-sm text-emerald-200/80 font-medium">
-                  دينار أردني / تدشين شامل
-                </span>
+                <p className="text-xs text-slate-300 font-medium mt-2">
+                  منظومة كاملة مع ربط التقويم وسابقة الأعمال
+                </p>
               </div>
 
               {/* Features List */}
@@ -198,13 +194,13 @@ export default function PricingSection() {
             {/* Solid button */}
             <div className="mt-8 pt-4">
               <a
-                href="https://wa.me/962790899175"
+                href="https://wa.me/962790899175?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D9%85%D8%B9%D9%84%D9%85%D8%8C%20%D9%85%D9%87%D8%AA%D9%85%20%D8%A8%D8%A7%D9%84%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A7%D9%84%D8%B4%D8%A7%D9%85%D9%84%D8%A9%20%D9%85%D8%B9%20%D8%B1%D8%A8%D8%B7%20%D8%A7%D9%84%D8%AA%D9%82%D9%88%D9%8A%D9%85%20%D9%88%D8%B3%D8%A7%D8%A8%D9%82%D8%A9%20%D8%A7%D9%84%D8%A3%D8%B9%D9%85%D8%A7%D9%84%D8%8C%20%D8%A7%D8%AD%D9%83%D9%8A%D9%84%D9%8A%20%D8%A7%D9%84%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D9%88%D8%A7%D9%84%D8%AA%D8%B1%D8%AA%D9%8A%D8%A8%20%D9%84%D9%88%20%D8%B3%D9%85%D8%AD%D8%AA."
                 target="_blank"
                 rel="noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#008774] hover:bg-[#00a890] text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-emerald-950/40"
               >
                 <MessageCircle className="w-4 h-4 text-emerald-200" />
-                <span>طلب منظومة الاستوديو عبر واتساب</span>
+                <span>اطلب تفاصيل المنظومة الشاملة عواتساب</span>
               </a>
             </div>
 
