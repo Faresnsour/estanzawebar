@@ -28,7 +28,7 @@ const SERVICES: ServiceItem[] = [
     id: 'ppf',
     name: 'حماية مقدمة كاملة (PPF)',
     duration: 'يومين عمل',
-    price: '٤٨٠ د.أ',
+    price: '٨٥٠ د.أ',
   },
   {
     id: 'ceramic',
