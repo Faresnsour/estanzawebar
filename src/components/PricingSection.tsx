@@ -29,7 +29,7 @@ export default function PricingSection() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  const msgLaunch = encodeURIComponent("يعطيك العافية، بدي اركب نظام حجز المواعيد ومنع تعارض الروافع لمشغلنا بعرض (130 دينار + 10 شهرياً).");
+  const msgLaunch = encodeURIComponent("يعطيك العافية، بدي اركب نظام حجز المواعيد ومنع تعارض الروافع لمشغلنا بعرض (130 دينار تدشين شامل).");
   const msgPro = encodeURIComponent("مرحبا معلم، مهتم بالمنظومة الشاملة المخصصة مع ربط التقويم وسابقة الأعمال، احكيلي التفاصيل لو سمحت.");
 
   return (
@@ -42,7 +42,7 @@ export default function PricingSection() {
             باقات تدشين شفافة ومباشرة
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#05221C] tracking-tight leading-tight">
-            استثمار لمرة واحدة · بدون عمولات أو اشتراكات مخفية
+            استثمار لمرة واحدة · بدون عمولات أو اشتراكات
           </h2>
           <p className="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
             تكلفة النظام بالكامل تُسترد من قيمة أول سيارة نانو سيراميك تنقذ موعدها من الذهاب للمنافس ليلاً.
@@ -61,7 +61,7 @@ export default function PricingSection() {
                   <p className="text-xs sm:text-sm font-semibold text-[#008774] mt-1">نظام الحجز وتثبيت المواعيد</p>
                 </div>
                 <span className="text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200 px-3 py-1 rounded-full">
-                  تدشين سريع
+                  تدشين شامل
                 </span>
               </div>
 
@@ -73,10 +73,10 @@ export default function PricingSection() {
               <div className="my-6">
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl sm:text-5xl font-extrabold text-[#05221C] font-mono tracking-tight">١٣٠</span>
-                  <span className="text-sm text-slate-500 font-medium">دينار أردني تركيب لمرة واحدة</span>
+                  <span className="text-sm text-slate-500 font-medium">دينار أردني / تدشين شامل</span>
                 </div>
                 <p className="text-xs font-semibold text-[#008774] mt-1">
-                  + ١٠ دنانير شهرياً (استضافة، صيانة ودعم مستمر عبر CliQ)
+                  دفعة لمرة واحدة فقط · استضافة ودعم وتجهيز شامل بدون أي اشتراك شهري
                 </p>
               </div>
 
