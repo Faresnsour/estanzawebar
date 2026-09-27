@@ -1,4 +1,3 @@
-import SocialProof from "@/components/SocialProof";
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import ProblemSection from '@/components/ProblemSection';
@@ -14,7 +13,6 @@ export default function Home() {
       <Hero />
       <ProblemSection />
       <HowItWorks />
-      <SocialProof />
       <PricingSection />
       <FinalCTA />
       <Footer />
