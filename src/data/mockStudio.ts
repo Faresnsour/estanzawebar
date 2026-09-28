@@ -27,6 +27,7 @@ export interface ClientData {
   whatsappNumber: string;
   mapCoordinates: [number, number];
   heroMessage: string;
+  logoUrl?: string;
   services: ServiceItem[];
   days: DayOption[];
   slots: TimeSlot[];
@@ -149,6 +150,43 @@ export const clientsData: Record<string, ClientData> = {
 
     ]
 
+  },
+  perfect: {
+    id: 'perfect',
+    name: 'Perfect Car Care Centre',
+    themeColor: '#DC2626', // أحمر بيرفكت المطابق لشعارهم وجدار المشغل
+    whatsappNumber: '962788772188',
+    mapCoordinates: [31.9539, 35.9106],
+    heroMessage: 'احجز موعد العناية بسيارتك الآن مع مركز بيرفكت',
+    days: DEFAULT_DAYS,
+    slots: DEFAULT_SLOTS,
+    services: [
+      {
+        id: 'nano_ceramic_perfect',
+        name: 'نانو سيراميك ومعالجة الطلاء',
+        desc: 'حماية متقدمة بطبقات نانو سيراميك لمعان فائق ومقاومة للخدوش والعوامل الجوية',
+        duration: 'يوم عمل',
+        price: 130,
+        priceFormatted: '١٣٠ د.أ',
+        badge: 'الأكثر طلباً'
+      },
+      {
+        id: 'car_polish_perfect',
+        name: 'بوليش وتلميع احترافي (Car Polish)',
+        desc: 'إزالة الخدوش الدائرية والبهتان واستعادة اللمعان الحقيقي لطلاء السيارة',
+        duration: '٥ ساعات',
+        price: 45,
+        priceFormatted: '٤٥ د.أ'
+      },
+      {
+        id: 'dry_clean_perfect',
+        name: 'دراي كلين ومعالجة الفرش (Dry Clean)',
+        desc: 'تنظيف عميق وتعقيم كامل للمقصورة والفرش الداخلي بأحدث المواد',
+        duration: '٤ ساعات',
+        price: 35,
+        priceFormatted: '٣٥ د.أ'
+      }
+    ]
   },
   
 };

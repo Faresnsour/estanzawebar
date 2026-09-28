@@ -314,6 +314,11 @@ const Hero = ({ client, content, dayId, onDay }: { client: ClientData; content: 
     <section>
       <div style={{ background: t.color, color: t.on }}>
         <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-16 pt-16 lg:pb-24 lg:pt-28">
+          {client.logoUrl && (
+            <div className="w-fit">
+              <img src={client.logoUrl} alt={client.name} className="h-20 w-20 rounded-2xl object-cover shadow-xl border-2 border-white/20 bg-white" />
+            </div>
+          )}
           <motion.h1 dir="auto" aria-label={client.name} variants={stagger} initial="hidden" animate="visible" className={`${H} flex flex-wrap gap-x-5 text-5xl font-extrabold leading-[1.25] sm:text-7xl lg:text-8xl`}>
             {client.name.split(" ").map((w, i) => (
               <span key={`${w}-${i}`} className="inline-block overflow-hidden py-1">
