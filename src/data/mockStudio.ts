@@ -97,3 +97,14 @@ export const clientsData: Record<string, ClientData> = {
   }
 };
 
+export const MOCK_STUDIO_DAYS = [
+  { id: 'today', label: 'اليوم', dateLabel: '٢٨ سبتمبر', slotsLeft: 2 },
+  { id: 'tomorrow', label: 'غداً', dateLabel: '٢٩ سبتمبر', slotsLeft: 4 },
+];
+
+export const MOCK_STUDIO_SLOTS = [
+  { id: 't1', label: '١٠:٠٠ ص' },
+  { id: 't2', label: '٠٥:٠٠ م' },
+];
+
+export const MOCK_STUDIO_SERVICES = clientsData.blitz.services;
