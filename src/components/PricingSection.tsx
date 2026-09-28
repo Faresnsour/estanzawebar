@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     question: "آلية السداد؟",
-    answer: "دفعة 50% مقدم (CliQ أو كاش) عند البدء، والباقي عند التشغيل الفعلي خلال 72 ساعة."
+    answer: "دفعة 50% مقدم (CliQ أو كاش) عند البدء، والـ 50% المتبقية بعد معاينة وتجربة النظام جاهزاً على هاتفك."
   }
 ];
 
@@ -98,7 +98,13 @@ export default function PricingSection() {
                   <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
                     <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
-                  <span>إشعار واتساب فوري لك وللعميل عند كل حجز جديد بتفاصيل المركبة ورقم الهاتف.</span>
+                  <span>تحويل بيانات الحجز فوراً لواتساب إدارة المشغل لمنع أي ضياع للمواعيد.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
+                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </div>
+                  <span className="font-semibold text-[#05221C]">جدول Google Sheets سحابي خاص بالمركز لحفظ وأرشفة المواعيد وبيانات العملاء تلقائياً.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
@@ -172,7 +178,7 @@ export default function PricingSection() {
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
                     <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
                   </div>
-                  <span>تصدير وحفظ تلقائي لبيانات الزبائن وأرقامهم للرجوع لهم بعروض المواسم.</span>
+                  <span>نظام تذكير دوري بمواعيد تجديد النانو وإعادة استهداف عملاء الـ VIP.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">

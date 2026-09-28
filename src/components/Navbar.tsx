@@ -28,7 +28,7 @@ export default function Navbar() {
         {/* Left: Actions */}
         <div className="flex items-center gap-2">
           <a
-            href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%AC%D9%88%D8%B2%D8%A7%D8%AA"
+            href="https://wa.me/962790899175?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%AC%D9%88%D8%B2%D8%A7%D8%AA"
             target="_blank"
             rel="noreferrer"
             className="bg-[#05221C] text-white hover:bg-[#008774] text-xs sm:text-sm font-semibold py-2 px-4 rounded-full transition-all inline-flex items-center gap-1.5 active:scale-95"
@@ -57,7 +57,7 @@ export default function Navbar() {
           <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-semibold text-slate-700 hover:text-[#008774] border-b border-slate-100">كيف يعمل؟</a>
           <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-semibold text-slate-700 hover:text-[#008774] border-b border-slate-100">الأسعار</a>
           
-          <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-bold text-[#008774]">تواصل معنا الآن</a>
+          <a href="https://wa.me/962790899175" target="_blank" rel="noreferrer" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-bold text-[#008774]">تواصل معنا الآن</a>
         </div>
       )}
     </header>

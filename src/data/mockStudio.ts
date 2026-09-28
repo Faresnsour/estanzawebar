@@ -94,7 +94,63 @@ export const clientsData: Record<string, ClientData> = {
         badge: 'الأكثر طلباً للنخبة'
       }
     ]
-  }
+  },
+    top_level: {
+
+    id: 'top_level',
+
+    name: 'Top Level Car Care Center',
+
+    themeColor: '#E53935',
+
+    whatsappNumber: '962798001072',
+
+    mapCoordinates: [31.9539, 35.9106],
+
+    heroMessage: 'احجز موعدك الآن مع Top Level Car Care Center',
+
+    days: DEFAULT_DAYS,
+
+    slots: DEFAULT_SLOTS,
+
+    services: [
+
+      {
+
+        id: 'top_level_detailing',
+
+        name: 'ديتيلنج وعناية متكاملة بالسيارة',
+
+        desc: 'خدمات احترافية للعناية بالسيارة وتنظيفها وتجهيزها',
+
+        duration: 'يحدد عند الحجز',
+
+        price: 0,
+
+        priceFormatted: 'السعر عند الطلب'
+
+      },
+
+      {
+
+        id: 'top_level_car_care',
+
+        name: 'خدمات العناية بالسيارات',
+
+        desc: 'خدمات متخصصة للعناية بالمظهر الداخلي والخارجي للسيارة',
+
+        duration: 'يحدد عند الحجز',
+
+        price: 0,
+
+        priceFormatted: 'السعر عند الطلب'
+
+      }
+
+    ]
+
+  },
+  
 };
 
 export const MOCK_STUDIO_DAYS = [

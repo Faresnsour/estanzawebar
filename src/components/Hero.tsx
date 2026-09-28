@@ -57,7 +57,7 @@ export default function Hero() {
   const [selectedDayIdx, setSelectedDayIdx] = useState(0);
   const [selectedTime, setSelectedTime] = useState(TIME_SLOTS[0]);
   const [clientName, setClientName] = useState('عمر التميمي (BMW G30)');
-  const [phoneView, setPhoneView] = useState<'booking' | 'whatsapp'>('booking');
+  const [phoneView, setPhoneView] = useState<'booking' | 'whatsapp' | 'sheets'>('booking');
 
   const selectedDate = AVAILABLE_DAYS[selectedDayIdx];
 
@@ -198,7 +198,7 @@ export default function Hero() {
   };
 
   const handleViewSwitch = (
-    view: 'booking' | 'whatsapp',
+    view: 'booking' | 'whatsapp' | 'sheets',
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     setPhoneView(view);
@@ -310,37 +310,48 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* View Switcher Header inside Mockup */}
-              <div className="bg-slate-50 p-2 border-b border-slate-200 flex items-center gap-1">
+{/* View Switcher Header inside Mockup */}
+              <div className="bg-slate-100/80 p-1.5 border-b border-slate-200 flex items-center gap-1">
                 <button
                   type="button"
                   onClick={(e) => handleViewSwitch('booking', e)}
-                  className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all text-center ${
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center ${
                     phoneView === 'booking'
                       ? 'bg-[#05221C] text-white shadow-xs'
                       : 'text-slate-600 hover:text-[#05221C] bg-white border border-slate-200'
                   }`}
                 >
-                  صفحة الحجز
+                  1. صفحة الحجز
                 </button>
                 <button
                   type="button"
                   onClick={(e) => handleViewSwitch('whatsapp', e)}
-                  className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all text-center flex items-center justify-center gap-1 ${
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center flex items-center justify-center gap-1 ${
                     phoneView === 'whatsapp'
                       ? 'bg-[#008774] text-white shadow-xs'
                       : 'text-slate-600 hover:text-[#05221C] bg-white border border-slate-200'
                   }`}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-300" />
-                  <span>إشعار واتساب</span>
+                  <span>2. واتساب المركز</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => handleViewSwitch('sheets', e)}
+                  className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center flex items-center justify-center gap-1 ${
+                    phoneView === 'sheets'
+                      ? 'bg-[#05221C] text-white shadow-xs'
+                      : 'text-slate-600 hover:text-[#05221C] bg-white border border-slate-200'
+                  }`}
+                >
+                  <span>3. جدول المواعيد</span>
                 </button>
               </div>
 
               {/* Phone Content Screen */}
               <div className="h-[460px] overflow-y-auto custom-scrollbar p-3.5 pb-6 bg-[#F9FBFA] text-slate-800 text-xs">
                 
-                {phoneView === 'booking' ? (
+                {phoneView === 'booking' && (
                   <form suppressHydrationWarning onSubmit={handleBookingSubmit} className="space-y-3.5 pb-2">
                     
                     {/* Brand Banner Inside App */}
@@ -353,7 +364,7 @@ export default function Hero() {
                           مركز السريع للسيارات
                         </h4>
                         <p className="text-[10px] text-slate-500">
-                          اختر نوع التجهيز وموعد المعاينة
+                          اختر الخدمة وموعد المعاينة
                         </p>
                       </div>
                     </div>
@@ -361,7 +372,7 @@ export default function Hero() {
                     {/* Step 1: Service Selection */}
                     <div>
                       <span className="text-[11px] font-bold text-[#05221C] block mb-1">
-                        1. اختر نوع الخدمة:
+                        1. نوع التجهيز:
                       </span>
                       <div className="space-y-1.5">
                         {SERVICES.map((s) => {
@@ -408,7 +419,7 @@ export default function Hero() {
                     {/* Step 2: Date & Time Selection */}
                     <div>
                       <span className="text-[11px] font-bold text-[#05221C] block mb-1">
-                        2. حدد موعد الفحص:
+                        2. اليوم والوقت المناسب:
                       </span>
                       <div className="grid grid-cols-3 gap-1 mb-1.5">
                         {AVAILABLE_DAYS.map((d, idx) => {
@@ -457,13 +468,13 @@ export default function Hero() {
                     {/* Step 3: Client & Car */}
                     <div>
                       <label htmlFor="client-mobile-name" className="text-[11px] font-bold text-[#05221C] block mb-1">
-                        بيانات العميل والمركبة:
+                        3. اسم العميل ونوع السيارة:
                       </label>
                       <input suppressHydrationWarning id="client-mobile-name"
                         type="text"
                         value={clientName}
                         onChange={(e) => setClientName(e.target.value)}
-                        placeholder="الاسم ونوع السيارة"
+                        placeholder="مثال: عمر التميمي - BMW G30"
                         className="w-full text-xs px-2.5 py-1.5 rounded-lg border border-slate-300 bg-white focus:outline-none focus:border-[#008774]"
                       />
                     </div>
@@ -478,94 +489,162 @@ export default function Hero() {
                     </button>
 
                   </form>
-                ) : (
-                  /* WhatsApp View */
+                )}
+
+                {/* WhatsApp View (إشعار واتساب المركز) */}
+                {phoneView === 'whatsapp' && (
                   <div className="space-y-3 pb-2">
                     
-                    {/* WhatsApp Business Header */}
-                    <div className="bg-[#05221C] text-white p-2 rounded-xl flex items-center justify-between shadow-xs">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-6 h-6 rounded bg-emerald-700 text-white flex items-center justify-center font-bold text-[10px]">
-                          K
+                    {/* Header */}
+                    <div className="bg-[#05221C] text-white p-2.5 rounded-xl flex items-center justify-between shadow-xs">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-[#008774] text-white flex items-center justify-center font-bold text-xs">
+                          💬
                         </div>
                         <div>
-                          <div className="flex items-center gap-1">
-                            <span className="text-[11px] font-bold">Kinesis Studio</span>
-                            <span className="text-[10px] text-[#008774]">✓</span>
-                          </div>
-                          <span className="text-[8px] text-emerald-300 block font-mono" dir="ltr">
-                            WhatsApp Business API
-                          </span>
+                          <span className="text-[11px] font-bold block">واتساب إدارة المركز</span>
+                          <span className="text-[9px] text-emerald-300 block">وصول فوري بدون تأخير</span>
                         </div>
                       </div>
-                      <span className="text-[9px] bg-[#008774] px-1.5 py-0.5 rounded text-white font-medium">
-                        متصل
+                      <span className="text-[9px] bg-[#008774] px-2 py-0.5 rounded-full text-white font-medium">
+                        تنبيه جديد
                       </span>
                     </div>
 
                     {/* WhatsApp Speech Bubble */}
-                    <div className="bg-white rounded-xl p-3 border border-slate-200/90 shadow-2xs space-y-2 text-right">
-                      
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-1">
-                        <div className="flex items-center gap-1 text-[10px] font-bold text-[#008774]">
-                          <CheckCheck className="w-3 h-3 text-[#008774]" />
-                          <span>حجز فحص مؤكد</span>
+                    <div className="bg-white rounded-xl p-3 border border-slate-200 shadow-2xs space-y-2.5 text-right">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
+                        <div className="flex items-center gap-1 text-[11px] font-bold text-[#008774]">
+                          <CheckCheck className="w-3.5 h-3.5 text-[#008774]" />
+                          <span>حجز جديد من صفحة الرابط</span>
                         </div>
-                        <span className="text-[9px] font-mono text-slate-400">#BK-9204</span>
+                        <span className="text-[9px] text-slate-400 font-mono">16:02</span>
                       </div>
 
-                      <p className="text-[11px] font-medium text-slate-900 leading-snug">
-                        مرحباً <span className="font-bold text-[#05221C]">{clientName}</span>، تم تسجيل موعد فحص وتجهيز المركبة!
-                      </p>
-
-                      <div className="bg-[#F9FBFA] rounded-lg p-2 border border-slate-200/80 text-[10px] space-y-1 text-slate-700">
+                      <div className="bg-[#F9FBFA] rounded-lg p-2.5 border border-slate-200/80 text-[11px] space-y-1.5 text-slate-700">
                         <div className="flex justify-between">
-                          <span className="text-slate-500">الخدمة المطلوبة:</span>
+                          <span className="text-slate-500">العميل:</span>
+                          <span className="font-bold text-[#05221C]">{clientName || 'عمر التميمي (BMW G30)'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-slate-500">الخدمة:</span>
                           <span className="font-bold text-[#05221C]">{selectedService.name}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-slate-500">موعد الاستقبال:</span>
+                          <span className="text-slate-500">الموعد:</span>
                           <span className="font-bold text-[#05221C]">
-                            {selectedDate.day}، {selectedDate.date} ({selectedTime})
+                            {selectedDate.day} ({selectedTime})
                           </span>
                         </div>
-                        <div className="flex justify-between">
-                          <span className="text-slate-500">التكلفة التقديرية:</span>
+                        <div className="flex justify-between border-t border-slate-200/60 pt-1">
+                          <span className="text-slate-500">القيمة التقديرية:</span>
                           <span className="font-bold text-[#008774] font-mono">{selectedService.price}</span>
                         </div>
                       </div>
 
-                      <div className="pt-1.5 border-t border-slate-100 space-y-1">
-                        <div className="w-full py-1 bg-emerald-50 text-[#008774] rounded text-center font-semibold text-[9px]">
-                          📍 رابط خريطة موقع الاستوديو — عمّان
-                        </div>
-                        <div className="w-full py-1 bg-slate-100 text-slate-700 rounded text-center font-semibold text-[9px]">
-                          📅 إضافة الموعد إلى Google Calendar
-                        </div>
-                      </div>
-
-                      <div className="flex items-center justify-end gap-1 pt-0.5 text-[8px] text-slate-400 font-mono">
-                        <span>16:02</span>
-                        <CheckCheck className="w-3 h-3 text-[#008774]" />
+                      <div className="p-1.5 bg-emerald-50 rounded-lg text-center text-[10px] text-[#008774] font-bold flex items-center justify-center gap-1">
+                        <span>✓ تم الحفظ تلقائياً في جدول المواعيد</span>
                       </div>
                     </div>
 
                     <button
                       type="button"
-                      onClick={(e) => {
-                        setPhoneView('booking');
-                        snapTween(e.currentTarget);
-                      }}
-                      className="w-full py-1.5 bg-slate-200 hover:bg-slate-300 text-[#05221C] font-bold text-[10px] rounded-lg transition-colors text-center"
+                      onClick={(e) => handleViewSwitch('sheets', e)}
+                      className="w-full py-2 bg-[#05221C] hover:bg-[#09352c] text-white font-bold text-[10px] rounded-xl transition-colors text-center flex items-center justify-center gap-1"
                     >
-                      تعديل الحجز واختيار وقت آخر
+                      <span>عرض السجل المحفوظ في الجدول</span>
+                      <ArrowLeft className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
+
+                {/* Sheets View (جدول المواعيد للمشغل) */}
+                {phoneView === 'sheets' && (
+                  <div className="space-y-3 pb-2">
+                    
+                    {/* Header */}
+                    <div className="bg-[#05221C] text-white p-2.5 rounded-xl flex items-center justify-between shadow-xs">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-lg bg-[#008774] text-white flex items-center justify-center font-bold text-xs">
+                          📊
+                        </div>
+                        <div>
+                          <span className="text-[11px] font-bold block">سجل مواعيد المركز</span>
+                          <span className="text-[9px] text-emerald-300 block">مرتب ومنظم تلقائياً</span>
+                        </div>
+                      </div>
+                      <span className="text-[9px] bg-white/10 px-2 py-0.5 rounded-full text-slate-200">
+                        Google Sheets
+                      </span>
+                    </div>
+
+                    {/* Table */}
+                    <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-2xs">
+                      <table className="w-full text-right border-collapse text-[10px]">
+                        <thead>
+                          <tr className="bg-slate-100 text-slate-700 border-b border-slate-200 font-bold">
+                            <th className="p-2">العميل والمركبة</th>
+                            <th className="p-2">الخدمة</th>
+                            <th className="p-2">الوقت</th>
+                            <th className="p-2">الحالة</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          <tr className="bg-emerald-50/70 font-semibold text-[#05221C]">
+                            <td className="p-2">{clientName || 'عمر (BMW G30)'}</td>
+                            <td className="p-2 text-[#008774]">PPF كامل</td>
+                            <td className="p-2 font-mono">{selectedTime}</td>
+                            <td className="p-2">
+                              <span className="bg-[#008774] text-white px-1.5 py-0.5 rounded text-[8px]">
+                                جديد
+                              </span>
+                            </td>
+                          </tr>
+                          <tr className="text-slate-600">
+                            <td className="p-2">طارق (Porsche)</td>
+                            <td className="p-2">نانو سيراميك</td>
+                            <td className="p-2 font-mono">11:00 ص</td>
+                            <td className="p-2">
+                              <span className="bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded text-[8px]">
+                                تم الاستلام
+                              </span>
+                            </td>
+                          </tr>
+                          <tr className="text-slate-500">
+                            <td className="p-2">خالد (Land Cruiser)</td>
+                            <td className="p-2">عازل حراري</td>
+                            <td className="p-2 font-mono">03:30 م</td>
+                            <td className="p-2">
+                              <span className="bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded text-[8px]">
+                                موعد قادم
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {/* Feature Highlight */}
+                    <div className="p-2.5 bg-white border border-slate-200 rounded-xl text-[10px] text-slate-700">
+                      <p className="font-bold text-[#05221C] mb-0.5">💡 بدون دفاتر ورقية أو نسيان:</p>
+                      <p className="text-[9px] text-slate-500 leading-relaxed">
+                        يفتح الجدول من هاتف الإدارة أو شاشة الاستقبال لمتابعة مواعيد الروافع والمعاينة أولاً بأول.
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={(e) => handleViewSwitch('booking', e)}
+                      className="w-full py-2 bg-slate-200 hover:bg-slate-300 text-[#05221C] font-bold text-[10px] rounded-xl transition-colors text-center"
+                    >
+                      تجربة حجز موعد جديد
                     </button>
                   </div>
                 )}
 
               </div>
 
-              {/* Bottom Home Indicator */}
+{/* Bottom Home Indicator */}
               <div className="py-2 bg-white flex justify-center border-t border-slate-100">
                 <div className="w-24 h-1 bg-slate-300 rounded-full" />
               </div>
