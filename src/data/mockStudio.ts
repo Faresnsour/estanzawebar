@@ -151,7 +151,7 @@ export const clientsData: Record<string, ClientData> = {
     ]
 
   },
-  perfect: {
+  perfectCar: {
     id: 'perfect',
     name: 'Perfect Car Care Centre',
     themeColor: '#DC2626', // أحمر بيرفكت المطابق لشعارهم وجدار المشغل
