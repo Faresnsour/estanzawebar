@@ -510,7 +510,7 @@ export default function PerfectPage() {
                   اتصال فوري بالمركز <bdi className="ms-2">{PHONE}</bdi>
                 </a>
                 <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${GEO.lat},${GEO.lng}`}
+                  href="https://maps.app.goo.gl/ujCXQe3FAs1w9Y9PA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={ghost}
