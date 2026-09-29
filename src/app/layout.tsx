@@ -1,22 +1,26 @@
 import Script from "next/script";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Cairo, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// خط عربي عريض ونقي مصمم للشاشات
+const cairo = Cairo({
+  variable: "--font-cairo",
+  subsets: ["arabic", "latin"],
+  weight: ["300", "400", "600", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// خط لاتيني فاخر للأرقام وتفاصيل العلامة
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
 });
-
 
 const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://estanza.dev";
 const siteUrl = rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`;
-const SITE_URL = siteUrl;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -24,7 +28,8 @@ export const metadata: Metadata = {
     default: "إستانزا | محرك حجز وأتمتة استوديوهات العناية بالمركبات",
     template: "%s | Estanza",
   },
-  description: "منظومة حجز رقمية متقدمة لمراكز وتجهيز المركبات في عمّان (PPF، نانو سيراميك، عازل حراري). أتمتة فورية للمواعيد وتأكيد تلقائي عبر واتساب بدون اشتراكات شهرية.",
+  description:
+    "منظومة حجز رقمية متقدمة لمراكز وتجهيز المركبات في عمّان (PPF، نانو سيراميك، عازل حراري). أتمتة فورية للمواعيد وتأكيد تلقائي عبر واتساب بدون اشتراكات شهرية.",
   keywords: [
     "حجز نانو سيراميك عمان",
     "تركيب PPF الأردن",
@@ -32,7 +37,7 @@ export const metadata: Metadata = {
     "أتمتة حجوزات السيارات",
     "استوديو سيارات عمان",
     "Estanza",
-    "إستانزا"
+    "إستانزا",
   ],
   authors: [{ name: "Estanza Team" }],
   creator: "Estanza",
@@ -47,7 +52,8 @@ export const metadata: Metadata = {
     locale: "ar_JO",
     url: siteUrl,
     title: "إستانزا | محرك حجز استوديوهات السيارات",
-    description: "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.. تأكيد فوري ومباشر على واتساب.",
+    description:
+      "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.. تأكيد فوري ومباشر على واتساب.",
     siteName: "Estanza",
   },
   twitter: {
@@ -71,24 +77,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    <html
+      lang="ar"
+      dir="rtl"
+      suppressHydrationWarning
+      className={`${cairo.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}
-      {/* Google Analytics (GA4) */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-KQ37ND6FP7"
-        strategy="lazyOnload"
-      />
-      <Script id="google-analytics" strategy="lazyOnload">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag("js", new Date());
-          gtag("config", "G-KQ37ND6FP7");
-        `}
-      </Script>
-  
+      <body className="min-h-full flex flex-col font-sans bg-[#09090B] text-[#F3EFEA]">
+        {children}
+
+        {/* Google Analytics (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-KQ37ND6FP7"
+          strategy="lazyOnload"
+        />
+        <Script id="google-analytics" strategy="lazyOnload">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag("js", new Date());
+            gtag("config", "G-KQ37ND6FP7");
+          `}
+        </Script>
       </body>
     </html>
   );
