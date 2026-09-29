@@ -4,7 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, ArrowUpLeft, Sparkles, Car } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
+
+import perfectLogo from "./public/clinics/perfect/logo.jpg"
+import washLogo from "./public/clinics/wash33/logo/logo.jpg"
+import blitzLogo from "./public/clinics/blitz/logo.jpg"
+
 
 type Project = {
   id: string;
@@ -28,7 +34,28 @@ const PROJECTS_AUTO: Project[] = [
     desc: "تصميم تجربة Atelier راقية متوافقة كلياً مع الجوال لحجز غسيل السيارات المتنقل والدراي كلين، مع ربط تأكيد فوري عبر واتساب وحساب ديناميكي للأسعار.",
     tags: ["غسيل متنقل", "دراي كلين", "حجز واتساب فوري", "تصميم خاص"],
     liveUrl: "/wash33",
-    image: "/hero-car.jpg",
+    image: "/wash33-logo.png", // أو حسب مسار ملف wash33 داخل clients
+  },
+  {
+    id: "perfect",
+    category: "auto",
+    title: "نظام إدارة استوديو العناية الفائقة وتثبيت مواعيد الـ PPF",
+    client: "Perfect Auto Care",
+    location: "عمّان، الأردن",
+    desc: "منظومة رقمية متكاملة لجدولة مواعيد النانو سيراميك وتظليل السيارات مع واجهة حجز مخصصة تعكس فخامة العلامة التجارية وتمنع تعارض الروافع.",
+    tags: ["حماية PPF", "نانو سيراميك", "جدولة مواعيد"],
+    liveUrl: "https://www.estanza.dev/perfect",
+    image: "/clients/perfect/logo.jpg",  },
+{
+    id: "blitz",
+    category: "auto",
+    title: "منظومة حجز وتنسيق مواعيد استوديو Blitz المعتمد دولياً (IDA)",
+    client: "Blitz Auto Detailing",
+    location: "عمّان، الأردن",
+    desc: "واجهة حجز تفاعلية مخصصة لحجز خدمات حماية الغرافين والدراي كلين الاحترافي، مع توضيح مراحل التنفيذ وتأكيد فوري لجدول المواعيد عبر واتساب.",
+    tags: ["حماية غرافين", "معتمد IDA", "دراي كلين", "حجز فوري"],
+    liveUrl: "https://www.estanza.dev/blitz",
+    image: "/clients/perfect/blitz/logo.jpeg",
   }
 ];
 
@@ -49,193 +76,222 @@ const PROJECTS_CLINICS: Project[] = [
 export default function ShowcasePage() {
   const [activeSection, setActiveSection] = useState<"auto" | "clinics" | null>(null);
 
+  // دالة لتغيير القسم مع تمرير ناعم (Smooth Scroll) للأعلى
+  const handleSectionChange = (section: "auto" | "clinics" | null) => {
+    setActiveSection(section);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <div dir="rtl" className="min-h-screen bg-[#F8FAF9] text-[#05221C] font-sans antialiased">
+    <div dir="rtl" className="min-h-screen bg-[#F8FAF9] text-[#05221C] font-sans antialiased overflow-hidden">
       <Navbar />
 
-      <main className="pt-28 pb-20 max-w-6xl mx-auto px-5 sm:px-8">
+      <main className="pt-28 pb-20 max-w-6xl mx-auto px-5 sm:px-8 min-h-[80vh]">
         
-        {/* الحالة 1: تصفح الأقسام الرئيسية */}
-        {activeSection === null && (
-          <div className="space-y-12">
-            <div className="max-w-2xl space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#008774]/10 border border-[#008774]/20 text-[#008774] text-xs font-bold">
-                <span className="w-2 h-2 rounded-full bg-[#008774] animate-pulse" />
-                معرض الأعمال والأنظمة المجهزة
-              </div>
-              
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#05221C] leading-tight">
-                اختر مجال نشاطك <br />
-                <span className="text-[#008774]">لاستعراض النماذج المخصصة.</span>
-              </h1>
-              
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-                أنظمة حجز رقمية متخصصة ومصممة بدقة لتلائم متطلبات قطاعك ورفع كفاءة مبيعاتك وتثبيت المواعيد.
-              </p>
-            </div>
-
-            {/* بطاقات الأقسام */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              
-              {/* قسم استوديوهات السيارات */}
-              <div 
-                onClick={() => setActiveSection("auto")}
-                className="group relative cursor-pointer bg-white border-2 border-slate-200/90 hover:border-[#008774] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-6">
-                  <div className="w-14 h-14 rounded-2xl bg-[#008774]/10 border border-[#008774]/20 flex items-center justify-center text-[#008774] group-hover:bg-[#008774] group-hover:text-white transition-all duration-300">
-                    <Car className="w-7 h-7" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <span className="text-xs font-bold text-[#008774] uppercase tracking-wider">
-                      قطاع العناية بالمركبات
-                    </span>
-                    <h2 className="text-2xl font-bold text-[#05221C] group-hover:text-[#008774] transition-colors">
-                      مراكز واستوديوهات السيارات
-                    </h2>
-                    <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                      أنظمة حجز متطورة لمراكز تركيب الـ PPF، النانو سيراميك، التلميع الاحترافي، والتجهيز والغسيل المتنقل في عمّان.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-8 flex items-center justify-between border-t border-slate-100 mt-6 text-sm font-bold text-[#05221C] group-hover:text-[#008774]">
-                  <span>استعراض مشاريع السيارات</span>
-                  <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-[#008774]/10 flex items-center justify-center transition-colors">
-                    <ArrowLeft className="w-4 h-4 text-[#05221C] group-hover:text-[#008774]" />
-                  </div>
-                </div>
-              </div>
-
-              {/* قسم العيادات الطبية */}
-              <div 
-                onClick={() => setActiveSection("clinics")}
-                className="group relative cursor-pointer bg-white border-2 border-slate-200/90 hover:border-[#008774] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-6">
-                  <div className="w-14 h-14 rounded-2xl bg-[#008774]/10 border border-[#008774]/20 flex items-center justify-center text-[#008774] group-hover:bg-[#008774] group-hover:text-white transition-all duration-300">
-                    <Sparkles className="w-7 h-7" />
-                  </div>
-
-                  <div className="space-y-2">
-                    <span className="text-xs font-bold text-[#008774] uppercase tracking-wider">
-                      القطاع الطبي والتجميلي
-                    </span>
-                    <h2 className="text-2xl font-bold text-[#05221C] group-hover:text-[#008774] transition-colors">
-                      العيادات والمراكز الطبية
-                    </h2>
-                    <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                      واجهات حجز وجدولة ذكية لجلسات الليزر، الفيلر، العناية بالبشرة، والاستشارات الطبية مع تقليل التغيب بنسبة 40%.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-8 flex items-center justify-between border-t border-slate-100 mt-6 text-sm font-bold text-[#05221C] group-hover:text-[#008774]">
-                  <span>استعراض مشاريع العيادات</span>
-                  <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-[#008774]/10 flex items-center justify-center transition-colors">
-                    <ArrowLeft className="w-4 h-4 text-[#05221C] group-hover:text-[#008774]" />
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-        {/* الحالة 2: مشاريع السيارات */}
-        {activeSection === "auto" && (
-          <div className="space-y-8">
-            <button
-              onClick={() => setActiveSection(null)}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#05221C] hover:text-[#008774] transition-colors py-2 px-3 rounded-lg hover:bg-slate-200/50 cursor-pointer"
+        <AnimatePresence mode="wait">
+          {/* الحالة 1: تصفح الأقسام الرئيسية */}
+          {activeSection === null && (
+            <motion.div 
+              key="hub"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-12"
             >
-              <ArrowRight className="w-4 h-4" />
-              <span>الرجوع إلى كافة الأقسام</span>
-            </button>
+              <div className="max-w-2xl space-y-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#008774]/10 border border-[#008774]/20 text-[#008774] text-xs font-bold">
+                  <span className="w-2 h-2 rounded-full bg-[#008774] animate-pulse" />
+                  معرض الأعمال والأنظمة المجهزة
+                </div>
+                
+                <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#05221C] leading-tight">
+                  اختر مجال نشاطك <br />
+                  <span className="text-[#008774]">لاستعراض النماذج المخصصة.</span>
+                </h1>
+                
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+                  أنظمة حجز رقمية متخصصة ومصممة بدقة لتلائم متطلبات قطاعك ورفع كفاءة مبيعاتك وتثبيت المواعيد.
+                </p>
+              </div>
 
-            <div className="space-y-2 pb-6 border-b border-slate-200">
-              <span className="text-xs font-bold text-[#008774] uppercase">مشاريع منجزة</span>
-              <h2 className="text-3xl font-extrabold text-[#05221C]">مراكز واستوديوهات السيارات</h2>
-              <p className="text-sm text-slate-600 font-normal">استعراض الأنظمة الرقمية المجهزة لمراكز العناية بالسيارات في الأردن.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {PROJECTS_AUTO.map((p) => (
-                <div key={p.id} className="bg-white border-2 border-slate-200/90 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
-                  <div>
-                    <div className="relative aspect-[16/10] w-full bg-[#05221C]">
-                      <Image src={p.image} alt={p.title} fill className="object-cover" />
+              {/* بطاقات الأقسام */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                {/* قسم استوديوهات السيارات */}
+                <div 
+                  onClick={() => handleSectionChange("auto")}
+                  className="group relative cursor-pointer bg-white border-2 border-slate-200/90 hover:border-[#008774] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-6">
+                    <div className="w-14 h-14 rounded-2xl bg-[#008774]/10 border border-[#008774]/20 flex items-center justify-center text-[#008774] group-hover:bg-[#008774] group-hover:text-white transition-all duration-300">
+                      <Car className="w-7 h-7" />
                     </div>
-                    <div className="p-6 space-y-3">
-                      <span className="text-xs font-bold text-[#008774]">{p.client} • {p.location}</span>
-                      <h3 className="text-lg font-bold text-[#05221C]">{p.title}</h3>
-                      <p className="text-xs text-slate-600 leading-relaxed font-normal">{p.desc}</p>
-                      <div className="flex flex-wrap gap-1.5 pt-2">
-                        {p.tags.map((t) => (
-                          <span key={t} className="text-[11px] font-medium bg-[#F8FAF9] text-[#05221C] border border-slate-200 px-2.5 py-1 rounded-md">{t}</span>
-                        ))}
+
+                    <div className="space-y-2">
+                      <span className="text-xs font-bold text-[#008774] uppercase tracking-wider">
+                        قطاع العناية بالمركبات
+                      </span>
+                      <h2 className="text-2xl font-bold text-[#05221C] group-hover:text-[#008774] transition-colors">
+                        مراكز واستوديوهات السيارات
+                      </h2>
+                      <p className="text-sm text-slate-600 leading-relaxed font-normal">
+                        أنظمة حجز متطورة لمراكز تركيب الـ PPF، النانو سيراميك، التلميع الاحترافي، والتجهيز والغسيل المتنقل في عمّان.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-8 flex items-center justify-between border-t border-slate-100 mt-6 text-sm font-bold text-[#05221C] group-hover:text-[#008774]">
+                    <span>استعراض مشاريع السيارات</span>
+                    <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-[#008774]/10 flex items-center justify-center transition-colors">
+                      <ArrowLeft className="w-4 h-4 text-[#05221C] group-hover:text-[#008774]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* قسم العيادات الطبية */}
+                <div 
+                  onClick={() => handleSectionChange("clinics")}
+                  className="group relative cursor-pointer bg-white border-2 border-slate-200/90 hover:border-[#008774] rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div className="space-y-6">
+                    <div className="w-14 h-14 rounded-2xl bg-[#008774]/10 border border-[#008774]/20 flex items-center justify-center text-[#008774] group-hover:bg-[#008774] group-hover:text-white transition-all duration-300">
+                      <Sparkles className="w-7 h-7" />
+                    </div>
+
+                    <div className="space-y-2">
+                      <span className="text-xs font-bold text-[#008774] uppercase tracking-wider">
+                        القطاع الطبي والتجميلي
+                      </span>
+                      <h2 className="text-2xl font-bold text-[#05221C] group-hover:text-[#008774] transition-colors">
+                        العيادات والمراكز الطبية
+                      </h2>
+                      <p className="text-sm text-slate-600 leading-relaxed font-normal">
+                        واجهات حجز وجدولة ذكية لجلسات الليزر، الفيلر، العناية بالبشرة، والاستشارات الطبية مع تقليل التغيب بنسبة 40%.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-8 flex items-center justify-between border-t border-slate-100 mt-6 text-sm font-bold text-[#05221C] group-hover:text-[#008774]">
+                    <span>استعراض مشاريع العيادات</span>
+                    <div className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-[#008774]/10 flex items-center justify-center transition-colors">
+                      <ArrowLeft className="w-4 h-4 text-[#05221C] group-hover:text-[#008774]" />
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </motion.div>
+          )}
+
+          {/* الحالة 2: مشاريع السيارات */}
+          {activeSection === "auto" && (
+            <motion.div 
+              key="auto"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-8"
+            >
+              <button
+                onClick={() => handleSectionChange(null)}
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#05221C] hover:text-[#008774] transition-colors py-2 px-3 rounded-lg hover:bg-slate-200/50 cursor-pointer"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>الرجوع إلى كافة الأقسام</span>
+              </button>
+
+              <div className="space-y-2 pb-6 border-b border-slate-200">
+                <span className="text-xs font-bold text-[#008774] uppercase">مشاريع منجزة</span>
+                <h2 className="text-3xl font-extrabold text-[#05221C]">مراكز واستوديوهات السيارات</h2>
+                <p className="text-sm text-slate-600 font-normal">استعراض الأنظمة الرقمية المجهزة لمراكز العناية بالسيارات في الأردن.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {PROJECTS_AUTO.map((p) => (
+                  <div key={p.id} className="bg-white border-2 border-slate-200/90 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div>
+                      <div className="relative aspect-[16/10] w-full bg-[#05221C]">
+                        <Image src={p.image} alt={p.title} fill className="object-cover" />
+                      </div>
+                      <div className="p-6 space-y-3">
+                        <span className="text-xs font-bold text-[#008774]">{p.client} • {p.location}</span>
+                        <h3 className="text-lg font-bold text-[#05221C]">{p.title}</h3>
+                        <p className="text-xs text-slate-600 leading-relaxed font-normal">{p.desc}</p>
+                        <div className="flex flex-wrap gap-1.5 pt-2">
+                          {p.tags.map((t) => (
+                            <span key={t} className="text-[11px] font-medium bg-[#F8FAF9] text-[#05221C] border border-slate-200 px-2.5 py-1 rounded-md">{t}</span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="p-6 pt-0">
-                    <Link href={p.liveUrl} className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#05221C] hover:bg-[#008774] text-white text-xs font-bold transition-colors">
-                      <span>معاينة النظام الحقيقي</span>
-                      <ArrowUpLeft className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* الحالة 3: مشاريع العيادات */}
-        {activeSection === "clinics" && (
-          <div className="space-y-8">
-            <button
-              onClick={() => setActiveSection(null)}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#05221C] hover:text-[#008774] transition-colors py-2 px-3 rounded-lg hover:bg-slate-200/50 cursor-pointer"
-            >
-              <ArrowRight className="w-4 h-4" />
-              <span>الرجوع إلى كافة الأقسام</span>
-            </button>
-
-            <div className="space-y-2 pb-6 border-b border-slate-200">
-              <span className="text-xs font-bold text-[#008774] uppercase">مشاريع منجزة</span>
-              <h2 className="text-3xl font-extrabold text-[#05221C]">العيادات والمراكز الطبية والتجميلية</h2>
-              <p className="text-sm text-slate-600 font-normal">أنظمة استقبال وحجز مصممة لرفع كفاءة الجدولة للعيادات.</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {PROJECTS_CLINICS.map((p) => (
-                <div key={p.id} className="bg-white border-2 border-slate-200/90 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
-                  <div>
-                    <div className="relative aspect-[16/10] w-full bg-[#05221C]">
-                      <Image src={p.image} alt={p.title} fill className="object-cover" />
+                    <div className="p-6 pt-0">
+                      <a href={p.liveUrl} target="_blank" rel="noreferrer" className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#05221C] hover:bg-[#008774] text-white text-xs font-bold transition-colors">
+                        <span>معاينة النظام الحقيقي</span>
+                        <ArrowUpLeft className="w-4 h-4" />
+                      </a>
                     </div>
-                    <div className="p-6 space-y-3">
-                      <span className="text-xs font-bold text-[#008774]">{p.client} • {p.location}</span>
-                      <h3 className="text-lg font-bold text-[#05221C]">{p.title}</h3>
-                      <p className="text-xs text-slate-600 leading-relaxed font-normal">{p.desc}</p>
-                      <div className="flex flex-wrap gap-1.5 pt-2">
-                        {p.tags.map((t) => (
-                          <span key={t} className="text-[11px] font-medium bg-[#F8FAF9] text-[#05221C] border border-slate-200 px-2.5 py-1 rounded-md">{t}</span>
-                        ))}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* الحالة 3: مشاريع العيادات */}
+          {activeSection === "clinics" && (
+            <motion.div 
+              key="clinics"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-8"
+            >
+              <button
+                onClick={() => handleSectionChange(null)}
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#05221C] hover:text-[#008774] transition-colors py-2 px-3 rounded-lg hover:bg-slate-200/50 cursor-pointer"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>الرجوع إلى كافة الأقسام</span>
+              </button>
+
+              <div className="space-y-2 pb-6 border-b border-slate-200">
+                <span className="text-xs font-bold text-[#008774] uppercase">مشاريع منجزة</span>
+                <h2 className="text-3xl font-extrabold text-[#05221C]">العيادات والمراكز الطبية والتجميلية</h2>
+                <p className="text-sm text-slate-600 font-normal">أنظمة استقبال وحجز مصممة لرفع كفاءة الجدولة للعيادات.</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {PROJECTS_CLINICS.map((p) => (
+                  <div key={p.id} className="bg-white border-2 border-slate-200/90 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div>
+                      <div className="relative aspect-[16/10] w-full bg-[#05221C]">
+                        <Image src={p.image} alt={p.title} fill className="object-cover" />
+                      </div>
+                      <div className="p-6 space-y-3">
+                        <span className="text-xs font-bold text-[#008774]">{p.client} • {p.location}</span>
+                        <h3 className="text-lg font-bold text-[#05221C]">{p.title}</h3>
+                        <p className="text-xs text-slate-600 leading-relaxed font-normal">{p.desc}</p>
+                        <div className="flex flex-wrap gap-1.5 pt-2">
+                          {p.tags.map((t) => (
+                            <span key={t} className="text-[11px] font-medium bg-[#F8FAF9] text-[#05221C] border border-slate-200 px-2.5 py-1 rounded-md">{t}</span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    <div className="p-6 pt-0">
+                      <a href={p.liveUrl} target="_blank" rel="noreferrer" className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#05221C] hover:bg-[#008774] text-white text-xs font-bold transition-colors">
+                        <span>طلب معاينة النظام</span>
+                        <ArrowUpLeft className="w-4 h-4" />
+                      </a>
+                    </div>
                   </div>
-                  <div className="p-6 pt-0">
-                    <a href={p.liveUrl} target="_blank" rel="noreferrer" className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#05221C] hover:bg-[#008774] text-white text-xs font-bold transition-colors">
-                      <span>طلب معاينة النظام</span>
-                      <ArrowUpLeft className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </main>
     </div>

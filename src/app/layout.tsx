@@ -7,7 +7,7 @@ import "./globals.css";
 const cairo = Cairo({
   variable: "--font-cairo",
   subsets: ["arabic", "latin"],
-  weight: ["300", "400", "600", "700"],
+  weight: ["300", "400", "600", "700", "800"],
   display: "swap",
 });
 
@@ -25,15 +25,16 @@ const siteUrl = rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "إستانزا | محرك حجز وأتمتة استوديوهات العناية بالمركبات",
+    default: "إستانزا | محرك حجز وأتمتة استوديوهات السيارات والعيادات",
     template: "%s | Estanza",
   },
   description:
-    "منظومة حجز رقمية متقدمة لمراكز وتجهيز المركبات في عمّان (PPF، نانو سيراميك، عازل حراري). أتمتة فورية للمواعيد وتأكيد تلقائي عبر واتساب بدون اشتراكات شهرية.",
+    "منظومة حجز رقمية متقدمة لمراكز وتجهيز المركبات والعيادات في عمّان. أتمتة فورية للمواعيد وتأكيد تلقائي عبر واتساب بدون اشتراكات شهرية.",
   keywords: [
     "حجز نانو سيراميك عمان",
     "تركيب PPF الأردن",
     "تظليل وعازل حراري عمان",
+    "حجز عيادات ومراكز تجميل عمان",
     "أتمتة حجوزات السيارات",
     "استوديو سيارات عمان",
     "Estanza",
@@ -51,15 +52,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ar_JO",
     url: siteUrl,
-    title: "إستانزا | محرك حجز استوديوهات السيارات",
+    title: "إستانزا | محرك حجز وأتمتة استوديوهات السيارات والعيادات",
     description:
-      "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.. تأكيد فوري ومباشر على واتساب.",
+      "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص ومواعيد مؤكدة لمركزك تلقائياً.. تأكيد فوري ومباشر على واتساب.",
     siteName: "Estanza",
   },
   twitter: {
     card: "summary_large_image",
-    title: "إستانزا | محرك حجز استوديوهات السيارات",
-    description: "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.",
+    title: "إستانزا | محرك حجز وأتمتة استوديوهات السيارات والعيادات",
+    description:
+      "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.",
   },
   icons: {
     icon: "/icon.svg",
@@ -83,7 +85,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${cairo.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#09090B] text-[#F3EFEA]">
+      {/* تصحيح لون الخلفية ليتطابق مع ألوان هوية إستانزا الفاخرة #F8FAF9 و #05221C */}
+      <body className="min-h-full flex flex-col font-sans bg-[#F8FAF9] text-[#05221C] selection:bg-[#008774] selection:text-white">
         {children}
 
         {/* Google Analytics (GA4) */}
