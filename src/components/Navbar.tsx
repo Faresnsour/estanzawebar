@@ -120,7 +120,11 @@ export default function Navbar() {
         animate={{ y: hidden ? "-115%" : "0%" }}
         transition={{ duration: t(0.45), ease: EASE }}
         className={`fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 md:px-12 transition-[padding,background-color,border-color,backdrop-filter] duration-500 ${
-          scrolled && !isOpen
+          isOpen
+            ? // القائمة مفتوحة: خلفية داكنة صلبة (بلا شفافية) عشان نص الروابط وهو يتمرّر
+              // ما يطلع من تحت الهيدر الثابت ويتراكب مع الشعار وزر الإغلاق.
+              "py-3.5 bg-[#031512] border-b border-emerald-500/10"
+            : scrolled
             ? "py-3.5 bg-[#031512]/85 backdrop-blur-xl border-b border-emerald-500/10 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
             : "py-6 md:py-8 bg-transparent"
         }`}
