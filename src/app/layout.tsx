@@ -64,9 +64,9 @@ export const metadata: Metadata = {
       "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.",
   },
   icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
-  },
+      icon: "/icon.svg?v=3",
+      apple: "/icon.svg?v=3",
+    },
   robots: {
     index: true,
     follow: true,
