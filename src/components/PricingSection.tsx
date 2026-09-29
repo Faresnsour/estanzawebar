@@ -72,7 +72,7 @@ export default function PricingSection() {
               {/* Price */}
               <div className="my-6">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl sm:text-5xl font-extrabold text-[#05221C] font-mono tracking-tight">١٣٠</span>
+                  <span className="text-4xl sm:text-5xl font-extrabold text-[#05221C] font-mono tracking-tight">130</span>
                   <span className="text-sm text-slate-500 font-medium">دينار أردني / تدشين شامل</span>
                 </div>
                 <p className="text-xs font-semibold text-[#008774] mt-1">
@@ -123,7 +123,7 @@ export default function PricingSection() {
                 className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]"
               >
                 <MessageCircle className="w-4 h-4 text-[#008774]" />
-                <span>طلب تركيب النظام لمشغلك (١٣٠ د.أ)</span>
+                <span>طلب تركيب النظام لمشغلك (130 د.أ)</span>
               </a>
             </div>
           </div>

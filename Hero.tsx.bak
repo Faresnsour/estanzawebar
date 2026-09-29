@@ -28,29 +28,29 @@ const SERVICES: ServiceItem[] = [
     id: 'ppf',
     name: 'حماية مقدمة كاملة (PPF)',
     duration: 'يومين عمل',
-    price: '850 د.أ',
+    price: '٨٥٠ د.أ',
   },
   {
     id: 'ceramic',
     name: 'نانو سيراميك معالجة 9H',
     duration: '٢٤ ساعة',
-    price: '160 د.أ',
+    price: '١٦٠ د.أ',
   },
   {
     id: 'tint',
     name: 'عازل حراري نانو كامل',
     duration: '٣ ساعات',
-    price: '110 د.أ',
+    price: '١١٠ د.أ',
   },
 ];
 
 const AVAILABLE_DAYS = [
-  { day: 'السبت', date: '26 سبتمبر' },
-  { day: 'الأحد', date: '27 سبتمبر' },
-  { day: 'الإثنين', date: '28 سبتمبر' },
+  { day: 'السبت', date: '٢٦ سبتمبر' },
+  { day: 'الأحد', date: '٢٧ سبتمبر' },
+  { day: 'الإثنين', date: '٢٨ سبتمبر' },
 ];
 
-const TIME_SLOTS = ['09:30 ص', '12:30 م', '04:00 م', '06:30 م'];
+const TIME_SLOTS = ['٠٩:٣٠ ص', '١٢:٣٠ م', '٠٤:٠٠ م', '٠٦:٣٠ م'];
 
 export default function Hero() {
   const [selectedService, setSelectedService] = useState<ServiceItem>(SERVICES[0]);
