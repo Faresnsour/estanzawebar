@@ -37,6 +37,22 @@ const PROJECTS_AUTO: Project[] = [
     image: "/wash33-logo.png", // أو حسب مسار ملف wash33 داخل clients
   },
   {
+  id: "dopamine-auto-spa",
+  category: "auto",
+  title: "تجربة حجز رقمية لمركز عناية السيارات في مسقط",
+  client: "DOPAMINE Auto Spa",
+  location: "مسقط، سلطنة عُمان",
+  desc: "واجهة حجز متوافقة مع الجوال تتيح للعميل اختيار نوع السيارة ومستوى العناية والموعد، ثم تجهيز طلب الحجز وإرساله مرتباً إلى المركز عبر واتساب.",
+  tags: [
+    "عناية سيارات",
+    "اختيار الباقات",
+    "طلب موعد",
+    "ربط واتساب",
+  ],
+  liveUrl: "/autoSpa",
+  image: "/auto-spa/logo.png",
+},
+  {
     id: "perfect",
     category: "auto",
     title: "نظام إدارة استوديو العناية الفائقة وتثبيت مواعيد الـ PPF",
@@ -56,7 +72,8 @@ const PROJECTS_AUTO: Project[] = [
     tags: ["حماية غرافين", "معتمد IDA", "دراي كلين", "حجز فوري"],
     liveUrl: "https://www.estanza.dev/blitz",
     image: "/clients/perfect/blitz/logo.jpeg",
-  }
+  },
+  
 ];
 
 const PROJECTS_CLINICS: Project[] = [
