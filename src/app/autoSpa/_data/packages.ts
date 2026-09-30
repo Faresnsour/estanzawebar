@@ -34,7 +34,7 @@ export const brand = {
 
   // يمكن إضافة رابط الموقع الدقيق بعد الحصول عليه من المركز.
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=" +
+    "https://maps.app.goo.gl/LiWbBSfH8pRPcUk98" +
     encodeURIComponent("DOPAMINE Auto Spa المعبيلة مسقط"),
 
   // اتركه true إلى أن يعتمد المركز الأسعار والبنود.
@@ -42,7 +42,7 @@ export const brand = {
 
   // اختياري: ضع الصورة داخل public/auto-spa/
   // ثم غيّر null إلى "/auto-spa/hero.jpg"
-  heroImage: null as string | null,
+  heroImage: "/auto-spa/hero.jpg" as string | null,
 
   // اختياري: "/auto-spa/logo.png"
   logoImage: "/auto-spa/logo.png" as string | null,
