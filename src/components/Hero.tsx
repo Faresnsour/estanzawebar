@@ -219,7 +219,6 @@ export default function Hero() {
             {/* Micro-badge */}
             <div
               ref={badgeRef}
-              className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-6"
             >
             </div>
 

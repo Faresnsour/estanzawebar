@@ -41,9 +41,6 @@
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#05221C] tracking-tight leading-tight">
             تدفع مرة واحدة · بدون اشتراك شهري
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 mt-4 leading-relaxed">
-            تدفع مرة واحدة، بدون اشتراك شهري.
-            </p>
           </div>
 
           {/* Pricing Cards Grid */}
@@ -80,7 +77,7 @@
                     <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
                       <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                     </div>
-                    <span>صفحة هبوط سريعة وخفيفة جداً عالتلفون بهوية وشعار وألوان مركزك.</span>
+                    <span>صفحة هبوط سريعة وخفيفة جصفحة حجز سريعة وفائقة الاستجابة على الهاتف بهوية وشعار وألوان مركزك.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
