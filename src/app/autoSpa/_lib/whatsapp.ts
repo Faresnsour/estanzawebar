@@ -33,27 +33,17 @@ export function createWhatsAppUrl(draft: BookingDraft): string | null {
     return null;
   }
 
-  const message = [
-    "مرحبًا DOPAMINE، أود طلب موعد للعناية بسيارتي.",
-    "",
-    `الاسم: ${draft.name.trim()}`,
-    `رقم التواصل: ${phone}`,
-    `نوع السيارة: ${selectedVehicle.title}`,
-    ...(draft.carModel.trim()
-      ? [`الموديل: ${draft.carModel.trim()}`]
-      : []),
-    `الباقة: ${selectedPackage.title}`,
-    `السعر${brand.demoPricing ? " التجريبي" : ""}: ${price} ريال عُماني`,
-    `اليوم المطلوب: ${formatDate(draft.date)} (${draft.date})`,
-    `الوقت المطلوب: ${formatTime(draft.time)}`,
-    "",
-    ...(brand.demoPricing
-      ? ["الأسعار والبنود المعروضة تجريبية؛ يرجى تأكيد السعر والخدمة."]
-      : []),
-    "يرجى تأكيد توفر الموعد وتفاصيل الخدمة. شكرًا.",
-  ].join("\n");
+  const modelInfo = draft.carModel.trim() ? ` (${draft.carModel.trim()})` : "";
+  const lines = [
+    "مرحبًا DOPAMINE، طلب حجز موعد جديد:",
+    `• الاسم: ${draft.name.trim()}`,
+    `• رقم التواصل: ${phone}`,
+    `• السيارة: ${selectedVehicle.title}${modelInfo}`,
+    `• الباقة: ${selectedPackage.title} (${price} ر.ع)`,
+    `• الموعد: ${formatDate(draft.date)} - ${formatTime(draft.time)}`,
+  ];
 
-  return `https://wa.me/${brand.whatsappNumber}?text=${encodeURIComponent(
-    message,
-  )}`;
+  const text = lines.join("\n");
+
+  return `https://api.whatsapp.com/send?phone=${brand.whatsappNumber}&text=${encodeURIComponent(text)}`;
 }
