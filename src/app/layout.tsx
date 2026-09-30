@@ -19,7 +19,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://estanza.dev";
+const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.estanza.dev";
 const siteUrl = rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`;
 
 export const metadata: Metadata = {
