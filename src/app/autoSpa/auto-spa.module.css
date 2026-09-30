@@ -2127,3 +2127,300 @@
     scroll-behavior: auto !important;
   }
 }
+/* تحسينات عامة */
+
+.site {
+  --bg: #0b0d11;
+  --panel: #12161d;
+  --text: #f3f2ee;
+  --muted: #a2a8b3;
+  --line: rgba(255, 255, 255, 0.1);
+  --accent: #929fff;
+}
+
+.navbar,
+.hero,
+.trustBar,
+.section,
+.footer {
+  padding-inline: max(5.5%, calc((100% - 1320px) / 2));
+}
+
+.section {
+  padding-block: clamp(65px, 8vw, 115px);
+}
+
+/* عنوان أقوى ومسافات أهدأ */
+
+.heroTitle {
+  font-size: clamp(76px, 8.6vw, 132px);
+  letter-spacing: -0.065em;
+}
+
+.heroCopy p,
+.sectionDescription,
+.serviceDescription p {
+  line-height: 2;
+  text-wrap: pretty;
+}
+
+.sectionTitle,
+.stepHeading h2 {
+  text-wrap: balance;
+}
+
+/* أزرار واضحة وسهلة للمس */
+
+.primaryButton {
+  min-height: 56px;
+  box-shadow: inset 0 0 0 3px var(--bg);
+}
+
+.textLink,
+.textButton,
+.navBook {
+  min-height: 44px;
+}
+
+.closeButton {
+  width: 44px;
+  height: 44px;
+}
+
+.site :where(a, button, input, summary):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* الاختيار واضح بدون إضاءة مبالغ فيها */
+
+.vehicleOption,
+.bookingPackage,
+.dateOption,
+.timeOption {
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.selectedOption,
+.selectedPackage,
+.selectedDate,
+.selectedTime {
+  background: rgba(146, 159, 255, 0.08);
+}
+
+.selectedOption {
+  box-shadow: inset -3px 0 0 var(--accent);
+}
+
+.selectionCircle {
+  width: 28px;
+  height: 28px;
+}
+
+.selectedOption .selectionCircle,
+.selectedPackage .selectionCircle {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* صور الأعمال */
+
+.resultImageWrap {
+  border: 1px solid var(--line);
+}
+
+.resultImageWrap img {
+  transition: transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.resultFigure figcaption {
+  padding-top: 18px;
+  line-height: 1.8;
+}
+
+/* شاشة الحجز */
+
+.bookingDialog {
+  box-shadow: 0 28px 100px rgba(0, 0, 0, 0.55);
+}
+
+.bookingHeader,
+.bookingProgress,
+.bookingDisclaimer {
+  flex-shrink: 0;
+}
+
+.bookingContent {
+  scrollbar-width: thin;
+  scrollbar-color: #424c60 transparent;
+}
+
+.formField input {
+  min-height: 60px;
+  background: #10141b;
+}
+
+.formField input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.summaryReceipt {
+  background: #11151c;
+}
+
+.summaryList > div {
+  padding-block: 14px;
+}
+
+/* Hover للأجهزة التي تستخدم الماوس */
+
+@media (hover: hover) and (pointer: fine) {
+  .goalRow:hover {
+    background: rgba(146, 159, 255, 0.045);
+  }
+
+  .vehicleOption:hover,
+  .timeOption:hover:not(:disabled),
+  .dateOption:hover {
+    border-color: var(--accent);
+  }
+
+  .resultFigure:hover img {
+    transform: scale(1.035);
+  }
+}
+
+/* تحسين الموبايل */
+
+@media (max-width: 720px) {
+  .navbar,
+  .hero,
+  .trustBar,
+  .section,
+  .footer {
+    padding-inline: 6%;
+  }
+
+  .hero {
+    display: block;
+    min-height: 0;
+    padding-top: 36px;
+    padding-bottom: 24px;
+  }
+
+  .heroTitle {
+    font-size: clamp(65px, 16vw, 105px);
+    line-height: 0.98;
+  }
+
+  .heroCopy {
+    margin-top: clamp(175px, 46vw, 245px);
+  }
+
+  .heroCopy h2 {
+    font-size: clamp(21px, 5.7vw, 26px);
+    line-height: 1.6;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .heroActions > .textLink {
+    align-self: flex-start;
+  }
+
+  /* يمنع تداخل عنوان الموقع مع الأزرار */
+  .heroBottom {
+    position: relative;
+    right: auto;
+    left: auto;
+    bottom: auto;
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .heroBottom > span {
+    max-width: 85%;
+    line-height: 1.8;
+  }
+
+  .sectionHeading {
+    gap: 20px;
+  }
+
+  .goalRow {
+    gap: 14px;
+  }
+
+  .goalCopy strong {
+    font-size: 18px;
+  }
+
+  .goalCopy > span {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+
+  .bookingDialog {
+    box-shadow: none;
+  }
+
+  .bookingContent {
+    padding: 28px 20px;
+  }
+
+  .stepHeading h2 {
+    font-size: clamp(24px, 6.5vw, 29px);
+  }
+
+  .stepFooter {
+    align-items: center;
+  }
+
+  .stepFooter > .primaryButton,
+  .stepFooterAction {
+    margin-inline-start: auto;
+  }
+
+  .summaryList dd {
+    max-width: 65%;
+    line-height: 1.8;
+  }
+}
+
+/* يمنع بقاء تأثير hover بعد اللمس */
+
+@media (hover: none) and (max-width: 720px) {
+  .goalRow:hover {
+    padding-inline: 0;
+    background: transparent;
+  }
+
+  .resultFigure:hover img,
+  .primaryButton:hover:not(:disabled) > span:last-child {
+    transform: none;
+  }
+}
+
+/* احترام إعداد تقليل الحركة */
+
+@media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .resultFigure:hover img,
+  .primaryButton:hover:not(:disabled) > span:last-child {
+    transform: none;
+  }
+}

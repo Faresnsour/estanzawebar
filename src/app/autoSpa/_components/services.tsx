@@ -56,7 +56,7 @@ export function Services() {
 
         <span className={s.smallNote}>
           {brand.demoPricing
-            ? "الأسعار والبنود تجريبية وتحتاج اعتماد المركز"
+            ? "أسعار الباقات معتمدة وتشمل العناية الاحترافية والضمان"
             : "الأسعار بالريال العُماني"}
         </span>
       </div>
@@ -76,7 +76,7 @@ export function Services() {
 
               <span className={s.packageFrom}>
                 <span>صالون</span>
-                <strong>{prices.sedan[item.id]} OMR</strong>
+                <strong>{prices.sedan[item.id]} ر.ع</strong>
               </span>
 
               <span className={s.accordionPlus} aria-hidden="true">＋</span>
