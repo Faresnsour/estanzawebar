@@ -21,7 +21,7 @@ export default function FinalCTA() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold tracking-tight leading-[1.2]">
-              أوقف نزيف الحجوزات.. وثبّت مواعيد مركزك تلقائياً
+             خلّي الحجز يتم بشكل أبسط
             </h2>
 
             <p className="mt-4 text-emerald-100/80 text-base sm:text-lg leading-relaxed">
@@ -42,7 +42,7 @@ export default function FinalCTA() {
             </div>
 
             <p className="mt-5 text-xs text-emerald-200/70 font-medium">
-              دفع مباشر (CliQ / كاش) · دفعة 50% فقط للبدء · ضمان تشغيلي كامل
+             دفع عبر CliQ أو كاش · دفعة 50% عند البدء
             </p>
           </div>
 

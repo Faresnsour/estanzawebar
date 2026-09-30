@@ -221,18 +221,15 @@ export default function Hero() {
               ref={badgeRef}
               className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-6"
             >
-              <span className="w-2 h-2 rounded-full bg-[#008774] animate-pulse" />
-              <span>أنظمة حجز متطورة لاستوديوهات النخبة</span>
-              <span className="text-emerald-300"> ·</span>
-              <span className="text-[#05221C] font-medium">تأكيد فوري ومباشر على واتساب</span>
             </div>
 
             {/* Headline (H1) with tracking-tight on Arabic heading */}
             <h1
               ref={headlineRef}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#05221C] leading-[1.25] tracking-tight"
+              className="text-3xl sm:text-5xl lg:text-5xl font-extrabold text-[#05221C] leading-[1.25] tracking-tight"
             >
-              حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة.. تلقائياً.
+              خلي عميلك يحجز موعده بنفسه
+              وأنت استلم الحجز مرتبًا على واتساب
             </h1>
 
             {/* Subtitle */}
@@ -240,7 +237,7 @@ export default function Hero() {
               ref={paragraphRef}
               className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl"
             >
-              زبونك الذي يطلب نانو سيراميك أو حماية PPF لا ينتظر لساعات لترد عليه. نوفر لمركزك صفحة حجز سريعة تليق بمستوى شغلك؛ يختار العميل سيارته، ويصلك إشعار الحجز فوراً على واتساب بدون تضييع وقت فريقك في الشات.
+             صفحة حجز تحمل هوية مركزك، تعرض خدماتك وأسعارك ومواعيدك المتاحة وتجمع بيانات العميل والسيارة ثم ترسل تفاصيل الحجز مباشرة إلى فريقك.
             </p>
 
             {/* CTA Button Pair */}
@@ -253,7 +250,7 @@ export default function Hero() {
                 className="bg-[#008774] text-white hover:bg-[#05221C] shadow-md shadow-emerald-900/10 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
               >
                 <Calendar className="w-4 h-4 shrink-0" />
-                <span>تجربة حجز تجريبي الآن</span>
+                <span>جرّب النظام</span>
               </a>
               <a
                 href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%AD%D8%AC%D9%88%D8%B2%D8%A7%D8%AA%20%D9%84%D9%85%D8%B1%D9%83%D8%B2%D9%86%D8%A7"
@@ -262,7 +259,7 @@ export default function Hero() {
                 className="border border-slate-300 text-slate-700 hover:bg-slate-100 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
               >
                 <MessageCircle className="w-4 h-4 text-[#008774] shrink-0" />
-                <span>تواصل معنا عبر واتساب</span>
+                <span>تواصل معنا</span>
               </a>
             </div>
 
@@ -273,15 +270,17 @@ export default function Hero() {
             >
               <div className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-[#008774] shrink-0" />
-                <span>تشغيل النظام خلال 72 ساعة</span>
+                <span>جاهز خلال 72 ساعة</span>
+
               </div>
               <div className="flex items-center gap-2">
                 <Smartphone className="w-4 h-4 text-[#05221C] shrink-0" />
-                <span>لا يتطلب تطبيقاً إضافياً للعميل</span>
+               <span>بدون تطبيق للعميل</span>
+
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#008774] shrink-0" />
-                <span>دفع 50% فقط حتى تجربة التشغيل</span>
+                <span>دفعة 50% عند البدء</span>
               </div>
             </div>
           </div>

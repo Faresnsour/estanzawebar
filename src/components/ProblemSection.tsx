@@ -1,46 +1,58 @@
 import React from 'react';
-import { Clock, MessageSquareX, CalendarX2, AlertCircle } from 'lucide-react';
+import { Clock, MessageCircle, CalendarX2, AlertCircle } from 'lucide-react';
 
 export default function ProblemSection() {
   const problems = [
     {
       icon: Clock,
-      badge: 'نزيف حجوزات المساء',
-      title: 'زبون الليل يذهب للمنافس المستيقظ',
-      description: 'أغلب أصحاب السيارات الفارهة يبحثون عن خدمات الحماية والعزل بعد العاشرة مساءً. غياب رابط الحجز الفوري يدفعهم للمنافس في صباح اليوم التالي.',
-      impact: 'سيارة حماية نانو واحدة تضيع شهرياً تغطي تكلفة النظام بالكامل.',
+      badge: 'الحجز خارج أوقات العمل',
+      title: 'العميل يريد الحجز قبل أن ترد عليه',
+      description:
+        'عندما يكون الحجز معتمدًا على الرد في واتساب، يبقى العميل منتظرًا حتى يعرف الخدمات والمواعيد المتاحة.',
+      impact:
+        'صفحة حجز متاحة للعميل في أي وقت.',
     },
     {
-      icon: MessageSquareX,
-      badge: 'تشتيت طاقة المشغل',
-      title: 'فريقك يستهلك وقته في "الشات"',
-      description: 'تبادل ٨ إلى ١٠ رسائل لتأكيد نوع السيارة والساعة المناسبة يشتت تركيز الإدارة والفنيين، وغالباً ما ينتهي الاستفسار دون موعد فحص حقيقي.',
-      impact: 'أكثر من ساعتين يومياً تضيع في تنسيق المواعيد عبر الدردشة اليدوية.',
+      icon: MessageCircle,
+      badge: 'محادثات متكررة',
+      title: 'نفس أسئلة الحجز تتكرر كل يوم',
+      description:
+        'نوع السيارة، الخدمة، اليوم والساعة. تفاصيل بسيطة، لكنها تتحول إلى سلسلة رسائل كلما أراد عميل جديد الحجز.',
+      impact:
+        'اجمع بيانات الحجز من البداية بدل تكرار الأسئلة.',
     },
     {
       icon: CalendarX2,
-      badge: 'فوضى مسارات الورشة',
-      title: 'تكدس السيارات وإحراج مواعيد التسليم',
-      description: 'الاعتماد على نوتة الهاتف أو الذاكرة يسبب تضارب دخول السيارات على الروافع، مما يربك جدول العمل ويهز ثقة العميل النخبوي بمركزك.',
-      impact: 'تداخل المواعيد يربك الفنيين ويقلل عدد السيارات المنجزة أسبوعياً.',
+      badge: 'تعارض المواعيد',
+      title: 'موعدان لنفس الوقت يربكان يوم الورشة',
+      description:
+        'عندما تُدار المواعيد يدويًا، يصبح من السهل فقدان رؤية الجدول الكامل أو حجز وقت مشغول مسبقًا.',
+      impact:
+        'جدول أوضح ومواعيد منظمة حسب إعدادات المركز.',
     },
   ];
 
   return (
-    <section id="features" className="w-full py-16 lg:py-20 border-t border-emerald-950/5">
+    <section
+      id="features"
+      className="w-full py-16 lg:py-20 border-t border-emerald-950/5"
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="w-full max-w-2xl mx-auto px-4 mb-12 text-right">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-3">
             <AlertCircle className="w-3.5 h-3.5 text-[#008774]" />
-            <span>تشخيص كفاءة التشغيل الميداني</span>
+            <span>مشاكل الحجز اليومية</span>
           </div>
+
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#05221C] tracking-tight leading-tight">
-            أين تضيع أرباح مركزك فعلياً؟
+            الحجز اليدوي يأخذ من وقت فريقك أكثر مما ينبغي.
           </h2>
+
           <p className="mt-3 text-slate-600 text-base leading-relaxed">
-            العميل اليوم يبحث عن الحجز والتأكيد الرقمي المباشر؛ أي بطء في الاستجابة يدفعه فوراً للذهاب إلى مركز بديل.
+            من أول سؤال على واتساب إلى تأكيد الموعد، تتكرر نفس التفاصيل كل يوم.
+            Estanza يرتب هذه العملية في مكان واحد.
           </p>
         </div>
 
@@ -48,6 +60,7 @@ export default function ProblemSection() {
         <div className="grid md:grid-cols-3 gap-6">
           {problems.map((item, idx) => {
             const Icon = item.icon;
+
             return (
               <div
                 key={idx}
@@ -55,10 +68,10 @@ export default function ProblemSection() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-5">
-                    {/* Icon container in a rounded-xl soft tint container */}
-                    <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center transition-transform group-hover:scale-105 duration-200 shadow-2xs">
+                    <div className="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
                       <Icon className="w-6 h-6" />
                     </div>
+
                     <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200/60">
                       {item.badge}
                     </span>

@@ -67,7 +67,7 @@ export default function Footer() {
         <div className="flex flex-col items-center md:items-start gap-3">
           <EstanzaLogo className="h-8 w-auto text-white" />
           <p className="text-xs text-slate-400 max-w-sm text-center md:text-right leading-relaxed">
-            أنظمة الحجز والأتمتة الذكية المصممة خصيصاً لمشاغل واستوديوهات العناية بالمركبات في عمّان.
+           نظام حجز مصمم لمراكز السيارات كافه.
           </p>
         </div>
 
