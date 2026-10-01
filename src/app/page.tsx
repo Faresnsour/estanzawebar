@@ -3,11 +3,11 @@ import Hero from "@/components/Hero";
 import ProofSection from "@/components/ProofSection";
 import ProblemSection from "@/components/ProblemSection";
 import HowItWorks from "@/components/HowItWorks";
-import SetupSection from "@/components/SetupSection";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import LandingMotion from "@/components/LandingMotion";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = {
@@ -19,16 +19,16 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main id="main-content" className="min-h-screen bg-[#F8FAF9] pt-20 text-[#05221C]" dir="rtl">
+      <main id="main-content" className="landing-page min-h-screen bg-[#F8FAF9] pt-20 text-[#05221C]" dir="rtl">
         <Hero />
-        <ProofSection />
         <ProblemSection />
         <HowItWorks />
-        <SetupSection />
+        <ProofSection />
         <PricingSection />
         <FAQSection />
         <FinalCTA />
       </main>
+      <LandingMotion />
       <Footer />
     </>
   );

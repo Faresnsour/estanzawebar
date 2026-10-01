@@ -84,9 +84,23 @@ export default function Hero() {
   /* Entry timeline                                  */
   /* ------------------------------------------------------------ */
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
+    const motionPreference = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
-    ).matches;
+    );
+    const prefersReducedMotion = motionPreference.matches;
+    let idleTween: gsap.core.Tween | null = null;
+    let inView = true;
+    const pauseIdle = () => {
+      if (motionPreference.matches) idleTween?.pause(0);
+      else idleTween?.paused(!inView || document.hidden);
+    };
+    const observer = prefersReducedMotion ? null : new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      pauseIdle();
+    });
+    if (phoneWrapperRef.current) observer?.observe(phoneWrapperRef.current);
+    document.addEventListener('visibilitychange', pauseIdle);
+    motionPreference.addEventListener('change', pauseIdle);
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
@@ -148,9 +162,20 @@ export default function Hero() {
           { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' },
           '-=0.6'
         );
+      tl.eventCallback('onComplete', () => {
+        if (!phoneFrameRef.current) return;
+        idleTween = gsap.to(phoneFrameRef.current, {
+          y: -4, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1,
+          paused: !inView || document.hidden || motionPreference.matches,
+        });
+      });
     }, sectionRef);
 
     return () => {
+      observer?.disconnect();
+      document.removeEventListener('visibilitychange', pauseIdle);
+      motionPreference.removeEventListener('change', pauseIdle);
+      idleTween?.kill();
       ctx.revert();
     };
   }, []);
@@ -194,12 +219,12 @@ export default function Hero() {
   };
 
   return (
-    <section ref={sectionRef} aria-labelledby="hero-title" className="relative w-full py-12 lg:py-20 overflow-hidden">
+    <section id="hero" ref={sectionRef} aria-labelledby="hero-title" className="relative w-full py-12 lg:py-20 overflow-hidden">
       {/* Container restricted to max-w-6xl */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* 2-Column Desktop Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
           {/* Text Column (col-span-7, RTL right-aligned) */}
           <div className="lg:col-span-7 flex flex-col text-right">
@@ -207,7 +232,7 @@ export default function Hero() {
             {/* Micro-badge */}
             <div
               ref={badgeRef}
-              className="mb-4 text-sm font-bold text-[#006f60]"
+              className="mb-5 text-sm font-bold text-[#006f60]"
             >
               نظام حجز لمراكز واستوديوهات السيارات
             </div>
@@ -225,9 +250,9 @@ export default function Hero() {
             {/* Subtitle */}
             <p
               ref={paragraphRef}
-              className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl"
+              className="mt-6 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl"
             >
-             صفحة حجز بهوية مركزك تعرض الخدمات والأسعار، وتجمع الموعد وبيانات العميل والسيارة. بدون تطبيق أو حساب للعميل.
+             صفحة حجز بهوية مركزك تعرض الخدمات والأسعار، وتجمع الموعد وبيانات العميل والسيارة.
             </p>
 
             {/* CTA Button Pair */}
@@ -258,20 +283,20 @@ export default function Hero() {
             {/* Trust and Key Points */}
             <div
               ref={trustRowRef}
-              className="mt-8 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-y-3 gap-x-5 text-sm text-slate-600 font-medium"
+              className="mt-6 grid grid-cols-3 gap-3 text-center text-xs leading-5 text-slate-600 sm:flex sm:flex-wrap sm:gap-x-5 sm:text-start sm:text-sm"
             >
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-[#008774] shrink-0" />
+              <div className="flex flex-col items-center gap-1.5 sm:flex-row sm:gap-2">
+                <Zap className="w-3.5 h-3.5 text-[#008774] shrink-0" />
                 <span>جاهز خلال {SETUP_HOURS} ساعة</span>
 
               </div>
-              <div className="flex items-center gap-2">
-                <Smartphone className="w-4 h-4 text-[#05221C] shrink-0" />
+              <div className="flex flex-col items-center gap-1.5 sm:flex-row sm:gap-2">
+                <Smartphone className="w-3.5 h-3.5 text-[#05221C] shrink-0" />
                <span>بدون تطبيق للعميل</span>
 
               </div>
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-[#008774] shrink-0" />
+              <div className="flex flex-col items-center gap-1.5 sm:flex-row sm:gap-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#008774] shrink-0" />
                 <span>بدون اشتراك شهري</span>
               </div>
             </div>
