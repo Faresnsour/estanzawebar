@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
 import Image from "next/image";
+import { serviceSlots } from "./schedule";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
 
@@ -174,7 +175,7 @@ export default function PerfectPage() {
 
   const [svcId, setSvcId] = useState<ServiceId>("nano");
   const [dayIdx, setDayIdx] = useState<number>(0);
-  const [slot, setSlot] = useState<number | null>(10);
+  const [slot, setSlot] = useState<number | null>(null);
   const [car, setCar] = useState("");
   const [clock, setClock] = useState<Clock | null>(null);
 
@@ -184,10 +185,9 @@ export default function PerfectPage() {
   const isOpen = active !== null;
 
   useEffect(() => {
-    const clk = ammanClock();
-    setClock(clk);
+    const frame = requestAnimationFrame(() => setClock(ammanClock()));
     const t = setInterval(() => setClock(ammanClock()), 60000);
-    return () => clearInterval(t);
+    return () => { cancelAnimationFrame(frame); clearInterval(t); };
   }, []);
 
   const go = useCallback(
@@ -221,23 +221,15 @@ export default function PerfectPage() {
       )
     : ["اليوم", "غداً", "بعد غد"];
 
-  const slots: number[] = [];
-  if (svc) {
-    for (let h = OPEN_H; h + svc.hours <= CLOSE_H; h += 2) {
-      if (dayIdx !== 0 || (clock !== null && h > clock.h)) slots.push(h);
-    }
-    if (slots.length === 0) {
-      slots.push(10, 14, 16);
-    }
-  }
+  const slots = serviceSlots(svc.hours, OPEN_H, CLOSE_H, dayIdx === 0, clock?.h ?? null);
 
   const dayText = days[dayIdx] ?? days[0] ?? "";
-  const currentSlot = slot ?? slots[0] ?? 10;
-  const slotText = svc ? `${hourLabel(currentSlot)} – ${hourLabel(currentSlot + svc.hours)}` : "";
+  const currentSlot = slot !== null && slots.includes(slot) ? slot : slots[0];
+  const slotText = currentSlot !== undefined ? `${hourLabel(currentSlot)} – ${hourLabel(currentSlot + svc.hours)}` : "";
 
   const waUrl = `https://wa.me/${WA}?text=${encodeURIComponent(
     [
-      "مرحباً مركز بيرفكت، أود تأكيد حجز موعد لسيارتي:",
+      "مرحبًا مركز بيرفكت، أود طلب موعد لسيارتي:",
       `• الخدمة: ${svc?.name ?? ""}`,
       car.trim() ? `• نوع وموديل السيارة: ${car.trim()}` : "• نوع السيارة: سيتم التأكيد معكم",
       `• اليوم: ${dayText}`,
@@ -251,6 +243,7 @@ export default function PerfectPage() {
 
   const pick = (id: ServiceId) => {
     setSvcId(id);
+    setSlot(null);
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -282,10 +275,11 @@ export default function PerfectPage() {
                 <a key={id} href={`#${id}`} className={`transition hover:text-white ${fv}`}>{l}</a>
               ))}
             </nav>
-            <a href="#booking" className={`${cta} shrink-0 px-5 py-2 text-xs md:text-sm`}>احجز موعدك</a>
+            <a href="#booking" className={`${cta} shrink-0 px-5 py-2 text-xs md:text-sm`}>اطلب موعدك</a>
           </div>
         </header>
 
+        <main id="main-content">
         {/* 2. الهيرو */}
         <section id="top" className="relative flex min-h-[90svh] items-end overflow-hidden pb-16 pt-32 md:items-center md:pb-0">
           <Image
@@ -394,7 +388,7 @@ export default function PerfectPage() {
         {/* 5. محرك الحجز السلس */}
         <section id="booking" className="scroll-mt-20 bg-[#0E1116] py-20 md:py-28">
           <div className={wrap}>
-            <h2 className={h2}>احجز موعدك</h2>
+            <h2 className={h2}>اطلب موعدك</h2>
             <p className="mt-3 text-white/60">اختر الخدمة والموعد، وسيتم فتح محادثة فورية لتأكيد وصول سيارتك.</p>
             <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_360px] lg:items-start">
               <div className="space-y-4">
@@ -411,7 +405,7 @@ export default function PerfectPage() {
                 <Step n={2} title="اليوم">
                   <div className="flex flex-wrap gap-2">
                     {days.map((d, i) => (
-                      <Chip key={d} on={dayIdx === i} onClick={() => setDayIdx(i)}>
+                      <Chip key={d} on={dayIdx === i} onClick={() => { setDayIdx(i); setSlot(null); }}>
                         {d}
                       </Chip>
                     ))}
@@ -428,15 +422,18 @@ export default function PerfectPage() {
                   </div>
                 </Step>
 
+                {slots.length === 0 && <p className="text-sm leading-relaxed text-white/70" role="status">لا توجد أوقات مناسبة لهذا اليوم. اختر يومًا آخر.</p>}
+
                 <Step n={4} title="نوع السيارة (اختياري)">
                   <input
                     id="car"
+                    aria-label="نوع السيارة وموديلها"
                     value={car}
                     onChange={(e) => setCar(e.target.value)}
                     maxLength={60}
                     autoComplete="off"
                     placeholder="مثال: رينج روفر Vogue أسود أو مرسيدس G-Class"
-                    className={`${line} w-full rounded-lg bg-black/40 px-4 py-3 text-base placeholder:text-white/30 focus:border-[#DC2626] focus:outline-none`}
+                    className={`${line} w-full rounded-lg bg-black/40 px-4 py-3 text-base placeholder:text-white/60 focus:border-[#DC2626] focus:outline-none`}
                   />
                 </Step>
               </div>
@@ -447,7 +444,7 @@ export default function PerfectPage() {
                   <Row k="المركز" v="Perfect Car Care" />
                   <Row k="الخدمة" v={svc?.name ?? ""} />
                   <Row k="اليوم" v={dayText} />
-                  <Row k="الموعد" v={slotText} />
+                  <Row k="الموعد" v={slotText || "اختر يومًا آخر"} />
                   <Row k="السيارة" v={car.trim() || "سيتم التأكيد هاتفياً"} />
                 </dl>
                 <div className="mt-4 flex items-baseline justify-between border-t border-white/[0.08] pt-4">
@@ -468,14 +465,23 @@ export default function PerfectPage() {
                 <div className="mt-6">
                   <motion.a
                     whileTap={{ scale: 0.98 }}
-                    href={waUrl}
+                    href={currentSlot === undefined ? undefined : waUrl}
+                    aria-disabled={currentSlot === undefined}
+                    onClick={(event) => {
+                      const fresh = serviceSlots(svc.hours, OPEN_H, CLOSE_H, dayIdx === 0, ammanClock().h);
+                      if (currentSlot === undefined || !fresh.includes(currentSlot)) {
+                        event.preventDefault();
+                        setClock(ammanClock());
+                        setSlot(null);
+                      }
+                    }}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${cta} w-full text-center shadow-lg shadow-red-950/50`}
+                    className={`${cta} w-full text-center shadow-lg shadow-red-950/50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50`}
                   >
-                    تأكيد الحجز عبر واتساب
+                    طلب الموعد عبر واتساب
                   </motion.a>
-                  <p className="mt-3 text-center text-xs text-white/40">
+                  <p className="mt-3 text-center text-xs text-white/60">
                     يتم إرسال التفاصيل مباشرة إلى إدارة المشغل لتثبيت الحجز.
                   </p>
                 </div>
@@ -530,13 +536,15 @@ export default function PerfectPage() {
           </div>
         </section>
 
+        </main>
         {/* 7. الفوتر */}
         <footer className="border-t border-white/[0.08] bg-[#07080A] py-12 text-sm text-white/50">
           <div className="mx-auto max-w-6xl px-4">
             <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
               <div className="flex flex-col items-center gap-3 text-center md:items-start md:text-start">
                 <div className="flex items-center gap-3">
-                  <img
+                  <Image
+                    width={40} height={40}
                     src="/clients/perfect/logo.jpg"
                     alt="Perfect Car Care"
                     className="h-10 w-10 rounded-xl border border-white/10 bg-white p-1 object-contain shadow-sm"

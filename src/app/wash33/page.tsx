@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Navigation, Loader2 } from "lucide-react";
+import { localDateId } from "@/lib/booking";
 
 interface ServiceItem {
   id: string;
@@ -73,7 +74,6 @@ const SERVICES_DATA: ServiceItem[] = [
 ];
 
 export default function Wash33Page() {
-  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<"all" | "wash" | "dryclean">("all");
   const [selectedServiceId, setSelectedServiceId] = useState("wash-5");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -84,10 +84,13 @@ export default function Wash33Page() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [isLocating, setIsLocating] = useState(false);
+  const [today, setToday] = useState("");
 
   useEffect(() => {
-    setMounted(true);
+    const frame = requestAnimationFrame(() => setToday(localDateId()));
+    return () => cancelAnimationFrame(frame);
   }, []);
+
 
   const selectedService = SERVICES_DATA.find((s) => s.id === selectedServiceId) || SERVICES_DATA[1];
 
@@ -110,6 +113,12 @@ export default function Wash33Page() {
 const handleBookingSubmit = (e: React.FormEvent) => {
   e.preventDefault();
   if (isSubmitting) return;
+  if (date && date < localDateId()) {
+    const input = e.currentTarget.querySelector<HTMLInputElement>("#wash-date");
+    input?.setCustomValidity("اختر اليوم أو تاريخًا قادمًا.");
+    input?.reportValidity();
+    return;
+  }
   setIsSubmitting(true);
 
   const text = `طلب حجز موعد من موقع WASH 33:
@@ -140,7 +149,7 @@ const handleBookingSubmit = (e: React.FormEvent) => {
               alt="WASH 33" 
               width={34} 
               height={34} 
-              className="object-contain" 
+              className="object-contain h-auto"
               priority 
             />
             <div className="flex flex-col">
@@ -171,11 +180,16 @@ const handleBookingSubmit = (e: React.FormEvent) => {
         </div>
       </header>
 
+      <main id="main-content">
       <section className="relative min-h-[78vh] flex items-center border-b border-white/5 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center filter brightness-[0.75] contrast-[1.1]"
-            style={{ backgroundImage: `url('/hero-car.jpg')` }}
+          <Image
+            src="/hero-car.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover object-center brightness-[0.75] contrast-[1.1]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/60 to-transparent" />
         </div>
@@ -341,6 +355,7 @@ const handleBookingSubmit = (e: React.FormEvent) => {
               src="/service-wash.jpg"
               alt="عناية دقيقة بالمقصورة"
               fill
+              sizes="(max-width: 767px) 100vw, 50vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
           </div>
@@ -366,10 +381,10 @@ const handleBookingSubmit = (e: React.FormEvent) => {
           className="bg-[#100F14] border border-white/10 p-6 sm:p-10 space-y-5 shadow-2xl"
         >
           <div>
-            <label className="text-xs text-[#C5BFB5] block mb-2 font-medium">الخدمة المحددة</label>
-            <select
+            <label htmlFor="wash-service" className="text-xs text-[#C5BFB5] block mb-2 font-medium">الخدمة المحددة</label>
+            <select id="wash-service"
               suppressHydrationWarning
-              value={mounted ? selectedServiceId : "wash-5"}
+              value={selectedServiceId}
               onChange={(e) => setSelectedServiceId(e.target.value)}
               className="w-full bg-[#08080A] border border-white/15 px-4 py-3.5 text-base sm:text-sm text-white focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
             >
@@ -383,7 +398,7 @@ const handleBookingSubmit = (e: React.FormEvent) => {
 
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs text-[#C5BFB5] font-medium">أين السيارة في عمّان؟</label>
+              <label htmlFor="wash-location" className="text-xs text-[#C5BFB5] font-medium">أين السيارة في عمّان؟</label>
               <button
                 type="button"
                 onClick={handleGeoLocation}
@@ -396,62 +411,70 @@ const handleBookingSubmit = (e: React.FormEvent) => {
             </div>
             <input
               suppressHydrationWarning
+              id="wash-location"
               type="text"
               required
               placeholder="المنطقة أو الحي (مثال: عبدون، دير غبار)"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-xs text-white placeholder-[#555260] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
+              className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-sm text-white placeholder-[#827C88] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-[#C5BFB5] block mb-2 font-medium">اليوم المفضل</label>
+              <label htmlFor="wash-date" className="text-xs text-[#C5BFB5] block mb-2 font-medium">اليوم المفضل</label>
               <input
                 suppressHydrationWarning
+                id="wash-date"
                 type="date"
+                min={today || undefined}
                 value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-xs text-white focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300 font-mono"
+                onChange={(e) => { e.currentTarget.setCustomValidity(""); setDate(e.target.value); }}
+                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-sm text-white focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300 font-mono"
               />
             </div>
             <div>
-              <label className="text-xs text-[#C5BFB5] block mb-2 font-medium">الوقت التقريبي</label>
+              <label htmlFor="wash-time" className="text-xs text-[#C5BFB5] block mb-2 font-medium">الوقت التقريبي</label>
               <input
                 suppressHydrationWarning
                 type="text"
+                id="wash-time"
                 placeholder="مثال: بعد العصر أو 11:00 صباحاً"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
-                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-xs text-white placeholder-[#555260] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
+                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-sm text-white placeholder-[#827C88] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-[#C5BFB5] block mb-2 font-medium">الاسم</label>
+              <label htmlFor="wash-name" className="text-xs text-[#C5BFB5] block mb-2 font-medium">الاسم</label>
               <input
                 suppressHydrationWarning
                 type="text"
                 required
                 placeholder="أدخل اسمك"
+                id="wash-name"
+                autoComplete="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-xs text-white placeholder-[#555260] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
+                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-sm text-white placeholder-[#827C88] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300"
               />
             </div>
             <div>
-              <label className="text-xs text-[#C5BFB5] block mb-2 font-medium">رقم الهاتف</label>
+              <label htmlFor="wash-phone" className="text-xs text-[#C5BFB5] block mb-2 font-medium">رقم الهاتف</label>
               <input
                 suppressHydrationWarning
                 type="tel"
                 required
                 placeholder="07XXXXXXXX"
+                id="wash-phone"
+                autoComplete="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-xs text-white placeholder-[#555260] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300 font-mono"
+                className="w-full bg-[#08080A] border border-white/15 px-4 py-3 text-base sm:text-sm text-white placeholder-[#827C88] focus:outline-none focus:border-[#C9A96E] focus:ring-2 focus:ring-[#C9A96E]/20 transition-colors duration-300 font-mono"
                 dir="ltr"
               />
             </div>
@@ -477,6 +500,7 @@ const handleBookingSubmit = (e: React.FormEvent) => {
         </form>
       </section>
 
+      </main>
       <footer className="py-12 border-t border-white/5 bg-[#050507]">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#7B766D]">
           <div className="flex items-center gap-3">
@@ -485,7 +509,7 @@ const handleBookingSubmit = (e: React.FormEvent) => {
               alt="WASH 33" 
               width={26} 
               height={26} 
-              className="object-contain" 
+              className="object-contain h-auto"
             />
             <span className="font-serif tracking-widest text-white uppercase text-sm font-bold">
               WASH 33

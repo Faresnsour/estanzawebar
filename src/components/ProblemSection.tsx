@@ -6,9 +6,9 @@ export default function ProblemSection() {
     {
       icon: Clock,
       badge: 'الحجز خارج أوقات العمل',
-      title: 'العميل يريد الحجز قبل أن ترد عليه',
+      title: 'عميلك يحاول يحجز والمركز مغلق',
       description:
-        'عندما يكون الحجز معتمدًا على الرد في واتساب، يبقى العميل منتظرًا حتى يعرف الخدمات والمواعيد المتاحة.',
+        'العميل يشوف شغلك بالليل، لكن معرفة السعر وترتيب الموعد ينتظران رد الفريق.',
       impact:
         'صفحة حجز متاحة للعميل في أي وقت.',
     },
@@ -17,7 +17,7 @@ export default function ProblemSection() {
       badge: 'محادثات متكررة',
       title: 'نفس أسئلة الحجز تتكرر كل يوم',
       description:
-        'نوع السيارة، الخدمة، اليوم والساعة. تفاصيل بسيطة، لكنها تتحول إلى سلسلة رسائل كلما أراد عميل جديد الحجز.',
+        'كم السعر؟ كم بتاخذ وقت؟ شو المواعيد؟ فريقك يجاوب نفس الأسئلة قبل كل حجز.',
       impact:
         'اجمع بيانات الحجز من البداية بدل تكرار الأسئلة.',
     },
@@ -26,7 +26,7 @@ export default function ProblemSection() {
       badge: 'تعارض المواعيد',
       title: 'موعدان لنفس الوقت يربكان يوم الورشة',
       description:
-        'عندما تُدار المواعيد يدويًا، يصبح من السهل فقدان رؤية الجدول الكامل أو حجز وقت مشغول مسبقًا.',
+        'المواعيد موزعة بين المحادثات، وأحيانًا ينحجز نفس الوقت لأكثر من سيارة.',
       impact:
         'جدول أوضح ومواعيد منظمة حسب إعدادات المركز.',
     },
@@ -35,24 +35,23 @@ export default function ProblemSection() {
   return (
     <section
       id="features"
-      className="w-full py-16 lg:py-20 border-t border-emerald-950/5"
+      className="w-full py-14 sm:py-16 border-t border-emerald-950/5"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="w-full max-w-2xl mx-auto px-4 mb-12 text-right">
+        <div className="w-full max-w-2xl mb-8 text-right">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#008774] text-xs font-semibold mb-3">
             <AlertCircle className="w-3.5 h-3.5 text-[#008774]" />
             <span>مشاكل الحجز اليومية</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#05221C] tracking-tight leading-tight">
-            الحجز اليدوي يأخذ من وقت فريقك أكثر مما ينبغي.
+            كم محادثة تحتاج لتثبّت موعدًا واحدًا؟
           </h2>
 
           <p className="mt-3 text-slate-600 text-base leading-relaxed">
-            من أول سؤال على واتساب إلى تأكيد الموعد، تتكرر نفس التفاصيل كل يوم.
-            Estanza يرتب هذه العملية في مكان واحد.
+            خلّي التفاصيل واضحة للعميل من البداية، ووصل فريقك بطلب مرتب.
           </p>
         </div>
 
@@ -86,7 +85,7 @@ export default function ProblemSection() {
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 font-medium">
+                <div className="mt-6 pt-4 border-t border-slate-100 text-sm text-slate-600 font-medium">
                   {item.impact}
                 </div>
               </div>

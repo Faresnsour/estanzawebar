@@ -1,6 +1,7 @@
 'use client';
 
-import { MOCK_STUDIO_SERVICES } from "@/data/mockStudio";
+import Link from "next/link";
+import { SETUP_HOURS, WHATSAPP_URL } from "./lib/site";
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import {
@@ -45,9 +46,9 @@ const SERVICES: ServiceItem[] = [
 ];
 
 const AVAILABLE_DAYS = [
-  { day: 'السبت', date: '26 سبتمبر' },
-  { day: 'الأحد', date: '27 سبتمبر' },
-  { day: 'الإثنين', date: '28 سبتمبر' },
+  { day: 'اليوم الأول', date: 'للتجربة' },
+  { day: 'اليوم الثاني', date: 'للتجربة' },
+  { day: 'اليوم الثالث', date: 'للتجربة' },
 ];
 
 const TIME_SLOTS = ['09:30 ص', '12:30 م', '04:00 م', '06:30 م'];
@@ -72,7 +73,7 @@ export default function Hero() {
   const trustRowRef = useRef<HTMLDivElement>(null);
   const phoneWrapperRef = useRef<HTMLDivElement>(null);
   const phoneFrameRef = useRef<HTMLDivElement>(null);
-  const idleTweenRef = useRef<gsap.core.Tween | null>(null);
+
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +81,7 @@ export default function Hero() {
   };
 
   /* ------------------------------------------------------------ */
-  /* Entry timeline + idle float                                  */
+  /* Entry timeline                                  */
   /* ------------------------------------------------------------ */
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -147,22 +148,9 @@ export default function Hero() {
           { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' },
           '-=0.6'
         );
-
-      tl.eventCallback('onComplete', () => {
-        if (phoneFrameRef.current) {
-          idleTweenRef.current = gsap.to(phoneFrameRef.current, {
-            y: -8,
-            duration: 2.6,
-            ease: 'sine.inOut',
-            yoyo: true,
-            repeat: -1,
-          });
-        }
-      });
     }, sectionRef);
 
     return () => {
-      idleTweenRef.current?.kill();
       ctx.revert();
     };
   }, []);
@@ -171,7 +159,7 @@ export default function Hero() {
   /* Micro-interaction helpers                                    */
   /* ------------------------------------------------------------ */
   const snapTween = (el: HTMLElement | null) => {
-    if (!el) return;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     gsap.fromTo(
       el,
       { scale: 0.94 },
@@ -206,7 +194,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={sectionRef} className="relative w-full py-12 lg:py-20 overflow-hidden">
+    <section ref={sectionRef} aria-labelledby="hero-title" className="relative w-full py-12 lg:py-20 overflow-hidden">
       {/* Container restricted to max-w-6xl */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -219,16 +207,19 @@ export default function Hero() {
             {/* Micro-badge */}
             <div
               ref={badgeRef}
+              className="mb-4 text-sm font-bold text-[#006f60]"
             >
+              نظام حجز لمراكز واستوديوهات السيارات
             </div>
 
             {/* Headline (H1) with tracking-tight on Arabic heading */}
             <h1
               ref={headlineRef}
-              className="text-3xl sm:text-5xl lg:text-5xl font-extrabold text-[#05221C] leading-[1.25] tracking-tight"
+              id="hero-title"
+              className="text-[32px] sm:text-[44px] lg:text-[46px] font-extrabold text-[#05221C] leading-[1.25] tracking-tight"
             >
-              خلي عميلك يحجز موعده بنفسه
-              وأنت استلم الحجز مرتبًا على واتساب
+              خلّي عميلك يحجز بنفسه،
+              واستلم كل التفاصيل مرتبة على واتساب
             </h1>
 
             {/* Subtitle */}
@@ -236,7 +227,7 @@ export default function Hero() {
               ref={paragraphRef}
               className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl"
             >
-             صفحة حجز تحمل هوية مركزك، تعرض خدماتك وأسعارك ومواعيدك المتاحة وتجمع بيانات العميل والسيارة ثم ترسل تفاصيل الحجز مباشرة إلى فريقك.
+             صفحة حجز بهوية مركزك تعرض الخدمات والأسعار، وتجمع الموعد وبيانات العميل والسيارة. بدون تطبيق أو حساب للعميل.
             </p>
 
             {/* CTA Button Pair */}
@@ -244,32 +235,34 @@ export default function Hero() {
               ref={ctaRowRef}
               className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5"
             >
-              <a
+              <Link
                 href="/demo"
-                className="bg-[#008774] text-white hover:bg-[#05221C] shadow-md shadow-emerald-900/10 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
+                data-cta="demo" data-source="hero"
+                className="bg-[#006f60] text-white hover:bg-[#05221C] shadow-md shadow-emerald-900/10 px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
               >
                 <Calendar className="w-4 h-4 shrink-0" />
-                <span>جرّب النظام</span>
-              </a>
+                <span>جرّب نموذج الحجز</span>
+              </Link>
               <a
-                href="https://wa.me/?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%AD%D8%AC%D9%88%D8%B2%D8%A7%D8%AA%20%D9%84%D9%85%D8%B1%D9%83%D8%B2%D9%86%D8%A7"
+                href={WHATSAPP_URL}
+                data-cta="whatsapp" data-source="hero"
                 target="_blank"
                 rel="noreferrer"
                 className="border border-slate-300 text-slate-700 hover:bg-slate-100 px-6 py-3.5 rounded-xl font-semibold text-sm sm:text-base inline-flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.98]"
               >
                 <MessageCircle className="w-4 h-4 text-[#008774] shrink-0" />
-                <span>تواصل معنا</span>
+                <span>اسألنا على واتساب</span>
               </a>
             </div>
 
             {/* Trust and Key Points */}
             <div
               ref={trustRowRef}
-              className="mt-8 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-y-3 gap-x-6 text-xs text-slate-500 font-medium"
+              className="mt-8 pt-6 border-t border-slate-200/80 flex flex-wrap items-center gap-y-3 gap-x-5 text-sm text-slate-600 font-medium"
             >
               <div className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-[#008774] shrink-0" />
-                <span>جاهز خلال 72 ساعة</span>
+                <span>جاهز خلال {SETUP_HOURS} ساعة</span>
 
               </div>
               <div className="flex items-center gap-2">
@@ -279,7 +272,7 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#008774] shrink-0" />
-                <span>دفعة 50% عند البدء</span>
+                <span>بدون اشتراك شهري</span>
               </div>
             </div>
           </div>
@@ -291,7 +284,7 @@ export default function Hero() {
             id="demo"
           >
             {/* Subtle backlight shadow behind device */}
-            <div className="absolute -inset-4 bg-[#008774]/10 rounded-[3.5rem] blur-2xl -z-10" />
+            <div className="absolute -inset-4 bg-[#006f60]/10 rounded-[3.5rem] blur-2xl -z-10" />
 
             {/* Realistic iPhone Bezel: max-w-[320px] rounded-[3rem] border-[6px] border-[#05221C] shadow-2xl */}
             <div
@@ -312,6 +305,7 @@ export default function Hero() {
               <div className="bg-slate-100/80 p-1.5 border-b border-slate-200 flex items-center gap-1">
                 <button
                   type="button"
+                  aria-pressed={phoneView === 'booking'}
                   onClick={(e) => handleViewSwitch('booking', e)}
                   className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center ${
                     phoneView === 'booking'
@@ -319,22 +313,24 @@ export default function Hero() {
                       : 'text-slate-600 hover:text-[#05221C] bg-white border border-slate-200'
                   }`}
                 >
-                  1. صفحة الحجز
+                  صفحة الحجز
                 </button>
                 <button
                   type="button"
+                  aria-pressed={phoneView === 'whatsapp'}
                   onClick={(e) => handleViewSwitch('whatsapp', e)}
                   className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center flex items-center justify-center gap-1 ${
                     phoneView === 'whatsapp'
-                      ? 'bg-[#008774] text-white shadow-xs'
+                      ? 'bg-[#006f60] text-white shadow-xs'
                       : 'text-slate-600 hover:text-[#05221C] bg-white border border-slate-200'
                   }`}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-300" />
-                  <span>2. واتساب المركز</span>
+                  <span>رسالة واتساب</span>
                 </button>
                 <button
                   type="button"
+                  aria-pressed={phoneView === 'sheets'}
                   onClick={(e) => handleViewSwitch('sheets', e)}
                   className={`flex-1 py-1.5 px-1 rounded-lg text-[10px] font-bold transition-all text-center flex items-center justify-center gap-1 ${
                     phoneView === 'sheets'
@@ -342,12 +338,12 @@ export default function Hero() {
                       : 'text-slate-600 hover:text-[#05221C] bg-white border border-slate-200'
                   }`}
                 >
-                  <span>3. جدول المواعيد</span>
+                  <span>مثال الجدول</span>
                 </button>
               </div>
 
               {/* Phone Content Screen */}
-              <div className="h-[460px] overflow-y-auto custom-scrollbar p-3.5 pb-6 bg-[#F9FBFA] text-slate-800 text-xs">
+              <div className="h-[480px] overflow-y-auto custom-scrollbar p-3.5 pb-6 bg-[#F9FBFA] text-slate-800 text-xs">
                 
                 {phoneView === 'booking' && (
                   <form suppressHydrationWarning onSubmit={handleBookingSubmit} className="space-y-3.5 pb-2">
@@ -380,6 +376,7 @@ export default function Hero() {
                               key={s.id}
                               type="button"
                               onClick={(e) => handleServiceSelect(s, e)}
+                              aria-pressed={isSelected}
                               className={`w-full text-right p-2 rounded-xl border transition-colors text-[11px] flex items-center justify-between ${
                                 isSelected
                                   ? 'border-[#008774] bg-emerald-50/70 shadow-2xs'
@@ -390,7 +387,7 @@ export default function Hero() {
                                 <span
                                   className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center shrink-0 ${
                                     isSelected
-                                      ? 'border-[#008774] bg-[#008774] text-white'
+                                      ? 'border-[#008774] bg-[#006f60] text-white'
                                       : 'border-slate-300'
                                   }`}
                                 >
@@ -400,7 +397,7 @@ export default function Hero() {
                                   <span className="font-semibold text-[#05221C] block truncate">
                                     {s.name}
                                   </span>
-                                  <span className="text-[9px] text-slate-400 block">
+                                  <span className="text-[9px] text-slate-600 block">
                                     {s.duration}
                                   </span>
                                 </div>
@@ -427,6 +424,7 @@ export default function Hero() {
                               key={d.day}
                               type="button"
                               onClick={(e) => handleDaySelect(idx, e)}
+                              aria-pressed={isSelected}
                               className={`py-1.5 px-1 rounded-lg border text-center transition-colors ${
                                 isSelected
                                   ? 'bg-[#05221C] text-white border-[#05221C] font-bold'
@@ -434,7 +432,7 @@ export default function Hero() {
                               }`}
                             >
                               <span className="block text-[10px] leading-tight">{d.day}</span>
-                              <span className={`block text-[8px] ${isSelected ? 'text-emerald-300' : 'text-slate-400'}`}>
+                              <span className={`block text-[8px] ${isSelected ? 'text-emerald-300' : 'text-slate-600'}`}>
                                 {d.date}
                               </span>
                             </button>
@@ -450,9 +448,10 @@ export default function Hero() {
                               key={t}
                               type="button"
                               onClick={(e) => handleTimeSelect(t, e)}
+                              aria-pressed={isSelected}
                               className={`py-1.5 px-2 rounded-lg text-center text-[10px] font-mono tabular-nums border transition-colors ${
                                 isSelected
-                                  ? 'bg-[#008774] text-white border-[#008774] font-bold'
+                                  ? 'bg-[#006f60] text-white border-[#008774] font-bold'
                                   : 'bg-white text-slate-700 border-slate-200'
                               }`}
                             >
@@ -480,9 +479,9 @@ export default function Hero() {
                     {/* Action Button */}
                     <button
                       type="submit"
-                      className="w-full py-2.5 px-3 rounded-xl bg-[#008774] hover:bg-[#00a890] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all active:scale-[0.98]"
+                      className="w-full py-2.5 px-3 rounded-xl bg-[#006f60] hover:bg-[#05221C] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all active:scale-[0.98]"
                     >
-                      <span>تأكيد الموعد وإرسال لواتساب</span>
+                      <span>شاهد رسالة طلب الحجز</span>
                       <ArrowLeft className="w-3.5 h-3.5" />
                     </button>
 
@@ -496,15 +495,15 @@ export default function Hero() {
                     {/* Header */}
                     <div className="bg-[#05221C] text-white p-2.5 rounded-xl flex items-center justify-between shadow-xs">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-lg bg-[#008774] text-white flex items-center justify-center font-bold text-xs">
+                        <div className="w-6 h-6 rounded-lg bg-[#006f60] text-white flex items-center justify-center font-bold text-xs">
                           💬
                         </div>
                         <div>
                           <span className="text-[11px] font-bold block">واتساب إدارة المركز</span>
-                          <span className="text-[9px] text-emerald-300 block">وصول فوري بدون تأخير</span>
+                          <span className="text-[9px] text-emerald-300 block">رسالة مجهّزة من اختياراتك</span>
                         </div>
                       </div>
-                      <span className="text-[9px] bg-[#008774] px-2 py-0.5 rounded-full text-white font-medium">
+                      <span className="text-[9px] bg-[#006f60] px-2 py-0.5 rounded-full text-white font-medium">
                         تنبيه جديد
                       </span>
                     </div>
@@ -514,9 +513,9 @@ export default function Hero() {
                       <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
                         <div className="flex items-center gap-1 text-[11px] font-bold text-[#008774]">
                           <CheckCheck className="w-3.5 h-3.5 text-[#008774]" />
-                          <span>حجز جديد من صفحة الرابط</span>
+                          <span>طلب حجز من صفحة المركز</span>
                         </div>
-                        <span className="text-[9px] text-slate-400 font-mono">16:02</span>
+                        <span className="text-[9px] text-slate-600 font-mono">16:02</span>
                       </div>
 
                       <div className="bg-[#F9FBFA] rounded-lg p-2.5 border border-slate-200/80 text-[11px] space-y-1.5 text-slate-700">
@@ -541,7 +540,7 @@ export default function Hero() {
                       </div>
 
                       <div className="p-1.5 bg-emerald-50 rounded-lg text-center text-[10px] text-[#008774] font-bold flex items-center justify-center gap-1">
-                        <span>✓ تم الحفظ تلقائياً في جدول المواعيد</span>
+                        <span>هذه معاينة للرسالة، ولا يتم إرسال حجز فعلي</span>
                       </div>
                     </div>
 
@@ -550,7 +549,7 @@ export default function Hero() {
                       onClick={(e) => handleViewSwitch('sheets', e)}
                       className="w-full py-2 bg-[#05221C] hover:bg-[#09352c] text-white font-bold text-[10px] rounded-xl transition-colors text-center flex items-center justify-center gap-1"
                     >
-                      <span>عرض السجل المحفوظ في الجدول</span>
+                      <span>شاهد نموذج جدول المواعيد</span>
                       <ArrowLeft className="w-3 h-3" />
                     </button>
                   </div>
@@ -563,12 +562,12 @@ export default function Hero() {
                     {/* Header */}
                     <div className="bg-[#05221C] text-white p-2.5 rounded-xl flex items-center justify-between shadow-xs">
                       <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-lg bg-[#008774] text-white flex items-center justify-center font-bold text-xs">
+                        <div className="w-6 h-6 rounded-lg bg-[#006f60] text-white flex items-center justify-center font-bold text-xs">
                           📊
                         </div>
                         <div>
                           <span className="text-[11px] font-bold block">سجل مواعيد المركز</span>
-                          <span className="text-[9px] text-emerald-300 block">مرتب ومنظم تلقائياً</span>
+                          <span className="text-[9px] text-emerald-300 block">نموذج توضيحي لتنظيم الطلبات</span>
                         </div>
                       </div>
                       <span className="text-[9px] bg-white/10 px-2 py-0.5 rounded-full text-slate-200">
@@ -590,10 +589,10 @@ export default function Hero() {
                         <tbody className="divide-y divide-slate-100">
                           <tr className="bg-emerald-50/70 font-semibold text-[#05221C]">
                             <td className="p-2">{clientName || 'عمر (BMW G30)'}</td>
-                            <td className="p-2 text-[#008774]">PPF كامل</td>
+                            <td className="p-2 text-[#008774]">{selectedService.name}</td>
                             <td className="p-2 font-mono">{selectedTime}</td>
                             <td className="p-2">
-                              <span className="bg-[#008774] text-white px-1.5 py-0.5 rounded text-[8px]">
+                              <span className="bg-[#006f60] text-white px-1.5 py-0.5 rounded text-[8px]">
                                 جديد
                               </span>
                             </td>
@@ -626,7 +625,7 @@ export default function Hero() {
                     <div className="p-2.5 bg-white border border-slate-200 rounded-xl text-[10px] text-slate-700">
                       <p className="font-bold text-[#05221C] mb-0.5">💡 بدون دفاتر ورقية أو نسيان:</p>
                       <p className="text-[9px] text-slate-500 leading-relaxed">
-                        يفتح الجدول من هاتف الإدارة أو شاشة الاستقبال لمتابعة مواعيد الروافع والمعاينة أولاً بأول.
+                        طريقة حفظ الطلبات وربطها بجدول المركز تُحدد حسب الباقة وإعدادات الربط.
                       </p>
                     </div>
 
@@ -642,7 +641,8 @@ export default function Hero() {
 
               </div>
 
-{/* Bottom Home Indicator */}
+              <p className="border-t border-slate-200 bg-white px-3 py-2 text-center text-[11px] text-slate-600">محاكاة تفاعلية · لا ترسل حجزًا فعليًا</p>
+              {/* Bottom Home Indicator */}
               <div className="py-2 bg-white flex justify-center border-t border-slate-100">
                 <div className="w-24 h-1 bg-slate-300 rounded-full" />
               </div>

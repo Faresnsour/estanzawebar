@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { brand, resultShots } from "../_data/packages";
 import s from "../auto-spa.module.css";
 
@@ -38,10 +39,10 @@ export function Results() {
           {resultShots.map((shot, index) => (
             <figure key={shot.src} className={s.resultFigure}>
               <div className={s.resultImageWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={shot.src}
                   alt={shot.alt}
+                  sizes="(max-width: 720px) 100vw, 50vw"
                   loading="lazy"
                   width={1000}
                   height={800}

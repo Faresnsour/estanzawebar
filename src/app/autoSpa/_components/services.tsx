@@ -56,7 +56,7 @@ export function Services() {
 
         <span className={s.smallNote}>
           {brand.demoPricing
-            ? "أسعار الباقات معتمدة وتشمل العناية الاحترافية والضمان"
+            ? "أسعار تجريبية للتوضيح؛ يعتمدها المركز قبل التنفيذ"
             : "الأسعار بالريال العُماني"}
         </span>
       </div>

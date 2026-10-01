@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { brand } from "../_data/packages";
 import { BookButton } from "./booking/booking-sheet";
 import s from "../auto-spa.module.css";
@@ -12,11 +13,11 @@ export function Navbar() {
       <header className={s.navbar}>
         <a href="#home" className={s.brand} aria-label="DOPAMINE الرئيسية">
           {brand.logoImage && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={brand.logoImage}
               alt=""
               className={s.brandImage}
+              sizes="42px"
               width={42}
               height={42}
             />

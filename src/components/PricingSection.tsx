@@ -1,234 +1,61 @@
-  'use client';
+import { Check, MessageCircle } from "lucide-react";
+import { buildWhatsAppUrl, LAUNCH_PRICE } from "./lib/site";
 
-  import React, { useState } from 'react';
-  import { Check, MessageCircle, Star, ChevronDown } from 'lucide-react';
+const launchFeatures = [
+  "صفحة حجز بشعار مركزك وألوانه",
+  "عرض الخدمات والأسعار ومدة كل خدمة",
+  "اختيار اليوم والوقت وجمع بيانات العميل والسيارة",
+  "رسالة واتساب مرتبة بتفاصيل طلب الحجز",
+  "تجربة الصفحة على الهاتف قبل التسليم",
+];
+const proFeatures = [
+  "أكثر من موظف أو رافعة أو مورد للحجز",
+  "معرض لأعمال المركز ضمن الصفحة",
+  "تخصيص خطوات الحجز حسب خدماتك",
+  "ربط Google Sheets أو Calendar حسب الاحتياج",
+];
 
-  const faqs = [
-    {
-      question: "كيف يتم التسليم؟",
-      answer: "التسليم خلال 72 ساعة من التواصل، رابط جاهز بهوية مركزك، بدون أي إعداد تقني من طرفك."
-    },
-    {
-      question: "هل يحتاج الزبون تطبيق؟",
-      answer: "لا، الحجز عبر رابط متصفح مباشر، والتأكيد عبر واتساب العادي بدون تنزيل أي شيء."
-    },
-    {
-      question: "بنقدر نعدل الخدمات والأسعار لاحقاً؟",
-      answer: "نعم، أي تعديل يتم بنفس اليوم بمجرد إرسال التحديث عبر واتساب."
-    },
-    {
-      question: "آلية السداد؟",
-      answer: "دفعة 50% مقدم (CliQ أو كاش) عند البدء، والـ 50% المتبقية بعد معاينة وتجربة النظام جاهزاً على هاتفك."
-    }
-  ];
-
-  export default function PricingSection() {
-    const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-    const toggleFaq = (index: number) => {
-      setOpenFaq(openFaq === index ? null : index);
-    };
-
-    const msgLaunch = encodeURIComponent("يعطيك العافية، بدي اركب نظام حجز المواعيد ومنع تعارض الروافع لمشغلنا بعرض (130 د.أ ).");
-    const msgPro = encodeURIComponent("مرحبا معلم، مهتم بالمنظومة الشاملة المخصصة مع ربط التقويم وسابقة الأعمال، احكيلي التفاصيل لو سمحت.");
-
-    return (
-      <section id="pricing" className="py-20 bg-[#F8FAF9] text-slate-800 overflow-x-hidden w-full border-t border-slate-200/60">
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
-          
-          {/* Header */}
-          <div className="text-center w-full max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#05221C] tracking-tight leading-tight">
-            تدفع مرة واحدة · بدون اشتراك شهري
-            </h2>
-          </div>
-
-          {/* Pricing Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto mb-24">
-            
-            {/* Card 1: Launch Plan */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between border border-slate-200 shadow-xl shadow-slate-200/50 text-right relative">
-              <div>
-                <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-                  <div>
-                    <h3 className="text-2xl font-bold text-[#05221C]">باقة الانطلاق المباشر</h3>
-                    <p className="text-xs sm:text-sm font-semibold text-[#008774] mt-1">نظام الحجز وتثبيت المواعيد</p>
-                  </div>
-                </div>
-
-                <p className="text-xs sm:text-sm text-slate-500 mt-3 leading-relaxed">
-                تنظيم المواعيد حسب الخدمات وأوقات العمل وإعدادات المركز
-                </p>
-
-                {/* Price */}
-                <div className="my-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl sm:text-5xl font-extrabold text-[#05221C] font-mono tracking-tight">130</span>
-                    <span className="text-sm text-slate-500 font-medium">دينار أردني / تدشين شامل</span>
-                  </div>
-                  <p className="text-xs font-semibold text-[#008774] mt-1">
-                   دفعة لمرة واحدة · بدون اشتراك شهري
-                  </p>
-                </div>
-
-                {/* Features List */}
-                <ul className="space-y-3.5 text-xs sm:text-sm text-slate-700 pt-4 border-t border-slate-100">
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
-                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </div>
-                    <span>صفحة هبوط سريعة وخفيفة جصفحة حجز سريعة وفائقة الاستجابة على الهاتف بهوية وشعار وألوان مركزك.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
-                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </div>
-                    <span className="font-semibold text-[#05221C]">منع تعارض المواعيد تلقائياً (النظام يرفض أي حجز متزامن على نفس الرافعة).</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
-                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </div>
-                    <span>تحويل بيانات الحجز فوراً لواتساب إدارة المشغل لمنع أي ضياع للمواعيد.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
-                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </div>
-                    <span className="font-semibold text-[#05221C]">جدول Google Sheets سحابي خاص بالمركز لحفظ وأرشفة المواعيد وبيانات العملاء تلقائياً.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-emerald-50 text-[#008774] flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200">
-                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </div>
-                    <span>جاهز للعمل في مشغلك خلال 72 ساعة وتسليم مفتاح.</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-8 pt-4">
-                <a
-                  href={`https://wa.me/962790899175?text=${msgLaunch}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl border-2 border-[#05221C] text-[#05221C] hover:bg-[#05221C] hover:text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98]"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#008774]" />
-                  <span>طلب تركيب النظام لمشغلك (130 د.أ)</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Card 2: Pro Suite (Hero Dark) */}
-            <div className="bg-[#05221C] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl border-2 border-[#008774]/50 text-right relative mt-6 lg:mt-0">
-              <div className="absolute -top-3.5 right-6 sm:right-8 bg-[#008774] text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase shadow-md flex items-center gap-1.5">
-                <Star className="w-3.5 h-3.5 fill-current" />
-                <span>الخيار المتكامل للمشاغل الكبرى</span>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white">منظومة الاستوديو الشاملة</h3>
-                    <p className="text-xs sm:text-sm font-semibold text-emerald-300 mt-1">أتمتة وإدارة كاملة</p>
-                  </div>
-                  <span className="text-xs font-bold bg-[#008774]/30 text-emerald-200 border border-[#008774]/50 px-3 py-1 rounded-full">
-                    شامل المفتاح
-                  </span>
-                </div>
-
-                <p className="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
-                  نظام متكامل يربط تقويم المشغل تلقائياً مع معرض صور وفيديوهات سابقة الأعمال.
-                </p>
-
-                {/* Price */}
-                <div className="my-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">استثمار مخصص</span>
-                  </div>
-                  <p className="text-xs font-semibold text-emerald-300 mt-1">
-                    حسب عدد الروافع والخدمات وسعة المشغل
-                  </p>
-                </div>
-
-                {/* Features List */}
-                <ul className="space-y-3.5 text-xs sm:text-sm text-slate-200 pt-4 border-t border-white/10">
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
-                    </div>
-                    <span className="font-semibold text-white">ربط ومزامنة تلقائية ومباشرة مع Google Calendar لمنع أي تداخل.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
-                    </div>
-                    <span>معرض سابقة أعمال مدمج لعرض نتائج النانو والـ PPF قبل وبعد لإقناع الزبون.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
-                    </div>
-                    <span>نظام تذكير دوري بمواعيد تجديد النانو وإعادة استهداف عملاء الـ VIP.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-[#008774] stroke-[2.5]" />
-                    </div>
-                    <span>متابعة شخصية ودعم فني مخصص وتعديلات مستمرة لضمان أعلى أداء.</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-8 pt-4">
-                <a
-                  href={`https://wa.me/962790899175?text=${msgPro}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-[#008774] hover:bg-[#008774]/90 text-white font-bold text-sm sm:text-base transition-all duration-200 active:scale-[0.98] shadow-lg shadow-[#008774]/20"
-                >
-                  <MessageCircle className="w-4 h-4 text-white" />
-                  <span>اطلب تفاصيل المنظومة الشاملة عواتساب</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          {/* FAQs Section */}
-          <div className="max-w-3xl mx-auto pt-10 border-t border-slate-200/80">
-            <div className="text-center mb-10">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#05221C]">الأسئلة الشائعة</h3>
-              <p className="text-xs sm:text-sm text-slate-500 mt-2">إليك إجابات وافية عن أهم استفسارات أصحاب المشاغل</p>
-            </div>
-
-            <div className="space-y-3.5">
-              {faqs.map((faq, idx) => {
-                const isOpen = openFaq === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all duration-200 shadow-sm"
-                  >
-                    <button
-                      onClick={() => toggleFaq(idx)}
-                      className="w-full p-4 sm:p-5 text-right flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:bg-slate-50 transition-colors"
-                    >
-                      <span>{faq.question}</span>
-                      <ChevronDown className={`w-4 h-4 text-[#008774] shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    {isOpen && (
-                      <div className="px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
-                        {faq.answer}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
+export default function PricingSection() {
+  return (
+    <section id="pricing" aria-labelledby="pricing-title" className="border-t border-slate-200/70 py-14 sm:py-16 lg:py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-9 max-w-2xl">
+          <p className="mb-3 text-sm font-bold text-[#006f60]">الباقات</p>
+          <h2 id="pricing-title" className="text-3xl font-extrabold leading-snug text-[#05221C] sm:text-4xl">ابدأ بما يحتاجه مركزك.</h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-600">باقة واضحة للبداية، وتخصيص أوسع إذا كانت طريقة عملك تحتاج أكثر.</p>
         </div>
-      </section>
-    );
-  }
+        <div className="grid gap-5 md:grid-cols-2 lg:gap-7">
+          <article className="flex flex-col rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold text-[#05221C]">باقة الانطلاق</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">لمركز يريد عرض خدماته واستقبال طلبات الحجز بوضوح.</p>
+              <p className="mb-1 mt-6 flex items-baseline gap-2 text-[#05221C]"><span className="text-5xl font-extrabold tabular-nums">{LAUNCH_PRICE}</span><span className="text-base font-semibold">د.أ</span></p>
+              <p className="text-sm font-semibold text-[#006f60]">دفع مرة واحدة · بدون اشتراك شهري</p>
+              <ul className="mt-6 space-y-3 border-t border-slate-200 pt-6 text-sm leading-relaxed text-slate-700">
+                {launchFeatures.map((feature) => <li key={feature} className="flex items-start gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-[#006f60]" aria-hidden="true" /><span>{feature}</span></li>)}
+              </ul>
+            </div>
+            <a href={buildWhatsAppUrl("مرحبًا، بدي أعرف تفاصيل باقة الانطلاق بـ130 دينار لمركزنا.")} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="pricing-launch" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#006f60] px-5 py-3 font-bold text-white transition-colors hover:bg-[#05221C]"><MessageCircle className="h-4 w-4" aria-hidden="true" />اسأل عن باقة الانطلاق</a>
+          </article>
+          <article className="flex flex-col rounded-3xl border border-[#05221C] bg-[#05221C] p-6 text-white sm:p-8">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold">باقة المحترف</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-200">للمراكز التي تحتاج جدولة متعددة أو ربطًا مع أدوات الفريق.</p>
+              <p className="mb-1 mt-6 text-3xl font-bold leading-[1.6]">حسب احتياج مركزك</p>
+              <p className="text-sm text-emerald-200">عرض سعر واضح قبل البدء، حسب الوظائف المطلوبة.</p>
+              <p className="mt-6 border-t border-white/15 pt-6 text-sm font-bold">كل ما في الانطلاق، مع خيارات مثل:</p>
+              <ul className="mt-3 space-y-3 text-sm leading-relaxed text-slate-200">
+                {proFeatures.map((feature) => <li key={feature} className="flex items-start gap-3"><Check className="mt-1 h-4 w-4 shrink-0 text-emerald-300" aria-hidden="true" /><span>{feature}</span></li>)}
+              </ul>
+            </div>
+            <a href={buildWhatsAppUrl("مرحبًا، عندنا احتياجات إضافية في جدولة مركزنا وبدي أناقش معكم باقة المحترف.")} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="pricing-pro" className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/40 px-5 py-3 font-bold text-white transition-colors hover:bg-white hover:text-[#05221C]"><MessageCircle className="h-4 w-4" aria-hidden="true" />ناقش احتياجات مركزك</a>
+          </article>
+        </div>
+        <div className="mt-6 grid gap-4 rounded-2xl border border-slate-200 bg-white/60 p-5 text-sm leading-relaxed text-slate-600 sm:grid-cols-2 sm:p-6">
+          <p><strong className="mb-1 block text-[#05221C]">شروط الدفع</strong>50% عند البدء، و50% بعد معاينة النظام وتجربته. الدفع عبر CliQ أو كاش.</p>
+          <p><strong className="mb-1 block text-[#05221C]">قبل ما نبدأ</strong>نتفق على الربط المطلوب، وتنظيم المواعيد، والاستضافة والتعديلات والدعم. أي تكلفة إضافية نوضحها لك مسبقًا.</p>
+        </div>
+      </div>
+    </section>
+  );
+}

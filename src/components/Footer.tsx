@@ -60,47 +60,26 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-slate-800 bg-[#020508] py-12 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-        
-        {/* Brand identity */}
-        <div className="flex flex-col items-center md:items-start gap-3">
-          <EstanzaLogo className="h-8 w-auto text-white" />
-          <p className="text-xs text-slate-400 max-w-sm text-center md:text-right leading-relaxed">
-          نظام حجز مصمم لكافة مراكز واستوديوهات السيارات
-          </p>
+    <footer className="border-t border-white/10 bg-[#05221C] px-4 py-9 text-slate-200 sm:px-6">
+      <div className="mx-auto grid max-w-6xl gap-7 lg:grid-cols-[1.2fr_1fr_1fr] lg:items-start">
+        <div>
+          <Link href="/" className="inline-flex items-center gap-3"><EstanzaLogo className="h-9 w-9" /><span className="text-xl font-bold text-white" dir="ltr">Estanza</span></Link>
+          <p className="mt-3 max-w-sm text-sm leading-7">أنظمة حجز لمراكز واستوديوهات السيارات.</p>
+          <p className="mt-1 text-sm text-slate-300">عمّان، الأردن</p>
         </div>
-
-        {/* Social Media Links */}
-        <div className="flex items-center gap-4">
-          {SOCIAL_LINKS.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={item.name}
-              className="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-[#00c4a7] hover:border-[#008774]/50 hover:bg-[#008774]/10 transition-all duration-200"
-            >
-              {item.icon}
-            </Link>
-          ))}
-        </div>
-
-        {/* Copyright & Local indicator */}
-        <div className="flex flex-col items-center md:items-end gap-1.5 text-xs text-slate-400">
-          <p>© {new Date().getFullYear()} Estanza. جميع الحقوق محفوظة.</p>
-          <div className="flex items-center gap-2 text-slate-400">
-            <span className="w-2 h-2 rounded-full bg-[#008774] animate-pulse"></span>
-            <span>هندسة رقمية محلية — عمّان، الأردن</span>
-                    <div className="flex items-center gap-6">
-              <Link href="/privacy" className="hover:text-zinc-300 transition-colors">سياسة الخصوصية</Link>
-              <Link href="/terms" className="hover:text-zinc-300 transition-colors">شروط الخدمة</Link>
-              <Link href="/demo" className="text-emerald-400 hover:underline">تجربة المحاكاة</Link>
-            </div>
+        <div>
+          <p className="mb-3 text-sm font-semibold text-white">تواصل معنا</p>
+          <div className="flex flex-wrap gap-2">
+            {SOCIAL_LINKS.map((item) => <a key={item.name} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.name} className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 text-slate-200 transition-colors hover:bg-white/10">{item.icon}</a>)}
           </div>
+          <a href="mailto:hello@estanza.dev" className="mt-3 inline-block py-1 text-sm" dir="ltr">hello@estanza.dev</a>
         </div>
-
+        <div className="text-sm lg:text-left">
+          <nav aria-label="روابط إضافية" className="flex flex-wrap gap-x-5 gap-y-3 lg:justify-end">
+            <Link href="/privacy">الخصوصية</Link><Link href="/terms">شروط الخدمة</Link><Link href="/demo" data-cta="demo" data-source="footer" className="text-emerald-200">جرّب النموذج</Link>
+          </nav>
+          <p className="mt-5 text-slate-300">© {new Date().getFullYear()} Estanza</p>
+        </div>
       </div>
     </footer>
   );

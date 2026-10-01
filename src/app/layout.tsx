@@ -1,6 +1,8 @@
 import Script from "next/script";
 import type { Metadata } from "next";
-import { Cairo, Cormorant_Garamond } from "next/font/google";
+import { Cairo } from "next/font/google";
+import { SITE_URL } from "@/components/lib/site";
+import ConversionTracking from "@/components/ConversionTracking";
 import "./globals.css";
 
 // خط عربي عريض ونقي مصمم للشاشات
@@ -11,30 +13,18 @@ const cairo = Cairo({
   display: "swap",
 });
 
-// خط لاتيني فاخر للأرقام وتفاصيل العلامة
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
-
-const rawUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.estanza.dev";
-const siteUrl = rawUrl.startsWith("http") ? rawUrl : `https://${rawUrl}`;
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "إستانزا | محرك حجز وأتمتة استوديوهات السيارات والعيادات",
+    default: "Estanza | نظام حجز لمراكز السيارات في الأردن",
     template: "%s | Estanza",
   },
   description:
-    "منظومة حجز رقمية متقدمة لمراكز وتجهيز المركبات والعيادات في عمّان. أتمتة فورية للمواعيد وتأكيد تلقائي عبر واتساب بدون اشتراكات شهرية.",
+    "نظام حجز بهوية مركزك يعرض الخدمات والأسعار ويجمع تفاصيل العميل والسيارة عبر واتساب. لمراكز واستوديوهات السيارات في الأردن.",
   keywords: [
     "حجز نانو سيراميك عمان",
     "تركيب PPF الأردن",
     "تظليل وعازل حراري عمان",
-    "حجز عيادات ومراكز تجميل عمان",
     "أتمتة حجوزات السيارات",
     "استوديو سيارات عمان",
     "Estanza",
@@ -51,17 +41,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ar_JO",
-    url: siteUrl,
-    title: "إستانزا | محرك حجز وأتمتة استوديوهات السيارات والعيادات",
+    url: SITE_URL,
+    title: "Estanza | نظام حجز لمراكز السيارات في الأردن",
     description:
-      "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص ومواعيد مؤكدة لمركزك تلقائياً.. تأكيد فوري ومباشر على واتساب.",
+      "خلّي عميلك يختار الخدمة والموعد، واستلم التفاصيل مرتبة على واتساب.",
     siteName: "Estanza",
   },
   twitter: {
     card: "summary_large_image",
-    title: "إستانزا | محرك حجز وأتمتة استوديوهات السيارات والعيادات",
+    title: "Estanza | نظام حجز لمراكز السيارات في الأردن",
     description:
-      "حوّل استفسارات إنستغرام ليلاً إلى حجوزات فحص مؤكدة لمركزك تلقائياً.",
+      "صفحة حجز بهوية مركزك، بدون تطبيق أو حساب للعميل.",
   },
   icons: {
       icon: "/icon.svg?v=3",
@@ -83,11 +73,12 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`${cairo.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${cairo.variable} h-full antialiased`}
     >
       {/* تصحيح لون الخلفية ليتطابق مع ألوان هوية إستانزا الفاخرة #F8FAF9 و #05221C */}
       <body className="min-h-full flex flex-col font-sans bg-[#F8FAF9] text-[#05221C] selection:bg-[#008774] selection:text-white">
         {children}
+        <ConversionTracking />
 
         {/* Google Analytics (GA4) */}
         <Script

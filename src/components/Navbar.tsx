@@ -1,192 +1,113 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Link from "next/link";
-import { MessageCircle, ChevronLeft, ArrowUpLeft } from "lucide-react";
+import { Menu, MessageCircle, ArrowUpLeft, X } from "lucide-react";
 import EstanzaLogo from "./EstanzaLogo";
+import { WHATSAPP_URL } from "./lib/site";
 
-const WHATSAPP_URL =
-  "https://wa.me/962790899175?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20Estanza%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%AA%D8%AC%D9%87%D9%8A%D8%B2%20%D9%86%D8%B8%D8%A7%D9%85%20%D8%A7%D9%84%D8%AD%D8%AC%D9%88%D8%B2%D8%A7%D8%AA";
-
-const MENU_LINKS = [
-  { label: "المميزات", id: "features", href: "/#features" },
-  { label: "كيف يعمل", id: "how-it-works", href: "/#how-it-works" },
-  { label: "الأسعار", id: "pricing", href: "/#pricing" },
+const links = [
+  { label: "كيف يعمل", href: "/#how-it-works" },
   { label: "أعمالنا", href: "/showcase" },
+  { label: "الأسعار", href: "/#pricing" },
+  { label: "الأسئلة الشائعة", href: "/#faq" },
 ];
+
+function containMenuFocus(event: KeyboardEvent<HTMLDialogElement>) {
+  if (event.key !== "Tab") return;
+  const controls = event.currentTarget.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+  const first = controls[0];
+  const last = controls[controls.length - 1];
+  if (!first || !last) return;
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+function Brand() {
+  return (
+    <Link href="/" className="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-lg" aria-label="Estanza — الرئيسية">
+      <EstanzaLogo className="h-10 w-10 lg:h-11 lg:w-11" />
+      <span className="flex flex-col gap-1">
+        <span className="text-[22px] font-bold leading-none text-[#05221C] lg:text-2xl lg:leading-none" dir="ltr">Estanza</span>
+        <span className="whitespace-nowrap text-[11px] font-medium leading-4 text-[#006f60]">حجز أسهل لمركزك</span>
+      </span>
+    </Link>
+  );
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const update = () => setHasScrolled(window.scrollY > 8);
+    const frame = requestAnimationFrame(update);
+    window.addEventListener("scroll", update, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+    };
   }, []);
 
-  // دالة الضغط على الرابط بدون أي تعليق
-  const handleLinkClick = (id?: string) => {
-    setIsOpen(false);
-    
-    if (id) {
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 50);
-    }
-  };
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (isOpen && !dialog.open) dialog.showModal();
+    if (!isOpen && dialog.open) dialog.close();
+    if (!isOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onResize = () => { if (desktop.matches) setIsOpen(false); };
+    desktop.addEventListener("change", onResize);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      desktop.removeEventListener("change", onResize);
+    };
+  }, [isOpen]);
 
   return (
     <>
-      <header
-        dir="rtl"
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-slate-200/90 py-3.5 shadow-sm"
-            : "bg-white/90 backdrop-blur-md border-b border-slate-100 py-4"
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 flex items-center justify-between">
-          <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
-            <EstanzaLogo className="h-8 w-8 text-[#008774]" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-[#05221C] leading-none">
-                Estanza
-              </span>
-              <span className="text-[10px] font-semibold text-[#008774] mt-1">
-                نظام الحجز الذكي
-              </span>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            {MENU_LINKS.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={() => handleLinkClick(link.id)}
-                className={`transition-colors ${
-                  link.href === "/showcase"
-                    ? "text-[#008774] font-bold hover:text-[#007060]"
-                    : "hover:text-[#008774]"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-[#008774]/30 bg-[#008774]/10 text-[#008774] px-4 py-2 text-xs font-bold hover:bg-[#008774] hover:text-white transition-all shadow-sm"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>تحدث معنا</span>
-            </a>
-
-            <button
-              onClick={() => setIsOpen((prev) => !prev)}
-              aria-label={isOpen ? "إغلاق القائمة" : "فتح القائمة"}
-              className="w-10 h-10 rounded-full flex flex-col items-center justify-center gap-1.5 border border-slate-200 bg-slate-50 hover:bg-[#008774]/10 text-slate-800 transition-all cursor-pointer"
-            >
-              <span
-                className={`h-[2px] rounded-full transition-all duration-300 ${
-                  isOpen
-                    ? "w-4 rotate-45 translate-y-[8px] bg-[#008774]"
-                    : "w-4 bg-slate-800"
-                }`}
-              />
-              <span
-                className={`h-[2px] rounded-full transition-all duration-200 ${
-                  isOpen ? "w-0 opacity-0" : "w-3 bg-slate-800"
-                }`}
-              />
-              <span
-                className={`h-[2px] rounded-full transition-all duration-300 ${
-                  isOpen
-                    ? "w-4 -rotate-45 -translate-y-[8px] bg-[#008774]"
-                    : "w-4 bg-slate-800"
-                }`}
-              />
-            </button>
+      <a href="#main-content" className="skip-to-content">انتقل إلى المحتوى</a>
+      <header data-scrolled={hasScrolled} className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-200 ${hasScrolled ? "border-slate-200 bg-white shadow-[0_2px_8px_rgba(5,34,28,0.04)]" : "border-slate-200/70 bg-white/95"}`} dir="rtl">
+        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-8 lg:px-8">
+          <div className="justify-self-start">
+            <Brand />
           </div>
+          <nav aria-label="القائمة الرئيسية" className="hidden items-center gap-5 whitespace-nowrap text-sm font-semibold text-slate-600 lg:flex xl:gap-7">
+            {links.map((link) => <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center rounded-md px-1.5 transition-colors duration-200 hover:text-[#006f60]">{link.label}</Link>)}
+          </nav>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="navbar" className="hidden min-h-11 items-center gap-2 justify-self-end whitespace-nowrap rounded-full border border-[#008774]/25 bg-emerald-50 px-4 py-2.5 text-sm font-semibold text-[#006f60] transition-colors duration-200 hover:bg-[#006f60] hover:text-white lg:inline-flex">
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />اسألنا على واتساب
+          </a>
+          <button type="button" onClick={() => setIsOpen(true)} aria-label="فتح القائمة" aria-expanded={isOpen} aria-controls="mobile-navigation" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 text-[#05221C] transition-colors duration-200 hover:bg-emerald-50 lg:hidden">
+            <Menu className="h-5 w-5" aria-hidden="true" />
+          </button>
         </div>
       </header>
-
-      {/* قائمة الموبايل: تفتح وتغلق بخفة بدون أن تجمّد الصفحة */}
-      <div
-        dir="rtl"
-        className={`fixed inset-0 z-40 bg-[#F8FAF9] pt-24 pb-8 px-6 flex flex-col justify-between transition-all duration-300 ease-in-out ${
-          isOpen
-            ? "opacity-100 pointer-events-auto translate-y-0"
-            : "opacity-0 pointer-events-none -translate-y-4"
-        }`}
-      >
-        <div className="max-w-xl mx-auto w-full my-auto space-y-6">
-          <div className="flex items-center gap-3 pb-4 border-b border-slate-200/80">
-            <EstanzaLogo className="h-8 w-8 text-[#008774]" />
-            <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-[#05221C] leading-none">
-                Estanza
-              </span>
-              <span className="text-[10px] font-semibold text-[#008774] mt-1">
-                أنظمة الحجز المتطورة
-              </span>
-            </div>
+      <dialog ref={dialogRef} id="mobile-navigation" aria-label="قائمة التنقل" dir="rtl" onKeyDown={containMenuFocus} onCancel={() => setIsOpen(false)} onClose={() => setIsOpen(false)} className="fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto border-0 bg-[#F8FAF9] p-0 text-[#05221C]">
+        <div className="mx-auto flex min-h-full max-w-6xl flex-col px-4 sm:px-6">
+          <div className="flex h-20 shrink-0 items-center justify-between border-b border-slate-200" onClick={(event) => { if ((event.target as HTMLElement).closest("a")) setIsOpen(false); }}>
+            <Brand />
+            <button type="button" autoFocus onClick={() => setIsOpen(false)} aria-label="إغلاق القائمة" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-slate-200 transition-colors duration-200 hover:bg-emerald-50">
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
           </div>
-
-          <nav>
-            <ul className="divide-y divide-slate-200/70">
-              {MENU_LINKS.map((item) => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    onClick={() => handleLinkClick(item.id)}
-                    className={`flex items-center justify-between py-4 text-base sm:text-lg font-bold transition-colors cursor-pointer ${
-                      item.href === "/showcase"
-                        ? "text-[#008774] hover:text-[#007060]"
-                        : "text-[#05221C] hover:text-[#008774]"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronLeft className="w-4 h-4 text-slate-400" />
-                  </Link>
-                </li>
-              ))}
-
-              <li className="pt-2">
-                <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-between py-3.5 text-base sm:text-lg font-bold text-[#008774] hover:text-[#007060]"
-                >
-                  <span>احجز نظامك خلال 24 ساعة</span>
-                  <ArrowUpLeft className="w-5 h-5 text-[#008774]" />
-                </a>
-              </li>
-            </ul>
+          <nav aria-label="قائمة الهاتف" className="my-auto w-full max-w-xl self-center py-6">
+            {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="flex min-h-14 items-center rounded-sm border-b border-slate-200 py-3.5 text-lg font-semibold transition-colors duration-200 hover:text-[#006f60]">{link.label}</Link>)}
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="mobile-menu" onClick={() => setIsOpen(false)} className="mt-6 flex min-h-12 items-center justify-between rounded-xl bg-[#006f60] px-5 py-4 font-bold text-white transition-colors duration-200 hover:bg-[#05221C]">
+              اسألنا على واتساب<ArrowUpLeft className="h-5 w-5" aria-hidden="true" />
+            </a>
           </nav>
+          <p className="border-t border-slate-200 py-5 text-sm text-slate-600">Estanza · عمّان، الأردن</p>
         </div>
-
-        <div className="max-w-xl mx-auto w-full pt-4 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500 font-mono">
-          <span>© {new Date().getFullYear()} Estanza</span>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="text-[#008774] font-bold hover:underline"
-          >
-            تواصل عبر واتساب
-          </a>
-        </div>
-      </div>
+      </dialog>
     </>
   );
 }

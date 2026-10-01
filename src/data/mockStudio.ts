@@ -18,6 +18,7 @@ export interface DayOption {
 export interface TimeSlot {
   id: string;
   label: string;
+  startMinutes?: number;
 }
 
 export interface ClientData {
@@ -33,16 +34,12 @@ export interface ClientData {
   slots: TimeSlot[];
 }
 
-const DEFAULT_DAYS: DayOption[] = [
-  { id: 'today', label: 'اليوم', dateLabel: '٢٦ سبتمبر', slotsLeft: 2 },
-  { id: 'tomorrow', label: 'غداً', dateLabel: '٢٧ سبتمبر', slotsLeft: 4 },
-  { id: 'after', label: 'بعد غد', dateLabel: '٢٨ سبتمبر', slotsLeft: 1 }
-];
+const DEFAULT_DAYS: DayOption[] = [];
 
 const DEFAULT_SLOTS: TimeSlot[] = [
-  { id: 't1', label: '١٠:٠٠ ص' },
-  { id: 't2', label: '٠١:٣٠ م' },
-  { id: 't3', label: '٠٥:٠٠ م' }
+  { id: 't1', label: '١٠:٠٠ ص', startMinutes: 600 },
+  { id: 't2', label: '٠١:٣٠ م', startMinutes: 810 },
+  { id: 't3', label: '٠٥:٠٠ م', startMinutes: 1020 }
 ];
 
 export const clientsData: Record<string, ClientData> = {
@@ -191,10 +188,6 @@ export const clientsData: Record<string, ClientData> = {
   
 };
 
-export const MOCK_STUDIO_DAYS = [
-  { id: 'today', label: 'اليوم', dateLabel: '٢٨ سبتمبر', slotsLeft: 2 },
-  { id: 'tomorrow', label: 'غداً', dateLabel: '٢٩ سبتمبر', slotsLeft: 4 },
-];
 
 export const MOCK_STUDIO_SLOTS = [
   { id: 't1', label: '١٠:٠٠ ص' },

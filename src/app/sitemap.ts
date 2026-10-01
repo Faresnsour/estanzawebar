@@ -1,26 +1,12 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/components/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.estanza.dev";
-
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/showcase`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/wash33`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+    { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
+    { url: `${SITE_URL}/showcase`, changeFrequency: "monthly", priority: 0.9 },
+    ...["wash33", "perfect", "speedcar", "autoSpa", "blitz", "privacy", "terms"].map((path) => ({
+      url: `${SITE_URL}/${path}`, changeFrequency: "monthly" as const, priority: 0.6,
+    })),
   ];
 }

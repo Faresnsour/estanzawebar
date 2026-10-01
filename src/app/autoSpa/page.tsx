@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 
 import { Navbar } from "./_components/navbar";
 import { AutoSpaHero } from "./_components/auto-spa-hero";
@@ -10,11 +10,7 @@ import { Location } from "./_components/location";
 import { AutoSpaFooter } from "./_components/footer";
 import { BookingProvider } from "./_components/booking/booking-sheet";
 
-export const metadata: Metadata = {
-  title: "DOPAMINE Auto Spa | Feel the Shine",
-  description:
-    "تعرّف على خدمات DOPAMINE للعناية بالسيارات في المعبيلة، مسقط، وجهّز طلب موعد عبر واتساب.",
-};
+export const metadata = pageMetadata("DOPAMINE Auto Spa — خدمات وطلب موعد", "خدمات العناية بالسيارات لدى DOPAMINE في مسقط. اختر فئة السيارة والباقة وجهّز طلب موعد عبر واتساب.", "/autoSpa");
 
 export default function AutoSpaPage() {
   return (

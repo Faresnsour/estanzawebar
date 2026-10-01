@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { brand } from "../_data/packages";
 import { BookButton } from "./booking/booking-sheet";
 import s from "../auto-spa.module.css";
@@ -95,11 +96,14 @@ export function AutoSpaHero() {
 
       <div className={s.heroVisual}>
         {brand.heroImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={brand.heroImage}
             alt="سيارة داخل ورشة DOPAMINE"
             className={s.heroImage}
+            width={1440}
+            height={1000}
+            sizes="(max-width: 720px) 100vw, 65vw"
+            loading="eager"
             fetchPriority="high"
           />
         ) : (
