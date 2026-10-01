@@ -39,7 +39,9 @@
   overflow-x: clip;
   background: var(--bg);
   color: var(--text);
-  font-family: "Speed Arabic", Tahoma, Arial, sans-serif;
+  font-family: var(--font-cairo), "Speed Arabic", Tahoma, Arial, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
   line-height: 1.8;
   color-scheme: dark;
 }
@@ -151,7 +153,7 @@
   margin-top: 7px;
   color: var(--copper);
   font-family: monospace;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 1.2px;
 }
 .desktopNav,
@@ -162,7 +164,7 @@
 }
 .desktopNav {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .desktopNav a:hover {
   color: var(--copper);
@@ -176,7 +178,7 @@
   border: 1px solid #614d38;
   background: transparent;
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
 }
 .navBook svg {
   color: var(--copper);
@@ -239,7 +241,7 @@
   gap: 12px;
   color: var(--copper);
   font-family: monospace;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.6;
   letter-spacing: 1.8px;
 }
@@ -253,7 +255,7 @@
   font-size: clamp(48px, 5.4vw, 80px);
   font-weight: 500;
   line-height: 1.38;
-  letter-spacing: -2px;
+  letter-spacing: normal;
 }
 .hero h1 > span {
   color: var(--copper);
@@ -282,7 +284,7 @@
   border: 1px solid var(--copper);
   background: var(--copper);
   color: #17120d !important;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   text-align: start;
   transition:
@@ -306,7 +308,7 @@
   border: 0;
   background: transparent;
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
 }
 .textButton {
   padding: 7px 0;
@@ -321,7 +323,7 @@
   gap: 5px;
   margin-top: 32px;
   color: #96958e;
-  font-size: 10px;
+  font-size: 12px;
 }
 .heroMetadata > span:first-child {
   font-family: monospace;
@@ -339,7 +341,7 @@
 .heroCaption > span {
   color: #d4a77d;
   font-family: monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 3px;
 }
 .heroCaption strong {
@@ -368,7 +370,7 @@
   padding-block: 18px;
   border-top: 1px solid var(--line);
   color: #c0c0b8;
-  font-size: 11px;
+  font-size: 13px;
 }
 .heroBottom > div {
   display: flex;
@@ -403,7 +405,7 @@
   font-size: clamp(33px, 4vw, 55px);
   font-weight: 500;
   line-height: 1.45;
-  letter-spacing: -1.3px;
+  letter-spacing: normal;
 }
 .sectionHeading h2 span,
 .locationCopy h2 span {
@@ -412,12 +414,12 @@
 .sectionHeading > p {
   max-width: 355px;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 2;
 }
 .tintLayout {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   gap: 45px;
   align-items: stretch;
 }
@@ -444,7 +446,7 @@
   flex-shrink: 0;
   color: #999c95;
   font-family: monospace;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 1px;
 }
 .tintName {
@@ -462,7 +464,7 @@
 }
 .tintName > span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .tintRowPrice {
   display: flex;
@@ -479,7 +481,7 @@
 }
 .tintRowPrice small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
 }
 .rowArrow {
   color: #686d67;
@@ -510,7 +512,7 @@
 }
 .detailTop .eyebrow {
   color: #c6bda9;
-  font-size: 9px;
+  font-size: 11px;
 }
 .metric {
   margin-top: 23px;
@@ -528,12 +530,12 @@
   padding-inline-start: 6px;
   font-family: Arial, sans-serif;
   font-size: 34px;
-  letter-spacing: -2px;
+  letter-spacing: normal;
 }
 .metric > p {
   margin-top: 10px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .performanceTrack {
   height: 3px;
@@ -550,7 +552,7 @@
 .tintDescription {
   margin-top: 20px !important;
   color: #c3c1b5;
-  font-size: 12px;
+  font-size: 14px;
 }
 .detailFeatures {
   display: flex;
@@ -561,7 +563,7 @@
   padding-top: 18px;
   border-top: 1px solid var(--line);
   color: #c0c0b4;
-  font-size: 11px;
+  font-size: 13px;
 }
 .detailFeatures > span {
   display: inline-flex;
@@ -575,7 +577,7 @@
 }
 .finePrint {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.9;
 }
 .tintDetail > .finePrint {
@@ -587,13 +589,15 @@
   background: #101212;
 }
 .tableScroll {
+  position: relative;
+  max-width: 100%;
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: #766044 transparent;
 }
 .comparisonTable {
   width: 100%;
-  min-width: 700px;
+  min-width: 740px;
   border-collapse: collapse;
   text-align: start;
 }
@@ -605,7 +609,7 @@
 .comparisonTable thead th {
   padding-top: 0;
   color: #b1b2ab;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
 }
 .comparisonTable th:first-child {
@@ -624,11 +628,11 @@
 }
 .comparisonTable tbody th small {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .comparisonTable td {
   color: #c0c0b9;
-  font-size: 12px;
+  font-size: 14px;
   white-space: nowrap;
 }
 .comparisonTable td > strong {
@@ -640,8 +644,8 @@
 .tableSelect {
   display: grid;
   place-items: center;
-  width: 39px;
-  height: 39px;
+  width: 44px;
+  height: 44px;
   border: 1px solid #4a4638;
   background: transparent;
   color: var(--copper);
@@ -652,7 +656,7 @@
   gap: 7px;
   margin-top: 22px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .processStrip {
   display: grid;
@@ -667,7 +671,7 @@
 .processStrip > div > span {
   color: var(--copper);
   font-family: monospace;
-  font-size: 12px;
+  font-size: 14px;
 }
 .processStrip strong {
   display: block;
@@ -678,11 +682,11 @@
 .processStrip p {
   margin-top: 5px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .locationSection {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 60px;
   align-items: stretch;
 }
@@ -700,7 +704,7 @@
 }
 .locationCopy address > span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .hours {
   display: flex;
@@ -708,7 +712,7 @@
   gap: 20px;
   margin-top: 25px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .hours strong {
   color: var(--text);
@@ -723,7 +727,7 @@
 .locationActions .textLink {
   flex-direction: column;
   gap: 0;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--muted);
 }
 .locationActions .textLink > span {
@@ -764,7 +768,7 @@
   top: 22px;
   color: #afa790;
   font-family: monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 1.5px;
 }
 .locationPin {
@@ -789,7 +793,7 @@
 }
 .locationPin > span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 .mapLink {
   position: absolute;
@@ -802,7 +806,7 @@
   padding-top: 15px;
   border-top: 1px solid var(--line);
   color: #bcb6a7;
-  font-size: 11px;
+  font-size: 13px;
 }
 .mapLink svg {
   color: var(--copper);
@@ -820,7 +824,7 @@
 .footerTop > p {
   color: var(--muted);
   font-family: monospace;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1px;
 }
 .footerTop nav {
@@ -828,7 +832,7 @@
   flex-wrap: wrap;
   gap: 20px;
   color: #c7b89d;
-  font-size: 11px;
+  font-size: 13px;
 }
 .largeBrand strong {
   font-size: 22px;
@@ -851,7 +855,7 @@
   gap: 20px;
   color: var(--muted);
   font-family: monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 1px;
 }
 .mobileCta {
@@ -895,10 +899,10 @@
 }
 .bookingHeader > div > span:last-child {
   color: #bcbfb6;
-  font-size: 12px;
+  font-size: 14px;
 }
 .bookingHeader .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
 }
 .closeButton {
   display: grid;
@@ -928,11 +932,11 @@
   border-bottom: 2px solid #2d3028;
   background: transparent;
   color: #8a8e81;
-  font-size: 11px;
+  font-size: 13px;
 }
 .progressStep > span:first-child {
   font-family: monospace;
-  font-size: 10px;
+  font-size: 12px;
 }
 .progressStep:disabled {
   cursor: default;
@@ -974,7 +978,7 @@
 .stepHeading > p:last-child {
   margin-top: 8px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 .bookingAside {
   display: flex;
@@ -986,7 +990,7 @@
   background: #121510;
 }
 .bookingAside .eyebrow {
-  font-size: 9px;
+  font-size: 11px;
 }
 .asideEmblem {
   position: relative;
@@ -1020,7 +1024,7 @@
 .bookingAside > p:not(.eyebrow):not(.finePrint) {
   margin-top: 8px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 .asideWarranty {
   display: flex;
@@ -1028,7 +1032,7 @@
   gap: 10px;
   margin-top: 20px;
   color: #c4bb9e;
-  font-size: 11px;
+  font-size: 13px;
 }
 .asideWarranty svg {
   color: var(--copper);
@@ -1048,7 +1052,7 @@
   padding: 13px 0;
   border-bottom: 1px solid var(--line);
   color: #b5b7aa;
-  font-size: 10px;
+  font-size: 12px;
 }
 .asidePrice {
   display: flex;
@@ -1060,7 +1064,7 @@
 }
 .asidePrice > span {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .asidePrice > strong {
   color: var(--copper);
@@ -1073,17 +1077,17 @@
 .asidePrice small {
   padding-inline-start: 5px;
   font-family: Tahoma, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
 }
 .bookingAside > .finePrint {
   margin-top: 15px;
 }
 .bookingDisclaimer {
   flex-shrink: 0;
-  padding: 12px 25px;
+  padding: 12px 25px calc(12px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   text-align: center;
 }
 .bookingTintList {
@@ -1117,11 +1121,11 @@
 }
 .bookingTint > span:nth-child(2) small {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .bookingTint em {
   color: #b7b8a9;
-  font-size: 10px;
+  font-size: 12px;
   font-style: normal;
 }
 .bookingTintActive {
@@ -1137,7 +1141,7 @@
   border: 1px solid #66664f;
   border-radius: 50%;
   color: var(--copper);
-  font-size: 12px;
+  font-size: 14px;
 }
 .bookingTintActive .checkCircle,
 .coverageActive .checkCircle {
@@ -1156,12 +1160,12 @@
 }
 .smallNote {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.9;
 }
 .coverageLayout {
   display: grid;
-  grid-template-columns: 0.85fr 1.1fr;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.1fr);
   gap: 25px;
 }
 .carDiagramWrap {
@@ -1177,7 +1181,7 @@
 .carDiagramWrap > p {
   padding: 5px 0 18px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   text-align: center;
   line-height: 1.8;
 }
@@ -1227,12 +1231,12 @@
   gap: 5px;
 }
 .coverageOption strong {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
 }
 .coverageOption small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
 }
 .coverageOption:disabled {
   opacity: 0.45;
@@ -1247,7 +1251,7 @@
 .glassSizeField > label {
   display: block;
   margin-bottom: 8px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .glassSizeField select {
   width: 100%;
@@ -1257,12 +1261,12 @@
   border-radius: 0;
   background: var(--surface);
   color: var(--text);
-  font-size: 11px;
+  font-size: 16px;
 }
 .glassSizeField p {
   margin-top: 10px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.9;
 }
 .formField {
@@ -1271,7 +1275,7 @@
 .formField > label {
   display: block;
   margin-bottom: 8px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .formField input {
   display: block;
@@ -1298,14 +1302,14 @@
 .fieldError {
   margin-top: 8px !important;
   color: #e9ac9c;
-  font-size: 11px;
+  font-size: 13px;
 }
 .privacyNote {
   padding: 14px 17px;
   border-inline-start: 2px solid #6e684f;
   background: #111510;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 2;
 }
 .dateStrip {
@@ -1331,7 +1335,7 @@
 }
 .dateOption > span,
 .dateOption > small {
-  font-size: 10px;
+  font-size: 12px;
 }
 .dateOption strong {
   color: var(--text);
@@ -1355,7 +1359,7 @@
 }
 .timeHeading > span {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .timeGrid {
   display: grid;
@@ -1369,7 +1373,7 @@
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
 }
 .timeOption:disabled {
   opacity: 0.3;
@@ -1387,7 +1391,7 @@
   padding: 15px;
   border: 1px solid var(--line);
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .receipt {
   padding: 25px;
@@ -1415,7 +1419,7 @@
 .receiptHeader small {
   color: var(--muted);
   font-family: monospace;
-  font-size: 8px;
+  font-size: 10px;
 }
 .receiptIcon {
   color: var(--copper);
@@ -1433,7 +1437,7 @@
 }
 .receiptRows dt {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 .receiptRows dd {
   display: flex;
@@ -1442,13 +1446,13 @@
   max-width: 65%;
   margin: 0;
   color: var(--text);
-  font-size: 12px;
+  font-size: 14px;
   text-align: end;
   overflow-wrap: anywhere;
 }
 .receiptRows dd small {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
 }
 .receiptTotal {
   margin-bottom: 10px;
@@ -1469,7 +1473,7 @@
 }
 .receiptTotal dd > span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 .receipt > .finePrint {
   padding-top: 15px;
@@ -1478,13 +1482,47 @@
 .summaryNote {
   margin-top: 18px !important;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 13px;
 }
 .summaryActions {
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
   margin-top: 12px;
+}
+/* Keep flexible children inside their columns at narrow widths and text zoom. */
+.tintName,
+.bookingTint > span:nth-child(2),
+.coverageOption > span:first-child,
+.bookingHeader > div,
+.sectionHeading > div,
+.locationCopy,
+.tableScroll {
+  min-width: 0;
+}
+.tintName,
+.bookingTint > span:nth-child(2),
+.receiptRows,
+.locationCopy {
+  overflow-wrap: anywhere;
+}
+.closeButton,
+.site svg {
+  flex-shrink: 0;
+}
+.desktopNav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.bookingAside {
+  overflow-y: auto;
+}
+.hero h1,
+.sectionHeading h2,
+.locationCopy h2,
+.stepHeading h2 {
+  font-weight: 600;
 }
 @keyframes enter {
   from {
@@ -1562,7 +1600,7 @@
     gap: 15px;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 900px) {
   .navbar,
   .section,
   .footer {
@@ -1629,32 +1667,43 @@
   }
   .mobileMenu nav a {
     padding: 13px 0;
-    font-size: 13px;
+    font-size: 14px;
   }
   .mobileMenu nav a + a {
     border-top: 1px solid var(--line);
   }
   .hero {
+    display: flex;
+    flex-direction: column;
     min-height: 0;
     padding: 38px 6% 0;
   }
   .heroContent {
-    width: 100%;
+    display: contents;
+    animation: none;
   }
+  .heroContent > .eyebrow { order: 1; }
+  .hero h1 { order: 2; }
+  .heroDescription { order: 4; }
+  .heroActions { order: 5; }
+  .heroBottom { order: 6; }
   .hero .eyebrow {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.4px;
   }
   .hero h1 {
     margin-top: 20px;
     font-size: clamp(41px, 10.5vw, 64px);
     line-height: 1.35;
-    letter-spacing: -1.4px;
+    letter-spacing: normal;
   }
   .heroImageWrap {
-    top: 195px;
-    height: 350px;
-    bottom: auto;
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    order: 3;
+    height: clamp(230px, 50vw, 350px);
+    margin: 18px -6.82% 0;
   }
   .heroImage {
     object-position: 29% center;
@@ -1671,8 +1720,8 @@
       linear-gradient(to left, rgba(3, 3, 3, 0.16), transparent);
   }
   .heroDescription {
-    margin-top: 255px !important;
-    font-size: 13px;
+    margin-top: 18px !important;
+    font-size: 14px;
   }
   .heroActions {
     flex-direction: column;
@@ -1698,7 +1747,7 @@
     gap: 15px;
     margin-top: 30px;
     padding-block: 20px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .heroBottom > div {
     width: 100%;
@@ -1722,11 +1771,11 @@
   }
   .sectionHeading h2,
   .locationCopy h2 {
-    font-size: 35px;
+    font-size: clamp(28px, 6vw, 35px);
     margin-top: 16px;
   }
   .sectionHeading > p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .tintLayout {
     grid-template-columns: 1fr;
@@ -1741,13 +1790,13 @@
     font-size: clamp(17px, 5vw, 23px);
   }
   .tintName > span {
-    font-size: 11px;
+    font-size: 13px;
   }
   .tintRowPrice > strong {
     font-size: 26px;
   }
   .tintRowPrice small {
-    font-size: 8px;
+    font-size: 10px;
   }
   .tintRowActive {
     padding-inline: 12px;
@@ -1762,10 +1811,10 @@
     font-size: 85px;
   }
   .detailFeatures {
-    font-size: 10px;
+    font-size: 12px;
   }
   .comparisonTable {
-    min-width: 680px;
+    min-width: 740px;
   }
   .comparisonTable :where(th, td) {
     padding-inline: 12px;
@@ -1778,7 +1827,7 @@
     font-size: 15px;
   }
   .processStrip p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .locationSection {
     grid-template-columns: 1fr;
@@ -1789,7 +1838,7 @@
   }
   .hours {
     gap: 12px;
-    font-size: 11px;
+    font-size: 13px;
   }
   .footer {
     padding-block: 35px calc(110px + env(safe-area-inset-bottom));
@@ -1799,7 +1848,7 @@
     gap: 22px;
   }
   .footerTop > p {
-    font-size: 8px;
+    font-size: 10px;
   }
   .footerTop nav {
     width: 100%;
@@ -1810,7 +1859,7 @@
   }
   .footerBottom {
     gap: 10px;
-    font-size: 8px;
+    font-size: 10px;
   }
   .mobileCta {
     position: fixed;
@@ -1834,7 +1883,7 @@
   }
   .mobileCta > span > small {
     color: var(--muted);
-    font-size: 9px;
+    font-size: 11px;
   }
   .mobileCta > span > strong {
     color: var(--text);
@@ -1845,16 +1894,16 @@
   .mobileCta > span > strong > span {
     color: var(--muted);
     font-family: Tahoma, sans-serif;
-    font-size: 9px;
+    font-size: 11px;
   }
   .mobileCta .primaryButton {
     min-height: 49px;
     padding: 11px 17px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .bookingDialog {
     width: 100%;
-    height: 100svh;
+    height: 100dvh;
     margin: 0;
     border: 0;
     box-shadow: none;
@@ -1864,7 +1913,7 @@
   }
   .bookingHeader .eyebrow {
     max-width: 250px;
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1px;
   }
   .bookingProgress {
@@ -1876,7 +1925,7 @@
     align-items: center;
     gap: 3px;
     min-height: 58px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .bookingAside {
     display: none;
@@ -1888,7 +1937,7 @@
     font-size: 26px;
   }
   .stepHeading > p:last-child {
-    font-size: 11px;
+    font-size: 13px;
   }
   .bookingTint {
     padding: 20px 9px;
@@ -1901,7 +1950,7 @@
     font-size: clamp(15px, 4.5vw, 19px);
   }
   .bookingTint em {
-    font-size: 9px;
+    font-size: 11px;
   }
   .bookingTint .tintRowPrice > strong {
     font-size: 25px;
@@ -1912,7 +1961,7 @@
   }
   .bookingDisclaimer {
     padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
-    font-size: 8px;
+    font-size: 10px;
   }
   .coverageLayout {
     grid-template-columns: 1fr;
@@ -1931,14 +1980,14 @@
     min-height: 78px;
   }
   .coverageOption strong {
-    font-size: 13px;
+    font-size: 14px;
   }
   .coverageOption small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .glassSizeField select {
     min-height: 50px;
-    font-size: 12px;
+    font-size: 16px;
   }
   .formRow {
     grid-template-columns: 1fr;
@@ -1965,7 +2014,7 @@
     min-height: 52px;
     gap: 17px;
     padding-inline: 16px;
-    font-size: 12px;
+    font-size: 14px;
   }
   .receipt {
     padding: 20px 17px;
@@ -1977,14 +2026,103 @@
     font-size: 6px;
   }
   .receiptRows dt {
-    font-size: 10px;
+    font-size: 12px;
   }
   .receiptRows dd {
-    font-size: 11px;
+    font-size: 13px;
   }
   .receiptTotal strong {
     font-size: 35px;
   }
+}
+@media (min-width: 901px) and (max-width: 1050px) {
+  .navbar { gap: 16px; }
+  .desktopNav { gap: 14px; }
+  .navBook { gap: 12px; padding-inline: 12px; }
+  .heroContent { width: min(560px, 65%); }
+  .tintLayout { grid-template-columns: 1fr; }
+  .tintDetail { max-width: 100%; }
+  .footerTop { flex-wrap: wrap; }
+  .bookingAside { display: none; }
+}
+@media (max-width: 900px) {
+  .comparisonTable {
+    display: block;
+    min-width: 0;
+  }
+  .comparisonTable thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .comparisonTable tbody {
+    display: grid;
+    gap: 16px;
+  }
+  .comparisonTable tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    padding: 18px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .comparisonTable tbody th {
+    grid-column: 1 / -1;
+    padding: 0 0 14px;
+  }
+  .comparisonTable tbody td {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+    padding: 14px 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .comparisonTable td[data-label]::before {
+    content: attr(data-label);
+    flex-basis: 100%;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .comparisonTable tbody td:last-child {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    padding-bottom: 0;
+    border: 0;
+  }
+  .comparisonTable tbody th > span { font-size: 20px; }
+}
+@media (max-width: 480px) {
+  .processStrip { grid-template-columns: 1fr; gap: 8px; }
+  .processStrip > div { padding-block: 16px; }
+  .processStrip strong { margin-top: 8px; font-size: 18px; }
+  .processStrip p { font-size: 14px; }
+  .tintRow { gap: 10px; }
+  .tintName > strong { font-size: clamp(16px, 4.8vw, 22px); }
+  .tintName > span { font-size: 13px; }
+  .tintRowPrice > strong { font-size: 24px; }
+  .footerBottom { flex-wrap: wrap; }
+  .hours { flex-wrap: wrap; }
+  .mobileCta { gap: 10px; }
+  .mobileCta .primaryButton { gap: 12px; padding-inline: 14px; }
+  .mobileCta > span { min-width: 0; }
+  .bookingHeader { gap: 12px; }
+  .progressStep { font-size: 12px; }
+  .bookingTint { flex-wrap: wrap; }
+  .bookingTint > span:nth-child(2) { flex-basis: 55%; }
+  .timeGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .timeHeading { flex-wrap: wrap; gap: 8px; }
+  .summaryActions > .primaryButton { width: 100%; gap: 12px; }
+}
+@media (max-height: 600px) and (orientation: landscape) {
+  .bookingDialog { width: 100%; height: 100dvh; margin: 0; border: 0; }
+  .bookingHeader { padding-block: 8px; }
+  .bookingProgress .progressStep { min-height: 44px; }
+  .bookingDisclaimer { padding-block: 6px; }
+  .bookingAside { display: none; }
 }
 @media (max-width: 360px) {
   .brand small {

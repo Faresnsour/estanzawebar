@@ -31,7 +31,7 @@ export function Comparison() {
         className={s.tableScroll}
         tabIndex={0}
         role="region"
-        aria-label="جدول مقارنة التظليل، اسحب أفقيًا على الهاتف"
+        aria-label="مقارنة خيارات التظليل"
       >
         <table className={s.comparisonTable}>
           <caption className={s.srOnly}>
@@ -56,15 +56,15 @@ export function Comparison() {
                   <span dir="ltr">{item.english}</span>
                   <small>{item.shortName}</small>
                 </th>
-                <td>
+                <td data-label="العزل المعلن">
                   {item.id === "original-3m" ? "حتى " : ""}
                   {item.heat}%
                 </td>
-                <td>{item.warranty}</td>
-                <td>
+                <td data-label="الكفالة">{item.warranty}</td>
+                <td data-label="4 شبابيك">
                   <strong>{item.prices["four-windows"]}</strong> د.أ
                 </td>
-                <td>
+                <td data-label="أمامي / خلفي*">
                   {item.prices.front === null
                     ? "يؤكد المركز السعر"
                     : `${item.prices.front} د.أ`}
