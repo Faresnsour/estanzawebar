@@ -1,10 +1,11 @@
+"use client";
+import { useI18n } from "@/i18n/LocaleProvider";
 import { brand } from "../_data/packages";
 import { hasWhatsAppNumber } from "../_lib/whatsapp";
 import s from "../auto-spa.module.css";
-
 export function AutoSpaFooter() {
-  return (
-    <footer className={s.footer}>
+    const { t: tr } = useI18n();
+    return (<footer className={s.footer}>
       <div className={s.footerTop}>
         <a href="#home" className={s.brand}>
           <span dir="ltr">
@@ -15,26 +16,16 @@ export function AutoSpaFooter() {
 
         <p dir="ltr">Feel the Shine.</p>
 
-        <nav aria-label="روابط التواصل">
-          <a
-            href={brand.instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <nav aria-label={tr("autoSpa.contact_links")}>
+          <a href={brand.instagramUrl} target="_blank" rel="noopener noreferrer">
             Instagram ↗
           </a>
 
-          {hasWhatsAppNumber() && (
-            <a
-              href={`https://wa.me/${brand.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+          {tr(hasWhatsAppNumber() && (<a href={`https://wa.me/${brand.whatsappNumber}`} target="_blank" rel="noopener noreferrer">
               WhatsApp ↗
-            </a>
-          )}
+            </a>))}
 
-          <a href="#location">الموقع ↗</a>
+          <a href="#location">{tr("autoSpa.location")}</a>
         </nav>
       </div>
 
@@ -46,6 +37,5 @@ export function AutoSpaFooter() {
         <span>© DOPAMINE Auto Spa</span>
         <span dir="ltr">DESIGNED AROUND THE DETAILS.</span>
       </div>
-    </footer>
-  );
+    </footer>);
 }

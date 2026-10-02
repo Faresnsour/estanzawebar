@@ -1,33 +1,21 @@
-import { Clock, MessageCircle, CalendarX2 } from "lucide-react";
-
+"use client";
+import s from "./estanza.module.css";
+import { source } from "@/i18n/messages";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { Check } from "lucide-react";
 const problems = [
-  { icon: Clock, badge: "الحجز خارج أوقات العمل", title: "عميلك يحاول يحجز والمركز مغلق", description: "العميل يشوف شغلك بالليل، والموعد ينتظر رد الفريق.", impact: "صفحة حجز متاحة في أي وقت." },
-  { icon: MessageCircle, badge: "محادثات متكررة", title: "نفس أسئلة الحجز تتكرر كل يوم", description: "كم السعر؟ كم بتاخذ وقت؟ شو المواعيد؟", impact: "اجمع بيانات الحجز من البداية." },
-  { icon: CalendarX2, badge: "تعارض المواعيد", title: "موعدان لنفس الوقت", description: "المواعيد موزعة بين المحادثات.", impact: "مواعيد منظمة حسب إعدادات المركز." },
+    { badge: source("problems.after_hours_enquiries"), title: source("problems.customers_want_to_book_while_you_re"), description: source("problems.they_find_your_work_at_night_then"), impact: source("problems.a_booking_page_they_can_use_anytime") },
+    { badge: source("problems.repeat_conversations"), title: source("problems.the_same_booking_questions_every_day"), description: source("problems.how_much_how_long_what_times_are"), impact: source("problems.collect_the_details_from_the_start") },
+    { badge: source("problems.scheduling_conflicts"), title: source("problems.two_requests_for_the_same_time"), description: source("problems.appointment_details_are_scattered_across_chats"), impact: source("problems.organised_requests_that_fit_your_setup") },
 ];
-
 export default function ProblemSection() {
-  return (
-    <section id="features" aria-labelledby="problems-title" className="border-y border-slate-200/70 bg-white py-14 sm:py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div data-reveal className="mb-8 max-w-2xl">
-          <p className="mb-3 text-sm font-bold text-[#006f60]">مشاكل الحجز اليومية</p>
-          <h2 id="problems-title" className="text-3xl font-extrabold leading-snug text-[#05221C] sm:text-4xl">كم محادثة تحتاج لتثبّت موعدًا واحدًا؟</h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3 lg:gap-6">
-          {problems.map((item) => (
-            <article key={item.badge} data-reveal className="group flex flex-col rounded-2xl border border-slate-200 bg-[#F8FAF9] p-5 shadow-sm transition-[transform,border-color,box-shadow] duration-200 hover:border-[#008774]/30 motion-safe:hover:-translate-y-0.5 sm:p-6">
-              <div className="mb-4 flex items-center gap-3">
-                <item.icon className="h-5 w-5 shrink-0 text-[#006f60]" aria-hidden="true" />
-                <span className="text-xs font-semibold text-slate-600">{item.badge}</span>
-              </div>
-              <h3 className="text-xl font-bold leading-snug text-[#05221C]">{item.title}</h3>
-              <p className="mb-4 mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
-              <p className="mt-auto border-t border-[#008774]/15 pt-3 text-sm font-semibold leading-6 text-[#006f60]">{item.impact}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  const { t: tr } = useI18n();
+  return <section id="features" aria-labelledby="problems-title" className={`${s.system} ${s.section} ${s.problem}`}>
+    <div className={`${s.container} ${s.split}`}>
+      <div><p className={s.sectionLabel}>{tr("problems.everyday_booking_problems")}</p><h2 id="problems-title" className={s.sectionTitle}>{tr("problems.how_many_messages_does_one_appointment_take")}</h2></div>
+      <div className={s.problemRows}>{problems.map((item) => <article key={item.badge} className={s.problemRow}>
+        <h3>{tr(item.title)}</h3><p>{tr(item.description)}</p><p className={s.impact}><Check aria-hidden="true" />{tr(item.impact)}</p>
+      </article>)}</div>
+    </div>
+  </section>;
 }

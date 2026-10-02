@@ -240,6 +240,17 @@
   color: var(--accent);
 }
 
+:global(html[dir="ltr"]) .heroTitle,
+:global(html[dir="ltr"]) .displayTitle {
+  text-align: left;
+}
+
+:global(html[dir="ltr"]) .heroVisual::after {
+  background:
+    linear-gradient(to right, #0b0d11 3%, rgba(11, 13, 17, 0.72) 35%, transparent 75%),
+    linear-gradient(to top, #0b0d11 1%, transparent 40%);
+}
+
 .heroCopy {
   max-width: 415px;
   margin-top: 35px;

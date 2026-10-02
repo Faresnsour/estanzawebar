@@ -1,145 +1,82 @@
-import {
-  brand,
-  getRecommendedPackage,
-  getVehicle,
-  packageOptions,
-  prices,
-  type StepProps,
-  type Vehicle,
-} from "../../_data/packages";
-
+"use client";
+import { useI18n } from "@/i18n/LocaleProvider";
+import { brand, getRecommendedPackage, getVehicle, packageOptions, prices, type StepProps, type Vehicle, } from "../../_data/packages";
 import s from "../../auto-spa.module.css";
+export function PackageStep({ draft, onChange, onNext, onBack, }: StepProps) {
+    const { t: tr } = useI18n();
+    const recommended = getRecommendedPackage(draft.goal);
+    if (!draft.vehicle) {
+        return (<div className={s.stepHeading}>
+        <h2 data-step-heading tabIndex={-1}>{tr("autoSpa.please_choose_your_vehicle_type_first")}</h2>
 
-export function PackageStep({
-  draft,
-  onChange,
-  onNext,
-  onBack,
-}: StepProps) {
-  const recommended = getRecommendedPackage(draft.goal);
-
-  if (!draft.vehicle) {
-    return (
-      <div className={s.stepHeading}>
-        <h2 data-step-heading tabIndex={-1}>اختر نوع السيارة أولًا.</h2>
-
-        <button type="button" className={s.textButton} onClick={onBack}>
-          العودة لاختيار السيارة
-        </button>
-      </div>
-    );
-  }
-
-  const vehicle: Vehicle = draft.vehicle;
-  const selectedVehicle = getVehicle(vehicle);
-
-  return (
-    <>
+        <button type="button" className={s.textButton} onClick={onBack}>{tr("autoSpa.back_to_vehicle_selection")}</button>
+      </div>);
+    }
+    const vehicle: Vehicle = draft.vehicle;
+    const selectedVehicle = getVehicle(vehicle);
+    return (<>
       <div className={s.stepHeading}>
         <p className={s.eyebrow} dir="ltr">02 / YOUR LEVEL OF CARE</p>
-        <h2 data-step-heading tabIndex={-1}>العناية على مقاسك.</h2>
-        <p>راجع ما تتضمنه كل باقة، ثم اختر المناسب.</p>
+        <h2 data-step-heading tabIndex={-1}>{tr("autoSpa.care_that_fits_your_car")}</h2>
+        <p>{tr("autoSpa.see_what_s_included_in_each_package")}</p>
       </div>
 
-      <div className={s.vehicleToggle} aria-label="نوع السيارة">
-        {(["sedan", "suv"] as const).map((value) => (
-          <button
-            key={value}
-            type="button"
-            className={vehicle === value ? s.toggleActive : ""}
-            aria-pressed={vehicle === value}
-            onClick={() => onChange({ vehicle: value })}
-          >
-            {value === "sedan" ? "صالون" : "دفع رباعي"}
-          </button>
-        ))}
+      <div className={s.vehicleToggle} aria-label={tr("autoSpa.vehicle_type")}>
+        {(["sedan", "suv"] as const).map((value) => (<button key={value} type="button" className={vehicle === value ? s.toggleActive : ""} aria-pressed={vehicle === value} onClick={() => onChange({ vehicle: value })}>
+            {tr(value === "sedan" ? tr("autoSpa.sedan") : tr("autoSpa.suv"))}
+          </button>))}
       </div>
 
-      {brand.demoPricing && (
-        <p className={s.demoNotice}>
-          الأسعار والبنود التالية تجريبية، وتحتاج اعتماد المركز.
-        </p>
-      )}
+      {tr(brand.demoPricing && (<p className={s.demoNotice}>{tr("autoSpa.the_following_prices_and_inclusions_are_illustrative")}</p>))}
 
       <div className={s.bookingPackageList}>
         {packageOptions.map((item, index) => {
-          const selected = draft.packageId === item.id;
-
-          return (
-            <article
-              key={item.id}
-              className={`${s.bookingPackage} ${
-                selected ? s.selectedPackage : ""
-              }`}
-            >
-              <button
-                type="button"
-                className={s.packageSelectButton}
-                aria-pressed={selected}
-                onClick={() => onChange({ packageId: item.id })}
-              >
+            const selected = draft.packageId === item.id;
+            return (<article key={item.id} className={`${s.bookingPackage} ${selected ? s.selectedPackage : ""}`}>
+              <button type="button" className={s.packageSelectButton} aria-pressed={selected} onClick={() => onChange({ packageId: item.id })}>
                 <span className={s.rowNumber}>
-                  {String(index + 1).padStart(2, "0")}
+                  {tr(String(index + 1).padStart(2, "0"))}
                 </span>
 
                 <span className={s.packageName}>
-                  <strong dir="ltr">{item.english}</strong>
-                  <span>{item.title}</span>
+                  <strong dir="ltr">{tr(item.english)}</strong>
+                  <span>{tr(item.title)}</span>
 
-                  {recommended === item.id && (
-                    <small className={s.recommendation}>
-                      مقترحة حسب اختيارك
-                    </small>
-                  )}
+                  {tr(recommended === item.id && (<small className={s.recommendation}>{tr("autoSpa.suggested_for_you")}</small>))}
                 </span>
 
-                <span
-                  key={`${vehicle}-${item.id}`}
-                  className={s.bookingPrice}
-                >
-                  <strong>{prices[vehicle][item.id]}</strong>
+                <span key={`${vehicle}-${item.id}`} className={s.bookingPrice}>
+                  <strong>{tr(prices[vehicle][item.id])}</strong>
                   <span dir="ltr">OMR</span>
                 </span>
 
                 <span className={s.selectionCircle} aria-hidden="true">
-                  {selected ? "✓" : ""}
+                  {tr(selected ? "✓" : "")}
                 </span>
               </button>
 
               <details className={s.packageInclusions}>
-                <summary>ما الذي تشمله؟</summary>
+                <summary>{tr("autoSpa.what_s_included")}</summary>
 
-                <p>{item.description}</p>
+                <p>{tr(item.description)}</p>
 
                 <ul className={s.includedList}>
-                  {item.services.map((service) => (
-                    <li key={service}>{service}</li>
-                  ))}
+                  {item.services.map((service) => (<li key={service}>{tr(service)}</li>))}
                 </ul>
               </details>
-            </article>
-          );
+            </article>);
         })}
       </div>
 
       <div className={s.stepFooter}>
-        <button type="button" className={s.textButton} onClick={onBack}>
-          رجوع
-        </button>
+        <button type="button" className={s.textButton} onClick={onBack}>{tr("autoSpa.back")}</button>
 
         <div className={s.stepFooterAction}>
-          <span className={s.smallNote}>{selectedVehicle?.title}</span>
+          <span className={s.smallNote}>{tr(selectedVehicle?.title)}</span>
 
-          <button
-            type="button"
-            className={s.primaryButton}
-            disabled={!draft.packageId}
-            onClick={onNext}
-          >
-            اختر الموعد <span aria-hidden="true">↗</span>
+          <button type="button" className={s.primaryButton} disabled={!draft.packageId} onClick={onNext}>{tr("autoSpa.choose_an_appointment")}{" "}<span aria-hidden="true">↗</span>
           </button>
         </div>
       </div>
-    </>
-  );
+    </>);
 }

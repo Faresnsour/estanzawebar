@@ -1,3 +1,4 @@
+import { source } from "@/i18n/messages";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ProofSection from "@/components/ProofSection";
@@ -7,29 +8,24 @@ import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
-import LandingMotion from "@/components/LandingMotion";
+import s from "@/components/estanza.module.css";
 import { pageMetadata } from "@/lib/metadata";
-
-export const metadata = {
-  ...pageMetadata("Estanza | نظام حجز لمراكز السيارات في الأردن", "صفحة حجز بهوية مركزك تعرض الخدمات والأسعار وتجمع بيانات العميل والسيارة في طلب مرتب عبر واتساب. بدون تطبيق أو حساب، وباقة تبدأ بـ130 دينار.", "/"),
-  title: { absolute: "Estanza | نظام حجز لمراكز السيارات في الأردن" },
-};
-
+export async function generateMetadata() {
+    const result = await pageMetadata(source("site.estanza_booking_systems_for_automotive_centres_in"), source("site.a_branded_booking_page_for_your_automotive"), "/");
+    return { ...result, title: { absolute: result.openGraph?.title } };
+}
 export default function Home() {
-  return (
-    <>
+    return (<>
       <Navbar />
-      <main id="main-content" className="landing-page min-h-screen bg-[#F8FAF9] pt-20 text-[#05221C]" dir="rtl">
+      <main id="main-content" className={`${s.system} ${s.page}`}>
         <Hero />
+        <ProofSection />
         <ProblemSection />
         <HowItWorks />
-        <ProofSection />
         <PricingSection />
         <FAQSection />
         <FinalCTA />
       </main>
-      <LandingMotion />
       <Footer />
-    </>
-  );
+    </>);
 }

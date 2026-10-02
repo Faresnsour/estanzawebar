@@ -1,58 +1,52 @@
+"use client";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useI18n } from "@/i18n/LocaleProvider";
 import { speedCar } from "../_data/services";
 import { BookButton } from "./booking/booking-flow";
 import { ArrowIcon } from "./icons";
 import s from "../speedcar.module.css";
-
-export function Brand({ large = false }: { large?: boolean }) {
-  return (
-    <a
-      href="#home"
-      className={`${s.brand} ${large ? s.largeBrand : ""}`}
-      aria-label="Speed Car Jo الرئيسية"
-    >
+export function Brand({ large = false }: {
+    large?: boolean;
+}) {
+    const { t: tr } = useI18n();
+    return (<a href="#home" className={`${s.brand} ${large ? s.largeBrand : ""}`} aria-label={tr("speedCar.speed_car_jo_home")}>
       <span className={s.logoCrop}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={speedCar.logo} alt="" width="1140" height="540" />
+        <img src={speedCar.logo} alt="" width="1140" height="540"/>
       </span>
       <span dir="ltr">
         <strong>SPEED CAR</strong>
         <small>JO / WINDOW FILM STUDIO</small>
       </span>
-    </a>
-  );
+    </a>);
 }
-
 export function Navbar() {
-  return (
-    <>
-      <a className={s.skipLink} href="#speedcar-main">
-        انتقل إلى المحتوى
-      </a>
+    const { t: tr } = useI18n();
+    return (<>
+      <a className={s.skipLink} href="#speedcar-main">{tr("autoSpa.skip_to_content")}</a>
       <header className={s.navbar}>
         <Brand />
-        <nav className={s.desktopNav} aria-label="القائمة الرئيسية">
-          <a href="#tints">خيارات التظليل</a>
-          <a href="#compare">قارن واختر</a>
-          <a href="#location">زيارة المركز</a>
+        <nav className={s.desktopNav} aria-label={tr("autoSpa.main_navigation")}>
+          <a href="#tints">{tr("speedCar.window_films")}</a>
+          <a href="#compare">{tr("speedCar.compare_options")}</a>
+          <a href="#location">{tr("speedCar.visit_us")}</a>
         </nav>
-        <div className={s.navActions}>
-          <BookButton className={s.navBook}>
-            طلب موعد <ArrowIcon />
+        <div className={s.navActions}><LanguageSwitcher />
+          <BookButton className={s.navBook}>{tr("autoSpa.request_appointment")}{" "}<ArrowIcon />
           </BookButton>
           <details className={s.mobileMenu}>
-            <summary aria-label="القائمة">
+            <summary aria-label={tr("speedCar.menu")}>
               <span />
               <span />
             </summary>
-            <nav aria-label="قائمة الهاتف">
-              <a href="#tints">خيارات التظليل</a>
-              <a href="#compare">قارن واختر</a>
-              <a href="#location">زيارة المركز</a>
-              <a href={`tel:${speedCar.phone}`}>اتصل بالمركز</a>
+            <nav aria-label={tr("speedCar.mobile_navigation")}>
+              <a href="#tints">{tr("speedCar.window_films")}</a>
+              <a href="#compare">{tr("speedCar.compare_options")}</a>
+              <a href="#location">{tr("speedCar.visit_us")}</a>
+              <a href={`tel:${speedCar.phone}`}>{tr("speedCar.call_the_centre")}</a>
             </nav>
           </details>
         </div>
       </header>
-    </>
-  );
+    </>);
 }

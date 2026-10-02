@@ -23,6 +23,27 @@ body {
   font-family: var(--font-cairo), system-ui, sans-serif;
 }
 
+.language-switcher {
+  display: inline-flex;
+  min-height: 44px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: opacity 180ms ease;
+}
+.language-switcher:hover { opacity: 0.75; }
+html[lang="en"] body { letter-spacing: 0; }
+html[dir="ltr"] .directional-icon { transform: scaleX(-1); }
+html[dir="ltr"] .skip-to-content { right: auto; left: 12px; }
+
 :where(a, button, input, select, textarea, summary):focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;

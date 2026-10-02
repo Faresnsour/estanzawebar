@@ -1,70 +1,45 @@
+"use client";
+import { source } from "@/i18n/messages";
+import { useI18n } from "@/i18n/LocaleProvider";
 import { useState, type MouseEvent } from "react";
-
-import {
-  brand,
-  formatDate,
-  formatTime,
-  getPackage,
-  getPrice,
-  getVehicle,
-  isRequestTimeValid,
-  type BookingDraft,
-} from "../../_data/packages";
-
-import {
-  createWhatsAppUrl,
-  hasWhatsAppNumber,
-} from "../../_lib/whatsapp";
-
+import { brand, formatDate, formatTime, getPackage, getPrice, getVehicle, isRequestTimeValid, type BookingDraft, } from "../../_data/packages";
+import { createWhatsAppUrl, hasWhatsAppNumber, } from "../../_lib/whatsapp";
 import s from "../../auto-spa.module.css";
-
 type Props = {
-  draft: BookingDraft;
-  onBack: () => void;
-  onReset: () => void;
-  onEditSchedule: () => void;
+    draft: BookingDraft;
+    onBack: () => void;
+    onReset: () => void;
+    onEditSchedule: () => void;
 };
-
-export function ConfirmationStep({
-  draft,
-  onBack,
-  onReset,
-  onEditSchedule,
-}: Props) {
-  const [error, setError] = useState("");
-
-  const selectedPackage = getPackage(draft.packageId);
-  const selectedVehicle = getVehicle(draft.vehicle);
-  const price = getPrice(draft);
-  const whatsappReady = hasWhatsAppNumber();
-  const url = createWhatsAppUrl(draft);
-
-  function validateBeforeOpening(event: MouseEvent<HTMLAnchorElement>) {
-    if (!isRequestTimeValid(draft.date, draft.time)) {
-      event.preventDefault();
-      setError("الوقت المختار مضى. عدّل الموعد قبل إرسال الطلب.");
-      return;
+export function ConfirmationStep({ draft, onBack, onReset, onEditSchedule, }: Props) {
+    const { t: tr, locale } = useI18n();
+    const [error, setError] = useState("");
+    const selectedPackage = getPackage(draft.packageId);
+    const selectedVehicle = getVehicle(draft.vehicle);
+    const price = getPrice(draft);
+    const whatsappReady = hasWhatsAppNumber();
+    const url = createWhatsAppUrl(draft, locale);
+    function validateBeforeOpening(event: MouseEvent<HTMLAnchorElement>) {
+        if (!isRequestTimeValid(draft.date, draft.time)) {
+            event.preventDefault();
+            setError(source("autoSpa.your_chosen_time_has_passed_please_update"));
+            return;
+        }
+        const freshUrl = createWhatsAppUrl(draft, locale);
+        if (!freshUrl) {
+            event.preventDefault();
+            setError(source("autoSpa.please_check_your_details_and_contact_number"));
+            return;
+        }
+        // تحديث الرابط لحظة الضغط بعد إعادة التحقق من الوقت.
+        event.currentTarget.href = freshUrl;
+        setError("");
     }
-
-    const freshUrl = createWhatsAppUrl(draft);
-
-    if (!freshUrl) {
-      event.preventDefault();
-      setError("راجع بيانات الطلب ورقم التواصل قبل المتابعة.");
-      return;
-    }
-
-    // تحديث الرابط لحظة الضغط بعد إعادة التحقق من الوقت.
-    event.currentTarget.href = freshUrl;
-    setError("");
-  }
-
-  return (
-    <>
+    return (<>
       <div className={s.stepHeading}>
         <p className={s.eyebrow} dir="ltr">YOUR CARE REQUEST</p>
-        <h2 data-step-heading tabIndex={-1}>كل التفاصيل أمامك.</h2>
-        <p>راجع الطلب، ثم افتح واتساب لإرساله إلى المركز.</p>
+        <h2 data-step-heading tabIndex={-1}>{tr("autoSpa.everything_in_one_place")}</h2>
+        <p>{tr("autoSpa.review_your_request_then_open_whatsapp_to")}</p>
       </div>
 
       <div className={s.summaryReceipt}>
@@ -79,114 +54,71 @@ export function ConfirmationStep({
 
         <dl className={s.summaryList}>
           <div>
-            <dt>السيارة</dt>
+            <dt>{tr("autoSpa.vehicle")}</dt>
             <dd>
-              {selectedVehicle?.title}
-              {draft.carModel && <span>{draft.carModel}</span>}
+              {tr(selectedVehicle?.title)}
+              {tr(draft.carModel && <span>{tr(draft.carModel)}</span>)}
             </dd>
           </div>
 
           <div>
-            <dt>العناية</dt>
-            <dd>{selectedPackage?.title}</dd>
+            <dt>{tr("autoSpa.care")}</dt>
+            <dd>{tr(selectedPackage?.title)}</dd>
           </div>
 
           <div className={s.summaryPriceRow}>
-            <dt>{brand.demoPricing ? "السعر التجريبي" : "السعر"}</dt>
+            <dt>{tr(brand.demoPricing ? tr("autoSpa.sample_price") : tr("autoSpa.price"))}</dt>
             <dd>
-              <strong>{price ?? "—"}</strong>
-              <span>ريال عُماني</span>
+              <strong>{tr(price ?? "—")}</strong>
+              <span>{tr("autoSpa.omr")}</span>
             </dd>
           </div>
 
           <div>
-            <dt>اليوم المطلوب</dt>
-            <dd>{formatDate(draft.date)}</dd>
+            <dt>{tr("autoSpa.requested_day")}</dt>
+            <dd>{tr(formatDate(draft.date, locale))}</dd>
           </div>
 
           <div>
-            <dt>الوقت المطلوب</dt>
-            <dd>{formatTime(draft.time)}</dd>
+            <dt>{tr("autoSpa.requested_time")}</dt>
+            <dd>{tr(formatTime(draft.time, locale))}</dd>
           </div>
 
           <div>
-            <dt>الاسم</dt>
-            <dd>{draft.name}</dd>
+            <dt>{tr("autoSpa.name")}</dt>
+            <dd>{tr(draft.name)}</dd>
           </div>
 
           <div>
-            <dt>رقم التواصل</dt>
-            <dd dir="ltr">{draft.phone}</dd>
+            <dt>{tr("autoSpa.contact_number")}</dt>
+            <dd dir="ltr">{tr(draft.phone)}</dd>
           </div>
         </dl>
 
         <p className={s.receiptNote}>
-          {brand.demoPricing
-            ? "الأسعار والبنود تجريبية. يؤكد المركز السعر والخدمة وتوفر الموعد."
-            : "يراجع المركز الطلب ويؤكد توفر الموعد وتفاصيل الخدمة."}
+          {tr(brand.demoPricing
+            ? tr("autoSpa.prices_and_inclusions_are_illustrative_the_centre") : tr("autoSpa.the_centre_will_review_your_request_and"))}
         </p>
       </div>
 
-      {!whatsappReady && (
-        <p className={s.demoNotice} role="status">
-          إرسال الطلب غير متاح حاليًا. يمكنك التواصل مع المركز عبر حسابه.
-        </p>
-      )}
+      {tr(!whatsappReady && (<p className={s.demoNotice} role="status">{tr("autoSpa.requests_are_currently_unavailable_you_can_contact")}</p>))}
 
-      <p className={s.fieldError} role="status">{error}</p>
+      <p className={s.fieldError} role="status">{tr(error)}</p>
 
-      {error && (
-        <button
-          type="button"
-          className={s.textButton}
-          onClick={onEditSchedule}
-        >
-          تعديل الموعد
-        </button>
-      )}
+      {tr(error && (<button type="button" className={s.textButton} onClick={onEditSchedule}>{tr("autoSpa.change_appointment")}</button>))}
 
       <div className={s.stepFooter}>
-        <button type="button" className={s.textButton} onClick={onBack}>
-          تعديل بياناتي
-        </button>
+        <button type="button" className={s.textButton} onClick={onBack}>{tr("autoSpa.edit_my_details")}</button>
 
-        {url ? (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={s.primaryButton}
-            onClick={validateBeforeOpening}
-          >
-            افتح واتساب لإرسال الطلب
-            <span aria-hidden="true">↗</span>
-          </a>
-        ) : (
-          <button
-            type="button"
-            className={s.primaryButton}
-            disabled
-          >
-            إرسال الطلب عبر واتساب
-            <span aria-hidden="true">↗</span>
-          </button>
-        )}
+        {tr(url ? (<a href={url} target="_blank" rel="noopener noreferrer" className={s.primaryButton} onClick={validateBeforeOpening}>{tr("autoSpa.open_whatsapp_to_send")}<span aria-hidden="true">↗</span>
+          </a>) : (<button type="button" className={s.primaryButton} disabled>{tr("autoSpa.send_request_on_whatsapp")}<span aria-hidden="true">↗</span>
+          </button>))}
       </div>
 
       <div className={s.summaryBottom}>
-        <button type="button" className={s.textButton} onClick={onReset}>
-          بدء طلب جديد
-        </button>
+        <button type="button" className={s.textButton} onClick={onReset}>{tr("autoSpa.start_a_new_request")}</button>
 
-        <a
-          href={brand.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={s.textLink}
-        >
-          حساب المركز ↗
-        </a>
+        <a href={brand.instagramUrl} target="_blank" rel="noopener noreferrer" className={s.textLink}>{tr("autoSpa.centre_s_profile")}</a>
       </div>
-    </>
-  );
+    </>);
 }
