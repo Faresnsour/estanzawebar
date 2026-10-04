@@ -104,6 +104,8 @@ export default function DemoBooking({ days: DAYS }: {
         });
     };
     const activeService = SERVICES.find((s) => s.id === selectedService)!;
+    const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const activePrice = usd.format(activeService.price);
     const activeDay = DAYS.find((d) => d.id === selectedDay)!;
     const activeSlot = SLOTS.find((s) => s.id === selectedSlot)!;
     const isDispatchReady = form.vehicle.trim() !== '' && form.name.trim() !== '' && form.phone.trim() !== '';
@@ -114,7 +116,7 @@ export default function DemoBooking({ days: DAYS }: {
             tr("demo.estanza_booking_demo_sample_details"),
             '—',
             tr("demo.service_value_value", [activeService.nameAr, activeService.nameEn]),
-            tr("demo.estimated_price_value_jod", [activeService.price.toLocaleString('en-US')]),
+            tr("demo.estimated_price_value_usd", [activePrice]),
             tr("demo.estimated_duration_value", [activeService.duration]),
             '—',
             tr("demo.appointment_value_value_value", [activeDay.label, activeDay.dateLabel, activeSlot.label]),
@@ -213,7 +215,7 @@ export default function DemoBooking({ days: DAYS }: {
                             </div>
                             <p className="text-[11.5px] leading-snug text-[#9CA3AF]">{tr(service.spec)}</p>
                             <p className="mt-1 text-[13.5px] font-medium text-[#F3F4F6]">
-                            {tr(service.price.toLocaleString('en-US'))}{" "}{tr("demo.jod")}</p>
+                            <bdi dir="ltr">{usd.format(service.price)}</bdi></p>
                         </button>);
         })}
                     </div>
@@ -276,7 +278,7 @@ export default function DemoBooking({ days: DAYS }: {
                     <div className="flex justify-between py-1">
                         <span>{tr("demo.estimated_price")}</span>
                         <span className="text-[#F3F4F6]">
-                        {tr(activeService.price.toLocaleString('en-US'))}{" "}{tr("demo.jod")}</span>
+                        <bdi dir="ltr">{activePrice}</bdi></span>
                     </div>
                     </div>
                 </div>

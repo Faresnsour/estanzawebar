@@ -8,6 +8,7 @@ declare global {
 export default function ConversionTracking() {
     useEffect(() => {
         const track = (event: MouseEvent) => {
+            if (window.location.pathname === "/cleaning/demo") return;
             if (!(event.target instanceof Element))
                 return;
             const link = event.target.closest<HTMLAnchorElement>("a[data-cta]");

@@ -10,7 +10,7 @@ import EstanzaLogo from "./EstanzaLogo";
 import { localizedWhatsAppUrl } from "./lib/site";
 const links = [
     { label: source("howItWorks.how_it_works"), href: "/#how-it-works" },
-    { label: source("portfolio.our_work"), href: "/showcase" },
+    { label: source("clean.service_nav"), href: "/cleaning" },
     { label: source("navigation.pricing"), href: "/#pricing" },
     { label: source("navigation.faq"), href: "/#faq" },
 ];
@@ -37,7 +37,7 @@ function Brand({ onNavigate }: { onNavigate?: () => void }) {
       <EstanzaLogo className={s.brandLogo}/>
       <span className="flex flex-col gap-1">
         <span className={s.brandName} dir="ltr" translate="no">Estanza</span>
-        <span className={s.brandTag}>{tr("navigation.simpler_booking_for_your_centre")}</span>
+        <span className={s.brandTag}>{tr("clean.brand_tagline")}</span>
       </span>
     </Link>);
 }
@@ -46,7 +46,7 @@ function MenuIcon({ open }: {
 }) {
     return <span className="menu-icon" data-open={open} aria-hidden="true"><span /><span /><span /></span>;
 }
-export default function Navbar() {
+export default function Navbar({ demoMode = false }: { demoMode?: boolean }) {
     const { t: tr, direction, locale } = useI18n();
     const [isOpen, setIsOpen] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
@@ -122,8 +122,8 @@ export default function Navbar() {
             {links.map((link) => <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center rounded-md px-1.5 transition-colors duration-200 hover:text-[#006f60]">{tr(link.label)}</Link>)}
           </nav>
           <div className={s.navActions}><LanguageSwitcher />
-          <a href={localizedWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="navbar" className={`${s.button} ${s.navContact}`}>
-            <MessageCircle className="h-4 w-4" aria-hidden="true"/>{tr("hero.chat_on_whatsapp")}</a>
+          {!demoMode ? <a href={localizedWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="navbar" className={`${s.button} ${s.navContact}`}>
+            <MessageCircle className="h-4 w-4" aria-hidden="true"/>{tr("hero.chat_on_whatsapp")}</a> : null}
           <button type="button" onClick={() => setIsOpen((open) => !open)} aria-label={tr(isOpen ? tr("navigation.close_menu") : tr("autoSpa.open_menu"))} aria-expanded={isOpen} aria-controls="mobile-navigation" className={s.menuToggle}>
             <MenuIcon open={isOpen}/>
           </button></div>
@@ -142,8 +142,8 @@ export default function Navbar() {
           </div>
           <nav aria-label={tr("speedCar.mobile_navigation")} className={s.mobileLinks}>
             {links.map((link) => <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="flex min-h-14 items-center justify-between gap-4 rounded-sm border-b border-slate-200 py-3.5 text-base font-semibold transition-colors duration-200 hover:text-[#006f60]">{tr(link.label)}<ChevronLeft className="directional-icon h-4 w-4 text-[#008774]" aria-hidden="true"/></Link>)}
-            <a href={localizedWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="mobile-menu" onClick={() => setIsOpen(false)} className={s.button}>
-              <MessageCircle className="h-4 w-4" aria-hidden="true"/>{tr("hero.chat_on_whatsapp")}</a>
+            {!demoMode ? <a href={localizedWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" data-cta="whatsapp" data-source="mobile-menu" onClick={() => setIsOpen(false)} className={s.button}>
+              <MessageCircle className="h-4 w-4" aria-hidden="true"/>{tr("hero.chat_on_whatsapp")}</a> : null}
           </nav>
         </div>
       </dialog>

@@ -131,18 +131,26 @@
 .steps h3 { font-size: 22px; font-weight: 700; line-height: 1.6; }
 .steps p { margin-top: 12px; font-size: 16px; line-height: 1.9; color: var(--muted); }
 .pricing { background: var(--chalk); }
-.priceComparison { display: grid; grid-template-columns: 1.15fr 1fr; border-top: 2px solid var(--forest); border-bottom: 1px solid var(--line); }
-.pricePlan { display: flex; flex-direction: column; padding: 40px; }
-.launchPlan { background: white; border-inline-end: 1px solid var(--line); }
+.priceComparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.pricePlan { display: flex; flex-direction: column; min-width: 0; padding: 40px; border: 1px solid var(--line); border-radius: 8px; }
+.corePlan { background: var(--paper); }
+.proPlan { background: var(--forest); border-color: var(--forest); color: var(--paper); }
+.planHeading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; min-height: 40px; }
+.featuredLabel { padding: 4px 12px; border-radius: 4px; background: var(--sage); color: var(--forest); font-size: 13px; font-weight: 700; }
+.proPlan .priceNote { color: #dce5df; }
+.proPlan .featureList { border-color: #668378; }
+.proPlan .featureList svg { color: #dce5df; }
+.proPlan .featuredButton { background: var(--paper); color: var(--forest); border-color: var(--paper); }
+.proPlan .featuredButton:hover { background: var(--sage); border-color: var(--sage); }
+.proPlan :where(a):focus-visible { outline-color: var(--sage); }
 .pricePlan h3 { font-size: 25px; font-weight: 700; }
 .price { display: flex; align-items: baseline; gap: 12px; margin-block: 20px 8px !important; }
 .price strong { font-size: 64px; line-height: 1.2; font-weight: 700; font-variant-numeric: tabular-nums; }
-.pricePlan .customPrice { font-size: 30px; font-weight: 600; line-height: 1.6; margin-block: 20px 8px; }
 .priceNote { color: var(--muted); font-size: 14px; line-height: 1.8; }
 .featureList { list-style: none; padding: 24px 0; margin-block: 24px 8px; border-top: 1px solid var(--line); flex: 1; }
 .featureList li { display: flex; gap: 12px; font-size: 15px; line-height: 1.8; margin-bottom: 12px; }
 .featureList svg { width: 17px; height: 17px; margin-top: 5px; flex-shrink: 0; color: var(--forest); }
-.paymentNote { margin-top: 24px !important; font-size: 14px; line-height: 1.9; color: var(--muted); }
+.paymentNote { display: flex; justify-content: center; align-items: baseline; gap: 8px; margin-top: 24px !important; font-size: 14px; line-height: 1.9; color: var(--muted); text-align: center; }
 .faq { background: white; }
 .questions { border-top: 1px solid var(--line); }
 .question { border-bottom: 1px solid var(--line); }
@@ -237,7 +245,6 @@
   .steps p { margin-top: 8px; }
   .priceComparison { grid-template-columns: 1fr; }
   .pricePlan { padding: 28px 24px; }
-  .launchPlan { border-inline-end: 0; border-bottom: 1px solid var(--line); }
   .price strong { font-size: 56px; }
   .question summary { font-size: 16px; }
   .question p { padding-inline-end: 0; }

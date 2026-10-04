@@ -1,6 +1,6 @@
 import { getLocale, getServerTranslator } from "@/i18n/server";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
-import Script from "next/script";
+import MarketingAnalytics from "@/components/MarketingAnalytics";
 import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import { SITE_URL } from "@/components/lib/site";
@@ -19,19 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         metadataBase: new URL(SITE_URL),
         title: {
-            default: tr("site.estanza_booking_systems_for_automotive_centres_in"),
+            default: tr("clean.meta_home"),
             template: "%s | Estanza",
         },
-        description: tr("site.a_booking_page_with_your_centre_s"),
-        keywords: [
-            tr("site.ceramic_coating_appointments_in_amman"),
-            tr("site.ppf_installation_in_jordan"),
-            tr("site.window_tinting_and_heat_protection_in_amman"),
-            tr("site.automotive_booking_automation"),
-            tr("site.automotive_studios_in_amman"),
-            "Estanza",
-            tr("site.estanza"),
-        ],
+        description: tr("clean.home_description"),
+        keywords: ["Estanza", tr("clean.service_name"), tr("clean.requests"), tr("clean.quote_title")],
         authors: [{ name: "Estanza Team" }],
         creator: "Estanza",
         publisher: "Estanza",
@@ -44,14 +36,14 @@ export async function generateMetadata(): Promise<Metadata> {
             type: "website",
             locale: locale === "ar" ? "ar_JO" : "en_JO",
             url: SITE_URL,
-            title: tr("site.estanza_booking_systems_for_automotive_centres_in"),
-            description: tr("site.let_customers_choose_a_service_and_appointment"),
+            title: tr("clean.meta_home"),
+            description: tr("clean.home_description"),
             siteName: "Estanza",
         },
         twitter: {
             card: "summary_large_image",
-            title: tr("site.estanza_booking_systems_for_automotive_centres_in"),
-            description: tr("site.a_booking_page_with_your_branding_no"),
+            title: tr("clean.meta_home"),
+            description: tr("clean.home_description"),
         },
         icons: {
             icon: "/icon.svg?v=3",
@@ -73,16 +65,7 @@ export default async function RootLayout({ children, }: Readonly<{
         <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
         <ConversionTracking />
 
-        {/* Google Analytics (GA4) */}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-KQ37ND6FP7" strategy="lazyOnload"/>
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag("js", new Date());
-            gtag("config", "G-KQ37ND6FP7");
-          `}
-        </Script>
+        <MarketingAnalytics />
       </body>
     </html>);
 }
