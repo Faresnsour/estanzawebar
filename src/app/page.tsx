@@ -16,7 +16,7 @@ export async function generateMetadata() {
 }
 export default function Home() {
     return (<>
-      <Navbar />
+      <Navbar cleaningFocus />
       <main id="main-content" className={`${s.system} ${s.page}`}>
         <Hero />
         <ProblemSection />

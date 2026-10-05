@@ -4,6 +4,9 @@ import en from "./en.json" with { type: "json" };
 export type Locale = "ar" | "en";
 export type MessageKey = keyof typeof ar;
 export const LOCALE_COOKIE = "estanza-language";
+// Only the language switch writes this cookie. Missing or invalid preferences
+// use English; an explicitly saved Arabic choice must continue to win.
+export const resolveLocale = (preference: string | undefined): Locale => preference === "ar" ? "ar" : "en";
 export const catalogs: Record<Locale, Record<string, string>> = { ar, en };
 const arabicKeys = new Map(Object.entries(ar).map(([key, value]) => [value, key]));
 const englishKeys = new Map(Object.entries(en).map(([key, value]) => [value, key]));

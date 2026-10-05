@@ -3,7 +3,15 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 import ts from "typescript";
-import { catalogs, getTranslator, source } from "../src/i18n/messages.ts";
+import { catalogs, getTranslator, resolveLocale, source } from "../src/i18n/messages.ts";
+
+test("neutral visits use English while saved language preferences take precedence", () => {
+  assert.equal(resolveLocale(undefined), "en");
+  assert.equal(resolveLocale(""), "en");
+  assert.equal(resolveLocale("invalid"), "en");
+  assert.equal(resolveLocale("ar"), "ar");
+  assert.equal(resolveLocale("en"), "en");
+});
 
 test("every message has finished English copy and matching interpolation values", () => {
   assert.deepEqual(Object.keys(catalogs.ar).sort(), Object.keys(catalogs.en).sort());

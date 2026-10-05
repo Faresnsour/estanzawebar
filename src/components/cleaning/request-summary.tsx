@@ -6,10 +6,11 @@ import c from "./cleaning.module.css";
 
 export function useDemoFormat() {
   const { locale } = useI18n();
+  const formatLocale = locale === "en" ? "en-GB" : locale;
   return {
-    money: (amount: number, currency: string) => new Intl.NumberFormat(locale, { style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount),
-    date: (value: string) => value ? new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(new Date(`${value}T12:00:00`)) : "",
-    number: (value: number) => new Intl.NumberFormat(locale).format(value),
+    money: (amount: number, currency: string) => new Intl.NumberFormat(formatLocale, { style: "currency", currency, minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(amount),
+    date: (value: string) => value ? new Intl.DateTimeFormat(formatLocale, { dateStyle: "medium" }).format(new Date(`${value}T12:00:00`)) : "",
+    number: (value: number) => new Intl.NumberFormat(formatLocale).format(value),
   };
 }
 export function RequestSummary({ request, showStatus = true }: { request: CleaningRequest; showStatus?: boolean }) {

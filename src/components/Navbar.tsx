@@ -31,13 +31,13 @@ function containMenuFocus(event: KeyboardEvent<HTMLDialogElement>) {
         first.focus();
     }
 }
-function Brand({ onNavigate }: { onNavigate?: () => void }) {
+function Brand({ onNavigate, cleaningFocus = false }: { onNavigate?: () => void; cleaningFocus?: boolean }) {
     const { t: tr } = useI18n();
     return (<Link href="/" onClick={onNavigate} className={s.brand} aria-label={tr("navigation.estanza_home")}>
       <EstanzaLogo className={s.brandLogo}/>
       <span className="flex flex-col gap-1">
         <span className={s.brandName} dir="ltr" translate="no">Estanza</span>
-        <span className={s.brandTag}>{tr("clean.brand_tagline")}</span>
+        <span className={s.brandTag}>{tr(cleaningFocus ? "clean.home_brand_tagline" : "clean.brand_tagline")}</span>
       </span>
     </Link>);
 }
@@ -46,7 +46,7 @@ function MenuIcon({ open }: {
 }) {
     return <span className="menu-icon" data-open={open} aria-hidden="true"><span /><span /><span /></span>;
 }
-export default function Navbar({ demoMode = false }: { demoMode?: boolean }) {
+export default function Navbar({ demoMode = false, cleaningFocus = false }: { demoMode?: boolean; cleaningFocus?: boolean }) {
     const { t: tr, direction, locale } = useI18n();
     const [isOpen, setIsOpen] = useState(false);
     const [hasScrolled, setHasScrolled] = useState(false);
@@ -117,7 +117,7 @@ export default function Navbar({ demoMode = false }: { demoMode?: boolean }) {
       <a href="#main-content" className="skip-to-content">{tr("autoSpa.skip_to_content")}</a>
       <header data-scrolled={hasScrolled} className={`${s.system} ${s.navbar}`} dir={direction}>
         <div className={`${s.container} ${s.navInner}`}>
-          <div className="justify-self-start"><Brand /></div>
+          <div className="justify-self-start"><Brand cleaningFocus={cleaningFocus} /></div>
           <nav aria-label={tr("autoSpa.main_navigation")} className={s.navLinks}>
             {links.map((link) => <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center rounded-md px-1.5 transition-colors duration-200 hover:text-[#006f60]">{tr(link.label)}</Link>)}
           </nav>
@@ -135,7 +135,7 @@ export default function Navbar({ demoMode = false }: { demoMode?: boolean }) {
         }} className={`${s.system} ${s.mobileDialog}`}>
         <div ref={panelRef} className={s.mobilePanel}>
           <div className={s.mobileTop}>
-            <Brand onNavigate={() => setIsOpen(false)} />
+            <Brand cleaningFocus={cleaningFocus} onNavigate={() => setIsOpen(false)} />
             <div className="flex items-center gap-2"><LanguageSwitcher /><button type="button" autoFocus onClick={() => setIsOpen(false)} aria-label={tr("navigation.close_menu")} className={s.menuToggle}>
               <MenuIcon open={isOpen}/>
             </button></div>
