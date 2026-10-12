@@ -10,6 +10,8 @@
     "test": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "@gsap/react": "^2.1.2",
     "clsx": "^2.1.1",
     "framer-motion": "^13.4.4",
     "gsap": "^3.15.0",

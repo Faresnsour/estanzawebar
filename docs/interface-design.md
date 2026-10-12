@@ -1,5 +1,7 @@
 # Estanza interface direction
 
+> Historical direction. The homepage now follows the supplied booking reference; see [booking-demo.md](booking-demo.md). The older sector routes retain their existing presentation.
+
 ## Existing product and boundaries
 Estanza is an Arabic-first, bilingual service for automotive centres. The main journey is understanding the booking product, trying its demo or live client examples, comparing packages, and contacting Estanza on WhatsApp. The home preview supports service, day, time, customer, message preview, and booking-log views. Showcase links lead to independently branded centre pages. Those pages have their own pricing, vehicle selection, schedules, maps, galleries, and WhatsApp serializers. Existing translations and uncommitted changes are part of the starting point.
 

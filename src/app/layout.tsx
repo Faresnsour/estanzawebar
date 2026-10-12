@@ -19,11 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         metadataBase: new URL(SITE_URL),
         title: {
-            default: tr("clean.meta_home"),
+            default: tr("bookingSite.meta_title"),
             template: "%s | Estanza",
         },
-        description: tr("clean.home_description"),
-        keywords: ["Estanza", tr("clean.service_name"), tr("clean.requests"), tr("clean.quote_title")],
+        description: tr("bookingSite.meta_description"),
+        keywords: ["Estanza", tr("bookingSite.system"), tr("bookingSite.request_title")],
         authors: [{ name: "Estanza Team" }],
         creator: "Estanza",
         publisher: "Estanza",
@@ -36,14 +36,14 @@ export async function generateMetadata(): Promise<Metadata> {
             type: "website",
             locale: locale === "ar" ? "ar_JO" : "en_JO",
             url: SITE_URL,
-            title: tr("clean.meta_home"),
-            description: tr("clean.home_description"),
+            title: tr("bookingSite.meta_title"),
+            description: tr("bookingSite.meta_description"),
             siteName: "Estanza",
         },
         twitter: {
             card: "summary_large_image",
-            title: tr("clean.meta_home"),
-            description: tr("clean.home_description"),
+            title: tr("bookingSite.meta_title"),
+            description: tr("bookingSite.meta_description"),
         },
         icons: {
             icon: "/icon.svg?v=3",
