@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import { LOCALE_COOKIE } from "@/i18n/messages";
 import { getLocale, getServerTranslator } from "@/i18n/server";
 import { LocaleProvider } from "@/i18n/LocaleProvider";
 import MarketingAnalytics from "@/components/MarketingAnalytics";
@@ -59,10 +61,11 @@ export default async function RootLayout({ children, }: Readonly<{
     children: React.ReactNode;
 }>) {
     const locale = await getLocale();
+    const preference = (await cookies()).get(LOCALE_COOKIE)?.value;
     return (<html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={`${cairo.variable} h-full antialiased`}>
       {/* تصحيح لون الخلفية ليتطابق مع ألوان هوية إستانزا الفاخرة #F8FAF9 و #05221C */}
       <body className="min-h-full flex flex-col font-sans bg-[#F8FAF9] text-[#05221C] selection:bg-[#008774] selection:text-white">
-        <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
+        <LocaleProvider initialPreference={preference === "en" || preference === "ar" ? preference : undefined}>{children}</LocaleProvider>
         <ConversionTracking />
 
         <MarketingAnalytics />
