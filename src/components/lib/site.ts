@@ -1,7 +1,6 @@
 import { source, getTranslator, type Locale } from "@/i18n/messages";
-export const SITE_URL = new URL(process.env.NEXT_PUBLIC_SITE_URL?.startsWith("http")
-    ? process.env.NEXT_PUBLIC_SITE_URL
-    : `https://${process.env.NEXT_PUBLIC_SITE_URL || "www.estanza.dev"}`).origin;
+import { siteOrigin } from "@/lib/site-origin";
+export const SITE_URL = siteOrigin(process.env.NEXT_PUBLIC_SITE_URL);
 export const WHATSAPP_NUMBER = "962790899175";
 export const SETUP_HOURS = 72;
 export const CORE_PRICE = 290;
