@@ -46,7 +46,7 @@ export default function BookingDemo({ initialDay, heroCopy }: { initialDay: stri
   function back(step: 0 | 1 | 2) { setErrors({}); dispatch({ type: "back", step }); focusStep(); }
   function reset() { const day = localDateId(); setToday(day); setErrors({}); dispatch({ type: "reset", today: day }); focusStep(); }
   return <DirectionProvider direction={direction}>
-      <section ref={heroRef} id="system" className={s.hero} aria-labelledby="booking-hero-title">
+      <section ref={heroRef} id="booking-pages" className={s.hero} aria-labelledby="booking-service-title">
         <div className={s.container}>
           <div className={s.heroGrid}>
             {heroCopy}
