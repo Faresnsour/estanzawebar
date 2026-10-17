@@ -8,6 +8,8 @@ export type Project = {
     features: string[];
     href: string;
     screenshot: string;
+    screenshotEnglish?: string;
+    previewOnly?: boolean;
     note?: string;
     testimonial?: {
         quote: string;
@@ -15,6 +17,49 @@ export type Project = {
         role: string;
     };
 };
+export type PortfolioProject = Project & {
+    gallery: { src: string; caption: string; width: number; height: number }[];
+};
+export const propertyProjects: PortfolioProject[] = [
+    {
+        id: "sovereign-estates",
+        name: "Sovereign Private Estates",
+        location: source("portfolio.real_estate"),
+        title: source("portfolio.sovereign_title"),
+        description: source("portfolio.sovereign_description"),
+        features: [source("portfolio.catalogue_filters"), source("portfolio.property_details"), source("portfolio.viewing_form")],
+        href: "/showcase/sovereign-estates",
+        screenshot: "/projects/estates/sovereign-catalogue.webp",
+        screenshotEnglish: "/projects/estates/sovereign-catalogue.webp",
+        previewOnly: true,
+        note: source("portfolio.visual_preview"),
+        gallery: [
+            { src: "/projects/estates/sovereign-home.webp", caption: source("portfolio.home_screen"), width: 1440, height: 1000 },
+            { src: "/projects/estates/sovereign-catalogue.webp", caption: source("portfolio.catalogue_screen"), width: 1440, height: 1000 },
+            { src: "/projects/estates/sovereign-property.webp", caption: source("portfolio.property_screen"), width: 1440, height: 1000 },
+            { src: "/projects/estates/sovereign-mobile.webp", caption: source("portfolio.mobile_screen"), width: 390, height: 844 },
+        ],
+    },
+    {
+        id: "obsidian-tower",
+        name: "The Obsidian Tower",
+        location: source("portfolio.residential"),
+        title: source("portfolio.obsidian_title"),
+        description: source("portfolio.obsidian_description"),
+        features: [source("portfolio.residence_types"), source("portfolio.amenities_gallery"), source("portfolio.viewing_form")],
+        href: "/showcase/obsidian-tower",
+        screenshot: "/projects/estates/obsidian-home.webp",
+        screenshotEnglish: "/projects/estates/obsidian-home.webp",
+        previewOnly: true,
+        note: source("portfolio.visual_preview"),
+        gallery: [
+            { src: "/projects/estates/obsidian-home.webp", caption: source("portfolio.home_screen"), width: 1440, height: 1000 },
+            { src: "/projects/estates/obsidian-residences.webp", caption: source("portfolio.residences_screen"), width: 1440, height: 1000 },
+            { src: "/projects/estates/obsidian-amenities.webp", caption: source("portfolio.amenities_screen"), width: 1440, height: 1000 },
+            { src: "/projects/estates/obsidian-mobile.webp", caption: source("portfolio.mobile_screen"), width: 390, height: 844 },
+        ],
+    },
+];
 export const projects: Project[] = [
     {
         id: "speedcar",
